@@ -5,6 +5,7 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:DoAn_IE307_N11.ViewModels"  
              xmlns:model="clr-namespace:DoAn_IE307_N11.Models"  
+             Visual="Material"
              x:Name="BrowseItemsPage">
 
     <ContentPage.ToolbarItems>

@@ -5,9 +5,9 @@ using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        public HomeViewModel()
         {
             Title = "About";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));

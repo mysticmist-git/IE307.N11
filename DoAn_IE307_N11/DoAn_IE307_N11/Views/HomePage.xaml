@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.HomePage"
+             xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             Visual="Material"
+             Title="Tổng quan">
+    
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Accent">#96d1ff</Color>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+        <Label Text="&#xe88a;" FontFamily="Material" FontSize="Large" HorizontalOptions="Center" />
+        <Label Text="Trang tổng quan" FontSize="Large" />
+    </StackLayout>
+
+</ContentPage>
