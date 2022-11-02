@@ -14,15 +14,15 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.BackgroundColor" Value="White" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="Black" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarBackgroundColor" Value="White" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="Black"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#555"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="Black"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
@@ -33,7 +33,6 @@
         <ShellContent Title="Tổng quan" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Material"
-                                 Color="White"
                                  Glyph="&#xe88a;">
                 </FontImageSource>
             </ShellContent.Icon>
@@ -41,7 +40,6 @@
         <ShellContent Title="Sổ giao dịch" ContentTemplate="{DataTemplate local:TransactionBookPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Material"
-                                 Color="White"
                                  Glyph="&#xef6e;">
                 </FontImageSource>
             </ShellContent.Icon>
@@ -49,7 +47,6 @@
         <ShellContent Title="Lập kế hoạch" ContentTemplate="{DataTemplate local:PlanPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Material"
-                                 Color="White"
                                  Glyph="&#xe935;">
                 </FontImageSource>
             </ShellContent.Icon>
@@ -57,7 +54,6 @@
         <ShellContent Title="Tài khoản" ContentTemplate="{DataTemplate local:AccountPage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Material"
-                                 Color="White"
                                  Glyph="&#xe7fd;">
                 </FontImageSource>
             </ShellContent.Icon>
