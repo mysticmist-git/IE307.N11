@@ -4,6 +4,7 @@
              x:Class="DoAn_IE307_N11.Views.HomePage"
              xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
              Visual="Material"
+             Background="{StaticResource Background}"
              Title="Tổng quan">
     
     <ContentPage.BindingContext>
