@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace DoAn_IE307_N11.ViewModels
 {
-    public enum TransactionPodType 
+    public enum TransactionPodType
     {
         Day,
         Month
@@ -14,7 +14,13 @@ namespace DoAn_IE307_N11.ViewModels
 
     public class TransactionPod : BaseViewModel
     {
-        public TransactionPodType TransactionPodType { get; set; } 
+        #region Private Members
+
+        private ObservableCollection<TransactionViewModel> _transactions;
+
+        #endregion
+
+        public TransactionPodType TransactionPodType { get; set; }
         public DateTime DateTime { get; set; }
 
         public int Income
@@ -24,16 +30,16 @@ namespace DoAn_IE307_N11.ViewModels
                 if (this.TransactionPodType == TransactionPodType.Day)
                 {
                     return Transactions
-                        .Where(tran => tran.Amount > 0)
-                        .Sum(tran => tran.Amount);
+                        .Where(tran => tran.Transaction.Amount > 0)
+                        .Sum(tran => tran.Transaction.Amount);
                 }
                 else
                 {
                     return Transactions
                         .Where(tran =>
-                            tran.Amount > 0
+                            tran.Transaction.Amount > 0
                             )
-                        .Sum(tran => tran.Amount);
+                        .Sum(tran => tran.Transaction.Amount);
                 }
             }
         }
@@ -45,23 +51,33 @@ namespace DoAn_IE307_N11.ViewModels
                 if (this.TransactionPodType == TransactionPodType.Day)
                 {
                     return Transactions
-                        .Where(tran => tran.Amount < 0)
-                        .Sum(tran => tran.Amount);
+                        .Where(tran => tran.Transaction.Amount < 0)
+                        .Sum(tran => tran.Transaction.Amount);
                 }
                 else
                 {
                     return Transactions
                         .Where(tran =>
-                            tran.Amount < 0
+                            tran.Transaction.Amount < 0
                             )
-                        .Sum(tran => tran.Amount);
+                        .Sum(tran => tran.Transaction.Amount);
                 }
             }
         }
 
         public int Balance => Income + Outcome;
-        
-        public ObservableCollection<Transaction> Transactions { get; set; }
 
+        public ObservableCollection<TransactionViewModel> Transactions
+        {
+            get
+            {
+                if (_transactions is null)
+                    _transactions = new ObservableCollection<TransactionViewModel>();
+
+                return _transactions;
+            }
+
+            set => _transactions = value;
+        }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 
 namespace DoAn_IE307_N11.ViewModels
@@ -11,7 +14,7 @@ namespace DoAn_IE307_N11.ViewModels
     public class TransactionsViewModel : BaseViewModel
     {
         #region Private Members
-        
+
         private TabViewModel _currentTabVm;
 
         #endregion
@@ -28,7 +31,20 @@ namespace DoAn_IE307_N11.ViewModels
                 SetSelection();
             }
         }
-        public int Balance => GenerateTransaction().Sum(tran => tran.Amount);
+        public int Balance
+        {
+            get
+            {
+                var balance = SQLiteDB.Db.Table<Transaction>().Sum(tran => tran.Amount);
+                return balance;
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public Command AddTransactionCommand { get; }
 
         #endregion
 
@@ -36,54 +52,32 @@ namespace DoAn_IE307_N11.ViewModels
 
         public TransactionsViewModel()
         {
+            // Init commands
+            AddTransactionCommand = new Command(OnAddTransaction);
 
             this.TabVms = new ObservableCollection<TabViewModel>();
 
             this.TabVms.Insert(0, new TabViewModel("TƯƠNG LAI")
             {
-
+                StartDate = DateTime.Now.AddDays(1),
+                EndDate = DateTime.Now.AddDays(1),
             });
-            
+
             this.TabVms.Insert(0, new TabViewModel("HÔM NAY")
             {
-                TransactionPods = new ObservableCollection<TransactionPod>
-                {
-                    new TransactionPod
-                    {
-                        TransactionPodType = TransactionPodType.Day,
-                        DateTime = DateTime.Now,
-                        Transactions = new ObservableCollection<Transaction>(GenerateTransaction().Where(t => t.DateTime.Date.Equals(DateTime.Now.Date)))
-                    }
-                }
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
             });
 
-            this.TabVms.Insert(0, new TabViewModel("HÔM QUA")
-            {
-                TransactionPods = new ObservableCollection<TransactionPod>
-                {
-                    new TransactionPod
-                    {
-                        TransactionPodType = TransactionPodType.Day,
-                        DateTime = DateTime.Now.AddDays(-1).Date,
-                        Transactions = new ObservableCollection<Transaction>(GenerateTransaction().Where(t => t.DateTime.Date.Equals(DateTime.Now.AddDays(-1).Date)))
-                    }
-                }
+            this.TabVms.Insert(0, new TabViewModel("HÔM QUA") 
+            { 
+                StartDate = DateTime.Now.AddDays(-1),
+                EndDate = DateTime.Now.AddDays(-1),
             });
 
             for (int i = 2; i < 15; i++)
             {
-                this.TabVms.Insert(0, new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString())
-                {
-                    TransactionPods = new ObservableCollection<TransactionPod>
-                    {
-                        new TransactionPod
-                        {
-                            TransactionPodType = TransactionPodType.Day,
-                            DateTime = DateTime.Now.AddDays(-i).Date,
-                            Transactions = new ObservableCollection<Transaction>(GenerateTransaction().Where(t => t.DateTime.Date.Equals(DateTime.Now.AddDays(-i).Date)))
-                        }
-                    }
-                });
+                this.TabVms.Insert(0, new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString()));
             }
 
             this.CurrentTabVm = this.TabVms[this.TabVms.Count - 2];
@@ -101,74 +95,9 @@ namespace DoAn_IE307_N11.ViewModels
 
         #endregion
 
-        #region Statics
-
-        private static List<Transaction> GenerateTransaction()
+        private async void OnAddTransaction(object obj)
         {
-            return new List<Transaction>
-            {
-                new Transaction
-                {
-                    DateTime = DateTime.Now,
-                    Amount = 25000,
-                    Id = 1,
-                    Type = GenerateTransactionType().Where(type => type.Id == 1).FirstOrDefault(),
-                    Description = "This is for today"
-                },
-                new Transaction
-                {
-                    DateTime = DateTime.Now,
-                    Amount = 35000,
-                    Id = 2,
-                    Type = GenerateTransactionType().Where(type => type.Id == 2).FirstOrDefault(),
-                    Description = "This is for today"
-                },
-                new Transaction
-                {
-                    DateTime = DateTime.Now,
-                    Amount = -10000,
-                    Id = 5,
-                    Type = GenerateTransactionType().Where(type => type.Id == 1).FirstOrDefault(),
-                    Description = "This is for today breakfast"
-                },
-                new Transaction
-                {
-                    DateTime = DateTime.Now.AddDays(-1),
-                    Amount = 35000,
-                    Id = 3,
-                    Type = GenerateTransactionType().Where(type => type.Id == 1).FirstOrDefault(),
-                    Description = "This is for yesterday"
-                },
-                new Transaction
-                {
-                    DateTime = DateTime.Now.AddDays(-2),
-                    Amount = 45000,
-                    Id = 4,
-                    Type = GenerateTransactionType().Where(type => type.Id == 2).FirstOrDefault(),
-                    Description = "This is for 2 days ago"
-                }
-            };
+            await Shell.Current.GoToAsync(nameof(NewTransactionPage));
         }
-
-        private static List<TransactionType> GenerateTransactionType()
-        {
-            return new List<TransactionType>
-            {
-                new TransactionType
-                {
-                    Id = 1,
-                    Name = "Ăn uống",
-                    Image = "AnUong.png"
-                },
-                new TransactionType
-                {
-                    Id = 2,
-                    Name = "Di chuyển",
-                    Image = "DiChuyen.png"
-                }
-            };
-        }
-
-        #endregion
     }
 }

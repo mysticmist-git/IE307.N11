@@ -1,4 +1,6 @@
-﻿using DoAn_IE307_N11.ViewModels;
+﻿using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.ViewModels;
 using DoAn_IE307_N11.Views;
 using System;
 using System.Collections.Generic;
@@ -13,7 +15,7 @@ namespace DoAn_IE307_N11
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(NewTransactionPage), typeof(NewTransactionPage));
         }
-
     }
 }

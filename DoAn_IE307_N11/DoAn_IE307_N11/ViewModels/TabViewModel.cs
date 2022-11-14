@@ -4,18 +4,39 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Transaction = DoAn_IE307_N11.Models.Transaction;
 
 namespace DoAn_IE307_N11.ViewModels
 {
+    public enum TabType 
+    {
+        Day,
+        Week,
+        Month,
+        Year
+    }
+
+    
     public class TabViewModel : BaseViewModel
     {
+        #region Private Members
+
+        private ObservableCollection<TransactionPod> _transactionPods;
+
+
+        #endregion
+
         public TabViewModel(string title)
         {
             this.Title = title;
         }
 
         public bool IsSelected { get; set; }
+
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         /// <summary>
         /// A positive number represent total income
@@ -35,6 +56,64 @@ namespace DoAn_IE307_N11.ViewModels
         /// <summary>
         /// A list contains all transaction in a container such as: day, week, month
         /// </summary>
-        public ObservableCollection<TransactionPod> TransactionPods { get; set; } = new ObservableCollection<TransactionPod>();
+        public ObservableCollection<TransactionPod> TransactionPods
+        {
+            get
+            {
+                if (_transactionPods is null)
+                    LoadTransactions();
+
+                return _transactionPods;
+            }
+
+            set => _transactionPods = value;
+        }
+
+
+        #region Private Functions
+
+        public TabType TabType { get; set; }
+
+        private void LoadTransactions()
+        {
+            var transactions = Services.SQLiteDB.Db.Table<Transaction>().ToArray();
+
+            var temp = transactions
+                .Where(tran =>
+                    tran.DateTime.Date >= this.StartDate.Date &&
+                    tran.DateTime.Date <= this.EndDate.Date
+                )
+                .Select(tran => new TransactionViewModel
+                {
+                    Transaction = tran,
+                })
+                .ToArray();
+
+            switch (TabType)
+            {
+                case TabType.Day:
+                    TransactionPods = new ObservableCollection<TransactionPod>();
+
+                    var transactionPod = new TransactionPod
+                    {
+                        TransactionPodType = TransactionPodType.Day,
+                        DateTime = transactions.First().DateTime,
+                    };
+
+                    transactionPod.Transactions = new ObservableCollection<TransactionViewModel>(temp);
+
+                    TransactionPods.Add(transactionPod);
+
+                    break;
+                case TabType.Week:
+                    break;
+                case TabType.Month:
+                    break;
+                case TabType.Year:
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

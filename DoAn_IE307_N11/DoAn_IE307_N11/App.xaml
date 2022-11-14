@@ -16,7 +16,16 @@
             <Color x:Key="LightGreen">#eaf7ec</Color>
             <Color x:Key="ComponentBackground">#ececec</Color>
             <Color x:Key="Foreground">#1f1f1f</Color>
-            <Style TargetType="Button">
+
+            <Style x:Key="TransparentButton" TargetType="{x:Type Button}">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource Foreground}" />
+                <Setter Property="BorderWidth" Value="0" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="Visual" Value="Default" />
+            </Style>
+
+            <!--<Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -34,7 +43,7 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
-            </Style>
-        </ResourceDictionary>        
+            </Style>-->
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

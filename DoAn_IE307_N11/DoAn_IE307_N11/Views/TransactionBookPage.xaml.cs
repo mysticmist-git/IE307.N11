@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,8 +19,6 @@ namespace DoAn_IE307_N11.Views
             InitializeComponent();
 
             MockBindingContext();
-
-            this.CustomTabsView.ScrollTo(carouselView.CurrentItem, null, ScrollToPosition.Center, true);
         }
 
         private void MockBindingContext()

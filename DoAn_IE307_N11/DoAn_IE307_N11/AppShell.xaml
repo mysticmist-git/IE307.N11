@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:DoAn_IE307_N11.Views"
+       xmlns:views="clr-namespace:DoAn_IE307_N11.Views"
        Title="DoAn_IE307_N11"
        x:Class="DoAn_IE307_N11.AppShell">
 
@@ -66,7 +67,7 @@
         await Shell.Current.GoToAsync("//LoginPage");
     -->
     <TabBar>
-        <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
+        <ShellContent Route="NewTransactionPage" ContentTemplate="{DataTemplate views:NewTransactionPage}" />
     </TabBar>
 
 

@@ -11,6 +11,10 @@
              Title="Sổ giao dịch"
              x:DataType="vm:TransactionsViewModel">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddTransactionCommand}" />
+    </ContentPage.ToolbarItems>
+    
     <!-- Binding Context-->
     <!--<ContentPage.BindingContext>
         <vm:TransactionsViewModel />
@@ -238,21 +242,21 @@
                                                     <StackLayout BindableLayout.ItemsSource="{Binding Transactions}">
 
                                                         <BindableLayout.ItemTemplate>
-                                                            <DataTemplate x:DataType="models:Transaction">
+                                                            <DataTemplate x:DataType="vm:TransactionViewModel">
 
                                                                 <StackLayout>
 
                                                                     <!-- Transactions -->
                                                                     <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
-                                                                        <Image Source="{Binding Type.Image}" WidthRequest="48" Grid.Column="0" />
+                                                                        <Image Source="{Binding TransactionType.Image}" WidthRequest="48" Grid.Column="0" />
                                                                         <StackLayout Margin="16, 0"
                                                                                      VerticalOptions="Center" 
                                                                                      Grid.Column="1">
-                                                                            <Label Text="{Binding Type.Name}" TextColor="{StaticResource Foreground}" />
-                                                                            <Label Text="{Binding Description}" />
+                                                                            <Label Text="{Binding TransactionType.Name}" TextColor="{StaticResource Foreground}" />
+                                                                            <Label Text="{Binding Transaction.Description}" />
                                                                         </StackLayout>
-                                                                        <Label Text="{Binding Amount, StringFormat='{0:0,0}', Converter={valueconverters:MoneyConverter}}"
-                                                                               TextColor="{Binding Amount, Converter={valueconverters:MoneyColorConverter}}"
+                                                                        <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueconverters:MoneyConverter}}"
+                                                                               TextColor="{Binding Transaction.Amount, Converter={valueconverters:MoneyColorConverter}}"
                                                                                Grid.Column="2"
                                                                                FontSize="Medium"
                                                                                VerticalOptions="Center"
