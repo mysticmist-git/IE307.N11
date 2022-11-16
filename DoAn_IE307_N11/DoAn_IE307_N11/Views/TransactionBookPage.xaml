@@ -11,21 +11,12 @@
              Title="Sổ giao dịch"
              x:DataType="vm:TransactionsViewModel">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddTransactionCommand}" />
-    </ContentPage.ToolbarItems>
-    
     <!-- Binding Context-->
-    <!--<ContentPage.BindingContext>
+    <ContentPage.BindingContext>
         <vm:TransactionsViewModel />
-    </ContentPage.BindingContext>-->
+    </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <!--<StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="&#xef6e;" FontFamily="Material" FontSize="Large" HorizontalOptions="Center" />
-            <Label Text="Trang sổ giao dịch" FontSize="Large" />
-        </StackLayout>-->
-
         <Grid RowDefinitions="*, 3*">
 
             <!-- Header -->
@@ -39,8 +30,18 @@
 
                 <!-- Wallet overview displayer -->
                 <StackLayout HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2">
-                    <Label Text="Số dư" HorizontalTextAlignment="Center" FontSize="Medium" />
-                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}" TextColor="{StaticResource Foreground}" FontSize="Large" FontAttributes="Bold" />
+                    <Label Text="Số dư" HorizontalTextAlignment="Center" FontSize="Medium"
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}" TextColor="{StaticResource Foreground}" 
+                           HorizontalOptions="Center"
+                           FontSize="Large" FontAttributes="Bold" />
+                    <StackLayout Orientation="Horizontal">
+                        <Picker />
+                        <Button Text="Thêm giao dịch"
+                                Clicked="AddNewTransactionPage_Click"
+                                />
+                    </StackLayout>
+                    
                 </StackLayout>
 
                 <!-- Buttons-->
@@ -206,13 +207,15 @@
                                     </StackLayout>
 
                                     <!-- Transaction pods -->
-                                    <StackLayout BindableLayout.ItemsSource="{Binding TransactionPods}">
+                                    <StackLayout BindableLayout.ItemsSource="{Binding TransactionPods}"
+                                                 IsVisible="{Binding HaveTransaction}">
 
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="vm:TransactionPod">
 
                                                 <!-- Pod overview-->
                                                 <StackLayout Background="{StaticResource Background}">
+                                                    
                                                     <!-- Date and balance -->
                                                     <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
                                                         <Label Text="{Binding DateTime, StringFormat='{0:dd}'}"
@@ -246,6 +249,10 @@
 
                                                                 <StackLayout>
 
+                                                                    <StackLayout.GestureRecognizers>
+                                                                        <TapGestureRecognizer Tapped="OpenTransactionDetail" />
+                                                                    </StackLayout.GestureRecognizers>
+
                                                                     <!-- Transactions -->
                                                                     <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
                                                                         <Image Source="{Binding TransactionType.Image}" WidthRequest="48" Grid.Column="0" />
@@ -268,12 +275,17 @@
                                                             </DataTemplate>
                                                         </BindableLayout.ItemTemplate>
                                                     </StackLayout>
+                                                    
                                                 </StackLayout>
                                             </DataTemplate>
                                         </BindableLayout.ItemTemplate>
 
                                     </StackLayout>
 
+                                    <Grid IsVisible="{Binding HaveTransaction, Converter={xct:InvertedBoolConverter}}">
+                                        <Label Text="Không có giao dịch nào" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Large" />
+                                    </Grid>
+                                    
                                 </StackLayout>
 
                             </ScrollView>
