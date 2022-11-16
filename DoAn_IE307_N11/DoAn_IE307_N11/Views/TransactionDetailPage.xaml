@@ -6,47 +6,72 @@
              x:Class="DoAn_IE307_N11.Views.TransactionDetailPage"
              Title="Thông tin giao dịch">
     <ContentPage.Content>
-        <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+        <StackLayout>
+            <!-- Buttons -->
+
+            <Grid ColumnDefinitions="Auto, *">
+                
+                <Button Text="&#xe5cd;"
+                        Grid.Column="0"
+                        Style="{StaticResource TransparentButton}"
+                        FontFamily="Material" />
+
+                <StackLayout HorizontalOptions="End" Grid.Column="1"
+                             Orientation="Horizontal">
+                    <Button Text="&#xe3c9;"
+                        Style="{StaticResource TransparentButton}"
+                        FontFamily="Material" />
+                    <Button Text="&#xe872;"
+                        Style="{StaticResource TransparentButton}"
+                        FontFamily="Material" />
+                </StackLayout>
+                
+            </Grid>
+            
+            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
               ColumnDefinitions="Auto, *"
               Padding="20">
 
-            <Image Source="{Binding TransactionType.Image}"
+                <Image Source="{Binding TransactionType.Image}"
                    Grid.Column="0" Grid.Row="0"
                    WidthRequest="60"
                    />
 
-            <Label Text="{Binding TransactionType.Name}"
+                <Label Text="{Binding TransactionType.Name}"
                    Grid.Column="1" Grid.Row="0"
                    VerticalOptions="Center"
                    FontSize="Medium"
                    />
 
-            <Label Text="{Binding Transaction.Amount,Converter={converters:MoneyConverter}}"
+                <Label Text="{Binding Transaction.Amount,Converter={converters:MoneyConverter}}"
                    TextColor="{Binding Transaction.Amount, Converter={converters:MoneyColorConverter}}"
                    Grid.Column="1" Grid.Row="1"
                    VerticalOptions="Center"
                    FontSize="Medium"/>
 
-            <Label Text="&#xebcc;"
+                <Label Text="&#xebcc;"
                    FontFamily="Material"
                    Grid.Column="0" Grid.Row="2"
                    VerticalOptions="Center"
                    FontSize="Medium"/>
 
-            <Label Text="{Binding Transaction.DateTime, StringFormat='{0:dd/MM/yyyy}'}"
+                <Label Text="{Binding Transaction.DateTime, StringFormat='{0:dd/MM/yyyy}'}"
                    Grid.Column="1" Grid.Row="2"
                    VerticalOptions="Center"
                    FontSize="Medium"/>
 
-            <Image Source="{Binding }"
+                <Image Source="{Binding }"
                    Grid.Column="0" Grid.Row="0"
                    />
 
-            <Label Text="{Binding Wallet.Name}"
+                <Label Text="{Binding Wallet.Name}"
                    Grid.Column="1" Grid.Row="1"
                    VerticalOptions="Center"
                    FontSize="Medium" />
-            
-        </Grid>
-    </ContentPage.Content>
+
+            </Grid>
+
+        </StackLayout>
+        
+        </ContentPage.Content>
 </ContentPage>
