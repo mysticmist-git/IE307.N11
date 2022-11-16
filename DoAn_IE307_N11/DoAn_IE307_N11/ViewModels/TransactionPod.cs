@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.ViewModels
 {

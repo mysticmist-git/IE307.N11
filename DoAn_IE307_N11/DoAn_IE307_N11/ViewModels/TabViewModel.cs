@@ -18,7 +18,6 @@ namespace DoAn_IE307_N11.ViewModels
         Year
     }
 
-    
     public class TabViewModel : BaseViewModel
     {
         #region Private Members
@@ -41,12 +40,12 @@ namespace DoAn_IE307_N11.ViewModels
         /// <summary>
         /// A positive number represent total income
         /// </summary>
-        public int Income => TransactionPods.Sum(t => t.Income);
+        public int Income => TransactionPods is null ? 0 : TransactionPods.Sum(t => t.Income);
 
         /// <summary>
         /// A negative number represent total outcome
         /// </summary>
-        public int Outcome => TransactionPods.Sum(t => t.Outcome);
+        public int Outcome => TransactionPods is null ? 0 : TransactionPods.Sum(t => t.Outcome);
 
         /// <summary>
         /// The balance
@@ -69,6 +68,7 @@ namespace DoAn_IE307_N11.ViewModels
             set => _transactionPods = value;
         }
 
+        public bool HaveTransaction => TransactionPods != null && TransactionPods.Count() > 0;
 
         #region Private Functions
 
@@ -89,15 +89,18 @@ namespace DoAn_IE307_N11.ViewModels
                 })
                 .ToArray();
 
+            if (temp.Count() <= 0)
+                return;
+
             switch (TabType)
             {
                 case TabType.Day:
-                    TransactionPods = new ObservableCollection<TransactionPod>();
+                    _transactionPods = new ObservableCollection<TransactionPod>();
 
                     var transactionPod = new TransactionPod
                     {
                         TransactionPodType = TransactionPodType.Day,
-                        DateTime = transactions.First().DateTime,
+                        DateTime = temp.First().Transaction.DateTime,
                     };
 
                     transactionPod.Transactions = new ObservableCollection<TransactionViewModel>(temp);
