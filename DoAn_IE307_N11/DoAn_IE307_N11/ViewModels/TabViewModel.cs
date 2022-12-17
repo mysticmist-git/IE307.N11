@@ -1,4 +1,5 @@
 ﻿using DoAn_IE307_N11.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -76,6 +77,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         private void LoadTransactions()
         {
+            
             var transactions = Services.SQLiteDB.Db.Table<Transaction>().ToArray();
 
             var temp = transactions

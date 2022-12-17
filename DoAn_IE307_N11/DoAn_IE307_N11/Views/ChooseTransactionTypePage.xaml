@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.ChooseTransactionTypePage"
+             Title="Chọn loại Giao dịch">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar Placeholder="Nhập loại giao dịch"
+                       x:Name="SearchTransacionType"
+                       TextChanged="SearchTransacionType_TextChanged"
+                       VerticalOptions="CenterAndExpand"
+                       CancelButtonColor="DarkOrange"
+                       PlaceholderColor="LightGray"
+                       HorizontalTextAlignment="Start"
+                       HorizontalOptions="Fill"
+                       FontSize="15"/>
+
+            <ListView x:Name="LstTransactionType"
+                      RowHeight="150">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                                  ColumnDefinitions="Auto, *"
+                                  Padding="20">
+
+                                <Image Source="{Binding TransactionType.Image}"
+                                       Grid.Column="0" Grid.Row="0"
+                                       WidthRequest="60"/>
+
+                                <Label Text="{Binding TransactionType.Name}"
+                                       Grid.Column="1" Grid.Row="0"
+                                       VerticalOptions="Center"
+                                       FontSize="Medium"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

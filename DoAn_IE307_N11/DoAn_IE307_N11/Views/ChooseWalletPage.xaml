@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.ChooseWalletPage"
+             Title="Chọn Ví">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#eee">
+            <Label Text="Tính vào tổng" Padding="10" FontAttributes="Bold"/>
+            <Frame Margin="0,0,0,20">
+                <Grid RowSpacing="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="TienMat.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" WidthRequest="40"/>
+                    <Label Text="Tiền mặt" Grid.Column="1" Grid.Row="0" TextColor="Black" FontSize="17" Margin="10,0,0,0"/>
+                    <Label Text="190,000 đ" Grid.Column="1" Grid.Row="1" FontSize="15" Margin="10,0,0,0"/>
+                </Grid>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

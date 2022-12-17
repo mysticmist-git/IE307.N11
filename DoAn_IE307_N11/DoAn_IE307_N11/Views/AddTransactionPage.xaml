@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.AddTransactionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="30"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label Text="0đ" 
+            </Grid>-->
+            
+            <Button x:Name="EnterAmount" Text="0đ" Clicked="EnterAmount_Clicked"/>
+            <Button x:Name="ChooseType" Text="Chọn nhóm" Clicked="ChooseType_Clicked"/>
+            <Button x:Name="AddNote" Text="Thêm ghi chú" Clicked="AddNote_Clicked"/>
+            <Button x:Name="Wallet" Text="Tiền mặt" Clicked="Wallet_Clicked"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

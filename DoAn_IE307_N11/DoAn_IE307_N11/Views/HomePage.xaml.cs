@@ -11,5 +11,15 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
         }
+
+        private void ImgNotification_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnAdd_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AddTransactionPage());
+        }
     }
 }
