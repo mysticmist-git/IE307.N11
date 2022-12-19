@@ -1,7 +1,5 @@
 ﻿using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DoAn_IE307_N11.Models
 {
@@ -9,10 +7,15 @@ namespace DoAn_IE307_N11.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public int UserId { get; set; }
-        [Indexed]
-        public int Name { get; set; }
+        public int ServerId { get; set; }
+        public int CurrencyId { get; set; }
+        public int AccountId { get; set; }
+        public int IconId { get; set; }
+        public string Name { get; set; }
         public int Balance { get; set; }
-        //public ICollection<Event> Events { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime? Modified { get; set; }
+        public int IsDeleted { get; set; }
     }
+
 }

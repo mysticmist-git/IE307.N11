@@ -11,6 +11,7 @@
             <Color x:Key="Background">#fff</Color>
             <Color x:Key="GrayBackground">#f5f5f5</Color>
             <Color x:Key="LightForeground">#ababab</Color>
+            <Color x:Key="VeryLightForeground">#cdcdcd</Color>
             <Color x:Key="Red">#dc1f25</Color>
             <Color x:Key="Blue">#079ae0</Color>
             <Color x:Key="LightGreen">#eaf7ec</Color>

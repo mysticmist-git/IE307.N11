@@ -3,18 +3,17 @@ using System;
 
 namespace DoAn_IE307_N11.Models
 {
-    public class Transaction
+    public class Account
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int ServerId { get; set; }
-        public int WalletId { get; set; }
-        public int TypeId { get; set; }
-        public int? EventId { get; set; }
-        public int IconId { get; set; }
-        public int Amount{ get; set; }
-        public string Note{ get; set; }
-        public DateTime Date{ get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Phone { get; set; }
+        public string Email{ get; set; }
+        public DateTime? Birth { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public int IsDeleted { get; set; }

@@ -1,20 +1,19 @@
 ﻿using SQLite;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace DoAn_IE307_N11.Models
 {
-    public class Transaction
+    public class Icon
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int ServerId { get; set; }
-        public int WalletId { get; set; }
-        public int TypeId { get; set; }
-        public int? EventId { get; set; }
-        public int IconId { get; set; }
-        public int Amount{ get; set; }
-        public string Note{ get; set; }
-        public DateTime Date{ get; set; }
+        public string Name { get; set; }
+        public string Code { get; set; }
+        public string ImageUrl { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public int IsDeleted { get; set; }

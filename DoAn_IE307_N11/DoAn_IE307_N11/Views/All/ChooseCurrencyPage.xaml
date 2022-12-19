@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             x:Class="DoAn_IE307_N11.Views.ChooseCurrencyPage"
+             x:DataType="vm:ChooseCurrencyViewModel"
+             Title="Đơn vị tiền tệ">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding CurrencyList}"
+                      ItemSelected="Currency_Selected"
+                      HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:CurrencyViewModel">
+                        <ViewCell>
+                            <Grid>
+                                <StackLayout Orientation="Horizontal"
+                                             Padding="32, 4">
+                                    <Image Source="{Binding ImageUrl}"
+                                           Margin="0, 0, 32, 0"
+                                           WidthRequest="44"/>
+
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Info.Name}" 
+                                               TextColor="{StaticResource Foreground}" />
+                                        <Label Text="{Binding CurrencySymbol}" 
+                                               TextColor="{StaticResource Foreground}" />
+                                    </StackLayout>
+
+                                    <Label Text="&#xe5ca;"
+                                           VerticalTextAlignment="Center"
+                                           HorizontalOptions="EndAndExpand"
+                                           HorizontalTextAlignment="End"
+                                           FontFamily="Material"
+                                           FontSize="28"
+                                           TextColor="{StaticResource Primary}"
+                                           IsVisible="{Binding IsSelected}"/>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

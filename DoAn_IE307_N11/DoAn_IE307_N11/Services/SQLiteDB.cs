@@ -4,15 +4,15 @@ using System.IO;
 
 namespace DoAn_IE307_N11.Services
 {
-    public class SQLiteDBAsync
+    public class SQLiteDB
     {
-        public SQLiteAsyncConnection DB { get; set; }
+        public SQLiteConnection DB { get; set; }
 
-        public SQLiteDBAsync()
+        public SQLiteDB() 
         {
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             var path = Path.Combine(folder, "lab4.db");
-            DB = new SQLiteAsyncConnection(path);
+            DB = new SQLiteConnection(path);
         }
     }
 }

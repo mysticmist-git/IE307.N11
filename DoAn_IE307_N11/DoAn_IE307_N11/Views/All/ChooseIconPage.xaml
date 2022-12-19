@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:valueConverters="clr-namespace:DoAn_IE307_N11.ValueConverters"
+             x:Class="DoAn_IE307_N11.Views.ChooseIconPage"
+             Title="Chọn biểu tượng"
+             x:Name="page">
+    <ContentPage.Content>
+        <StackLayout>
+            <FlexLayout x:Name="flex" 
+                        HorizontalOptions="FillAndExpand"
+                        Wrap="Wrap" JustifyContent="SpaceEvenly">
+            </FlexLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
