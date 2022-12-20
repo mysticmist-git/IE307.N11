@@ -1,5 +1,6 @@
 ﻿using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.ViewModels.All;
 using DoAn_IE307_N11.Views;
 using MvvmHelpers;
 using System;
@@ -14,6 +15,11 @@ namespace DoAn_IE307_N11.ViewModels
 {
     public class TransactionsViewModel : BaseViewModel
     {
+        #region Parent
+        public AppViewModel ParentViewModel { get; set; }
+
+        #endregion
+
         #region Private Members
 
         private TabViewModel _currentTabVm;
@@ -51,6 +57,16 @@ namespace DoAn_IE307_N11.ViewModels
 
         public TransactionsViewModel()
         {
+            GenerateTabs();
+        }
+
+        public TransactionsViewModel(AppViewModel appViewModel)
+        {
+            this.ParentViewModel = appViewModel;
+        }
+
+        private void GenerateTabs()
+        {
             this.TabVms = new ObservableCollection<TabViewModel>();
 
             this.TabVms.Insert(0, new TabViewModel("TƯƠNG LAI")
@@ -65,8 +81,8 @@ namespace DoAn_IE307_N11.ViewModels
                 EndDate = DateTime.Now.Date,
             });
 
-            this.TabVms.Insert(0, new TabViewModel("HÔM QUA") 
-            { 
+            this.TabVms.Insert(0, new TabViewModel("HÔM QUA")
+            {
                 StartDate = DateTime.Now.Date.AddDays(-1),
                 EndDate = DateTime.Now.Date.AddDays(-1),
             });

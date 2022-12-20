@@ -38,6 +38,8 @@ namespace DoAn_IE307_N11.ViewModels.All
         /// <returns></returns>
         async public Task<CommonResult> GETIcon()
         {
+            IsBusy = true;
+            
             try
             {
                 using (var httpClient = new HttpClient())
@@ -49,19 +51,21 @@ namespace DoAn_IE307_N11.ViewModels.All
 
                     if (convertedIcons is null || convertedIcons.Count <= 0)
                     {
+                        IsBusy = false;
                         return CommonResult.Fail;
                     }
 
                     IconList = convertedIcons;
-                    return CommonResult.Ok;
                 }
-
             }
             catch
             {
+                IsBusy = false;
                 return CommonResult.NoInternet;
             }
 
+            IsBusy = false;
+            return CommonResult.Ok;
         }
     }
 }

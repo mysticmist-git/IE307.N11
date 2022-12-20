@@ -32,7 +32,7 @@
                 <StackLayout HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2">
                     <Label Text="Số dư" HorizontalTextAlignment="Center" FontSize="Medium"
                            HorizontalOptions="Center" />
-                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}" TextColor="{StaticResource Foreground}" 
+                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}  " TextColor="{StaticResource Foreground}" 
                            HorizontalOptions="Center"
                            FontSize="Large" FontAttributes="Bold" />
                     <StackLayout Orientation="Horizontal">

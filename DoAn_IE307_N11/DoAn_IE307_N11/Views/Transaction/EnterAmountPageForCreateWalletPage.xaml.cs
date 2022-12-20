@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAn_IE307_N11.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,14 @@ using Xamarin.Forms.Xaml;
 namespace DoAn_IE307_N11.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class EnterAmountPage : ContentPage
+    public partial class EnterAmountPageForCreateWalletPage : ContentPage
     {
-        public EnterAmountPage()
+        public EnterAmountPageForCreateWalletPage(ViewModels.All.CreateWalletViewModel createWalletViewModel)
         {
             InitializeComponent();
+
+            this.BindingContext = new EnterAmountPageForCreateWalletPageViewModel(createWalletViewModel);
+            LblResult.Text = createWalletViewModel.WalletBalance.ToString();
         }
 
         private decimal firstNumner;
@@ -65,24 +69,23 @@ namespace DoAn_IE307_N11.Views
             firstNumner = Convert.ToDecimal(LblResult.Text);
         }
 
-        private void BtnEqual_Clicked(object sender, EventArgs e)
+        async private void BtnEqual_Clicked(object sender, EventArgs e)
         {
+            var viewModel = (this.BindingContext as EnterAmountPageForCreateWalletPageViewModel);
+
             try
             {
-                var finalResult = firstNumner.ToString();
-
-                if (isOperatorClicked)
-                {
-                    decimal secondNumber = Convert.ToDecimal(LblResult.Text);
-                    finalResult = Calculate(firstNumner, secondNumber).ToString("0.##");
-                    isOperatorClicked = false;
-                }
+                //decimal secondNumber = Convert.ToDecimal(LblResult.Text);
+                //string finalResult = Calculate(firstNumner, secondNumber).ToString("0.##");
+                //LblResult.Text = finalResult;
                 
-                LblResult.Text = finalResult;
+                var result = int.Parse(LblResult.Text);
+                viewModel.ParentViewModel.WalletBalance = result;
+                await Navigation.PopAsync();
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", ex.Message, "Ok");
+                await DisplayAlert("Error", ex.Message, "Ok");
             }
         }
 

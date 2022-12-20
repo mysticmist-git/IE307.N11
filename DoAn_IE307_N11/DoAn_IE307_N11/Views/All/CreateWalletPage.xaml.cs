@@ -1,7 +1,14 @@
-﻿using DoAn_IE307_N11.ViewModels.All;
+﻿using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.Utils;
+using DoAn_IE307_N11.ViewModels;
+using DoAn_IE307_N11.ViewModels.All;
+using Newtonsoft.Json;
+using SQLitePCL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,11 +37,35 @@ namespace DoAn_IE307_N11.Views.All
             await Navigation.PushAsync(new ChooseCurrencyPage(this.BindingContext as CreateWalletViewModel));
         }
 
+        async private void BalanceAreaTapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new EnterAmountPageForCreateWalletPage(this.BindingContext as CreateWalletViewModel));
+        }
         async protected override void OnAppearing()
         {
             base.OnAppearing();
 
             var viewModel = (this.BindingContext as CreateWalletViewModel);
+
+            // Check wallet exist
+            CommonResult checkWalletResult = await viewModel.CheckWalletExist();
+
+            switch (checkWalletResult)
+            {
+                case Utils.CommonResult.NoInternet:
+                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    break;
+                default:
+                    break;
+            }
+
+            if (checkWalletResult == CommonResult.Ok)
+            {
+                Application.Current.MainPage = new NavigationPage(new MainPage());
+                return;
+            }
+
+            // Load default data for wallet creation
             if (!viewModel.CanLoadMore)
                 return;
 
@@ -57,6 +88,43 @@ namespace DoAn_IE307_N11.Views.All
                 return;
 
             viewModel.CanLoadMore = false;
+        }
+
+        async private void CreateWallet_Clicked(object sender, EventArgs e)
+        {
+            ToggleAllView(false);
+            var viewModel = (this.BindingContext as CreateWalletViewModel);
+
+            CommonResult result = await viewModel.CreateWallet();
+
+            switch (result)
+            {
+                case Utils.CommonResult.Ok:
+                    //await DisplayAlert("Lỗi", "Lỗi không xác định", "Ok");
+                    break;
+                case Utils.CommonResult.Fail:
+                    await DisplayAlert("Lỗi", "Tạo ví thất bại", "Ok");
+                    break;
+                case Utils.CommonResult.NoInternet:
+                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    break;
+            }
+
+            if (result != Utils.CommonResult.Ok)
+            {
+                ToggleAllView(true);
+                return;
+            }
+
+            ToggleAllView(true);
+        }
+
+        private void ToggleAllView(bool mode)
+        {
+            CreateWallet_Btn.IsEnabled = mode;
+            BalanceArea.IsEnabled = mode;
+            CurrencyArea.IsEnabled = mode;
+            NameArea.IsEnabled = mode;
         }
     }
 }

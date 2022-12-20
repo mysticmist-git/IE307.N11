@@ -19,10 +19,10 @@ namespace DoAn_IE307_N11.Views
 
         async protected override void OnAppearing()
         {
-            base.OnAppearing();
-
             var viewModel = (this.BindingContext as ChooseCurrencyViewModel);
             viewModel.IsBusy = true;
+
+            base.OnAppearing();
 
             var result = await viewModel.LoadCurrencies();
 
@@ -52,7 +52,10 @@ namespace DoAn_IE307_N11.Views
             }
 
             if (result != Utils.CommonResult.Ok)
+            {
+                viewModel.IsBusy = false;
                 return;
+            }
 
             viewModel.LoadSeletedCurrency();
             viewModel.IsBusy = false;
@@ -61,6 +64,7 @@ namespace DoAn_IE307_N11.Views
         async private void Currency_Selected(object sender, SelectedItemChangedEventArgs e)
         {
             var viewModel = (this.BindingContext as ChooseCurrencyViewModel);
+            viewModel.IsBusy = true;
             (sender as ListView).IsEnabled = false;
 
             var parentViewModel =
@@ -76,7 +80,7 @@ namespace DoAn_IE307_N11.Views
             await Navigation.PopAsync();
 
             (sender as ListView).IsEnabled = true;
-
+            viewModel.IsBusy = false;
         }
     }
 }

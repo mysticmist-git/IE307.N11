@@ -1,12 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="DoAn_IE307_N11.Views.ChooseCurrencyPage"
              x:DataType="vm:ChooseCurrencyViewModel"
              Title="Đơn vị tiền tệ">
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}" />
+
             <ListView ItemsSource="{Binding CurrencyList}"
+                      IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}"
                       ItemSelected="Currency_Selected"
                       HasUnevenRows="True">
                 <ListView.ItemTemplate>
@@ -40,6 +43,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

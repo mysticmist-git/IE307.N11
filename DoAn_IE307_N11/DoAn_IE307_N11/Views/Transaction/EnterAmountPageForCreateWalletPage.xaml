@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             x:Class="DoAn_IE307_N11.Views.EnterAmountPageForCreateWalletPage"
+             x:DataType="vm:EnterAmountPageForCreateWalletPageViewModel"
+             Title="Nhập số tiền">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="End">
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name="CurrencyUnit"
+                       Text="đ" TextDecorations="Underline"
+                       TextColor="Black"
+                       WidthRequest="95"
+                       HorizontalTextAlignment="Center"
+                       BackgroundColor="White"
+                       FontSize="40"/>
+                
+                <Label x:Name="LblResult"
+                       Text="0"
+                       BackgroundColor="White"
+                       TextColor="Black"
+                       TextDecorations="None"
+                       FontSize="40" WidthRequest="300" />
+            </StackLayout>
+            <StackLayout BackgroundColor="#ddd" Padding="1,1,1,1">
+                <Grid RowSpacing="1" ColumnSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="BtnDel" Text="Del"
+                        FontAttributes="Bold"
+                            BackgroundColor="#eee"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="20"
+                            Grid.Row="0" Grid.Column="3"
+                        Clicked="BtnDel_Clicked"/>
+                    <Button x:Name="BtnCommon" Text="7"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="0" Grid.Column="0"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="8"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="0" Grid.Column="1"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="9"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="0" Grid.Column="2"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button x:Name="BtnAC" Text="C"
+                        BackgroundColor="#eee"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Primary}"
+                        FontSize="20"
+                        Grid.Row="1" Grid.Column="3"
+                        Clicked="BtnAC_Clicked"/>
+                    <Button Text="4"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="1" Grid.Column="0"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="5"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="1" Grid.Column="1"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="6"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="1" Grid.Column="2"
+                        Clicked="BtnCommon_Clicked"/>
+                    
+                    <Button Text="1"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="2" Grid.Column="0"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="2"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="2" Grid.Column="1"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="3"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="2" Grid.Column="2"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="0"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="20"
+                            Grid.Row="3" Grid.Column="0"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="000"
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="23"
+                            Grid.Row="3" Grid.Column="1"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button Text="."
+                            BackgroundColor="White"
+                            TextColor="{StaticResource Primary}"
+                            FontSize="20"
+                            Grid.Row="3" Grid.Column="2"
+                        Clicked="BtnCommon_Clicked"/>
+                    <Button x:Name="BtnEqual" Text=">"
+                        FontAttributes="Bold"
+                            BackgroundColor="#1184e8"
+                            TextColor="White"
+                            FontSize="20"
+                            Grid.Row="2" Grid.Column="3" Grid.RowSpan="2"
+                        Clicked="BtnEqual_Clicked"/>
+                </Grid>
+            </StackLayout>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

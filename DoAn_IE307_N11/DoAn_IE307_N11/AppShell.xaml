@@ -32,7 +32,7 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent Title="Tổng quan" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}">
+        <ShellContent x:Name="homeShellContent" Title="Tổng quan" Route="AboutPage" ContentTemplate="{DataTemplate local:HomePage}">
             <ShellContent.Icon>
                 <FontImageSource FontFamily="Material"
                                  Glyph="&#xe88a;">

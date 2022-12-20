@@ -26,7 +26,38 @@
                 <Setter Property="Visual" Value="Default" />
             </Style>
 
-            <!--<Style TargetType="Button">
+            <ControlTemplate x:Key="LoadingScreen">
+                <FlexLayout JustifyContent="Center"
+                            BackgroundColor="{StaticResource Primary}"
+                        VerticalOptions="Center"
+                        Direction="Column">
+
+                    <Label Text="q(≧▽≦q)"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="40"
+                       TextColor="White"
+                       />
+                    <Label Text="...Loading..."
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="FillAndExpand"
+                       HorizontalOptions="FillAndExpand"
+                       FontSize="30"
+                       TextColor="White"
+                       />
+                </FlexLayout>
+            </ControlTemplate>
+            
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
+
+
+
+<!--<Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -45,6 +76,3 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>-->
-        </ResourceDictionary>
-    </Application.Resources>
-</Application>

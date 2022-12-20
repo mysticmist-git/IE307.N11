@@ -48,7 +48,9 @@ namespace DoAn_IE307_N11.Views
             }
 
             if (result != Utils.CommonResult.Ok)
+            {
                 return;
+            }
 
             LoadIconToScreen();
         }
@@ -58,7 +60,9 @@ namespace DoAn_IE307_N11.Views
             var iconList = (this.BindingContext as ChooseIconViewModel).IconList;
 
             if (iconList is null || iconList.Count <= 0)
+            {
                 return;
+            }
 
             foreach (var icon in iconList)
             {
@@ -85,11 +89,13 @@ namespace DoAn_IE307_N11.Views
 
         private async void Icon_Clicked(object sender, EventArgs e)
         {
+            flex.IsEnabled = false;
+            
             var viewModel = (this.BindingContext as ChooseIconViewModel);
             viewModel.IsBusy = true;
 
             var parentViewModel =
-                viewModel.ParentViewModel as CreateWalletViewModel;
+                viewModel.ParentViewModel;
 
             parentViewModel.IconId =
                 ((sender as ImageButton).BindingContext as Icon).Id;
@@ -100,6 +106,17 @@ namespace DoAn_IE307_N11.Views
             await Navigation.PopAsync();
 
             viewModel.IsBusy = false;
+            flex.IsEnabled = true;
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            flex.IsEnabled = false;
+
+            var viewModel = (this.BindingContext as ChooseIconViewModel);
+            viewModel.IsBusy = true;
+
+            return false;
         }
     }
 }

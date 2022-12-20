@@ -26,6 +26,8 @@ namespace DoAn_IE307_N11.ViewModels
         public List<CurrencyViewModel> CurrencyList { get; set; } = new List<CurrencyViewModel>();
         async public Task<CommonResult> LoadCurrencies()
         {
+            IsBusy = true;
+
             try
             {
                 using (var httpClient = new HttpClient())
@@ -37,21 +39,21 @@ namespace DoAn_IE307_N11.ViewModels
 
                     if (convertedCurrencies is null || convertedCurrencies.Count <= 0)
                     {
+                        IsBusy = false;
                         return CommonResult.Fail;
                     }
 
                     CurrencyList = convertedCurrencies
                         .Select(currency => new CurrencyViewModel(currency))
                         .ToList();
-
-
-
                 }
 
+                IsBusy = false;
                 return CommonResult.Ok;
             }
             catch
             {
+                IsBusy = false;
                 return CommonResult.NoInternet;
             }
 

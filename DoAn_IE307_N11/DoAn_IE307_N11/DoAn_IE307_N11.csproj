@@ -28,6 +28,9 @@
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Transaction\EnterAmountPageForCreateWalletPage.xaml.cs">
+      <DependentUpon>EnterAmountPageForCreateWalletPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -46,8 +49,8 @@
     <EmbeddedResource Update="Views\All\LoginPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\All\MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <EmbeddedResource Update="Views\MainPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Transaction\AddTransactionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

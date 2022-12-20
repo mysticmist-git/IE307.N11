@@ -1,15 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:valueConverters="clr-namespace:DoAn_IE307_N11.ValueConverters"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:valueConverters="clr-namespace:DoAn_IE307_N11.ValueConverters" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels.All"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="DoAn_IE307_N11.Views.ChooseIconPage"
              Title="Chọn biểu tượng"
+             x:DataType="vm:ChooseIconViewModel"
              x:Name="page">
     <ContentPage.Content>
-        <StackLayout>
+        <Grid>
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsBusy}"/>
+
             <FlexLayout x:Name="flex" 
+                        IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}"
                         HorizontalOptions="FillAndExpand"
                         Wrap="Wrap" JustifyContent="SpaceEvenly">
             </FlexLayout>
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
