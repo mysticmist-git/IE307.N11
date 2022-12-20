@@ -9,11 +9,11 @@
              x:Class="DoAn_IE307_N11.Views.TransactionBookPage"
              Background="{StaticResource Background}"
              Title="Sổ giao dịch"
-             x:DataType="vm:TransactionsViewModel">
+             x:DataType="vm:TransactionPageViewModel">
 
     <!-- Binding Context-->
     <ContentPage.BindingContext>
-        <vm:TransactionsViewModel />
+        <vm:TransactionPageViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
@@ -28,7 +28,7 @@
                   xct:ShadowEffect.OffsetY="5"
                   xct:ShadowEffect.Radius="10">
 
-                <!-- Wallet overview displayer -->
+                <!-- Wallet overview displayer --><!--
                 <StackLayout HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2">
                     <Label Text="Số dư" HorizontalTextAlignment="Center" FontSize="Medium"
                            HorizontalOptions="Center" />
@@ -42,7 +42,7 @@
                                 />
                     </StackLayout>
                     
-                </StackLayout>
+                </StackLayout>-->
 
                 <!-- Buttons-->
                 <StackLayout Orientation="Horizontal" VerticalOptions="Start" Grid.Column="1" HorizontalOptions="Center">
@@ -259,7 +259,7 @@
                                                                         <StackLayout Margin="16, 0"
                                                                                      VerticalOptions="Center" 
                                                                                      Grid.Column="1">
-                                                                            <Label Text="{Binding TransactionType.Name}" TextColor="{StaticResource Foreground}" />
+                                                                            <Label Text="{Binding Type.Name}" TextColor="{StaticResource Foreground}" />
                                                                             <Label Text="{Binding Transaction.Note}" />
                                                                         </StackLayout>
                                                                         <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueconverters:MoneyConverter}}"

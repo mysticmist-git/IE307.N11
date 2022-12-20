@@ -21,13 +21,60 @@ namespace DoAn_IE307_N11.ViewModels
         public string WalletIconUrl { get; set; }
         public Wallet CurrentWallet { get; set; }
         public AppViewModel ParentViewModel { get; set; }
-        //public HomeViewModel(AppViewModel appViewModel)
-        //{
 
-        //    this.ParentViewModel = appViewModel;
-        //}
+        public HomeViewModel(AppViewModel appViewModel)
+        {
+
+            this.ParentViewModel = appViewModel;
+        }
 
         public ICommand OpenWebCommand { get; }
 
+        async public Task<CommonResult> GETData()
+        {
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getWalletString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"GetAllWallets";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var wallets = await httpClient.GetStringAsync(getWalletString);
+                    var convertedWalelts = JsonConvert.DeserializeObject<List<Wallet>>(wallets);
+
+                    if (convertedWalelts is null || convertedWalelts.Count <= 0)
+                    {
+                        IsBusy = false;
+                        return CommonResult.Fail;
+                    }
+
+                    CurrentWallet = convertedWalelts.FirstOrDefault();
+
+                    // Get icon
+
+                    var getIconString = $"http://{ip}/moneybook/api/ServiceController/" +
+                                $"GetIconById?id={CurrentWallet.IconId}";
+
+                    var icon = await httpClient.GetStringAsync(getIconString);
+                    var convertedIcon = JsonConvert.DeserializeObject<Icon>(icon);
+
+                    if (convertedIcon is null)
+                    {
+                        IsBusy = false;
+                        return CommonResult.Fail;
+                    }
+
+                    WalletIconUrl = convertedIcon.ImageUrl;
+                }
+            }
+            catch
+            {
+                IsBusy = false;
+                return CommonResult.NoInternet;
+            }
+            return CommonResult.Ok;
+        }
     }
 }

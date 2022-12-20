@@ -27,6 +27,12 @@ namespace DoAn_IE307_N11.ViewModels
 
     public class TabViewModel : BaseViewModel
     {
+        #region Parent
+
+        public TransactionPageViewModel ParentViewModel { get; set; }
+
+        #endregion
+
         #region Private Members
 
         private ObservableCollection<TransactionPod> _transactionPods;
@@ -34,13 +40,13 @@ namespace DoAn_IE307_N11.ViewModels
 
         #endregion
 
-        public TabViewModel(string title)
+        public TabViewModel(string title, TransactionPageViewModel transactionPageViewModel)
         {
             this.Title = title;
+            ParentViewModel = transactionPageViewModel;
         }
 
         public bool IsSelected { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
@@ -81,31 +87,26 @@ namespace DoAn_IE307_N11.ViewModels
 
         public TabType TabType { get; set; }
 
-        private async void LoadTransactions()
+        private void LoadTransactions()
         {
-            List<Models.Transaction> transactions = null;
+            //    List<Models.Transaction> transactions = null;
 
-            using (var httpClient = new HttpClient())
-            {
-                var ip = DependencyService.Get<ConstantService>().MY_IP;
-                var walletId = 1;
+            //    using (var httpClient = new HttpClient())
+            //    {
+            //        var ip = DependencyService.Get<ConstantService>().MY_IP;
+            //        var walletId = 1;
 
-                var datas = await httpClient.GetStringAsync($"http://{ip}/moneybook/api/ServiceController/GetTransactionsByWallet?walletId={walletId}");
-                var convertedData = JsonConvert.DeserializeObject<List<Models.Transaction>>(datas);
+            //        var datas = await httpClient.GetStringAsync($"http://{ip}/moneybook/api/ServiceController/GetTransactionsByWallet?walletId={walletId}");
+            //        var convertedData = JsonConvert.DeserializeObject<List<Models.Transaction>>(datas);
 
-                transactions = convertedData;
-            }
+            //        transactions = convertedData;
+            //    }
 
-            var temp = transactions
+            var temp = ParentViewModel.Transactions
                 .Where(tran =>
-                    tran.Date.Date >= this.StartDate.Date &&
-                    tran.Date.Date <= this.EndDate.Date
-                )
-                .Select(tran => new TransactionViewModel
-                {
-                    Transaction = tran,
-                })
-                .ToArray();
+                    tran.Transaction.Date.Date >= this.StartDate.Date &&
+                    tran.Transaction.Date.Date <= this.EndDate.Date
+                ).ToArray();
 
             if (temp.Count() <= 0)
                 return;

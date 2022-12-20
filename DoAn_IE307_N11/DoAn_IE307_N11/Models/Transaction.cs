@@ -11,7 +11,6 @@ namespace DoAn_IE307_N11.Models
         public int WalletId { get; set; }
         public int TypeId { get; set; }
         public int? EventId { get; set; }
-        public int IconId { get; set; }
         public int Amount{ get; set; }
         public string Note{ get; set; }
         public DateTime Date{ get; set; }

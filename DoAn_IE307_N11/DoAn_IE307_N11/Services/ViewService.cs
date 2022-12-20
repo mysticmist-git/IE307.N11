@@ -1,7 +1,4 @@
-﻿using DoAn_IE307_N11.Views.All;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DoAn_IE307_N11.Views;
 using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.Services

@@ -17,7 +17,6 @@ namespace DoAn_IE307_N11.ViewModels
         public string TypeImage { get; set; }
         public TransactionType Type { get; set; }
         public Models.Transaction Transaction { get; set; }
-        public TransactionType TransactionType { get;set; }
 
         #region Commands
 
@@ -25,8 +24,10 @@ namespace DoAn_IE307_N11.ViewModels
 
         #endregion
 
-        public TransactionViewModel()
+        public TransactionViewModel(Models.Transaction tran)
         {
+            this.Transaction = tran;
+
             OpenTransactionCommand = new Command<TransactionViewModel>(async (transactionViewModel) =>
             {
                 await Shell.Current.GoToAsync($"{nameof(TransactionDetailPage)}?bindingContext={transactionViewModel}");

@@ -4,6 +4,7 @@ using DoAn_IE307_N11.Views;
 using DoAn_IE307_N11.Views.All;
 using SQLite;
 using System;
+using System.Reflection;
 using System.Transactions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -42,5 +43,6 @@ namespace DoAn_IE307_N11
         protected override void OnResume()
         {
         }
+
     }
 }

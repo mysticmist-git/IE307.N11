@@ -12,7 +12,7 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
 
-            this.BindingContext = new HomeViewModel();
+            //this.BindingContext = new HomeViewModel();
         }
 
         private void ImgNotification_Tapped(object sender, EventArgs e)

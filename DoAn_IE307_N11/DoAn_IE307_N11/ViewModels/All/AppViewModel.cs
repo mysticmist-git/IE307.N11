@@ -11,23 +11,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace DoAn_IE307_N11.ViewModels.All
+namespace DoAn_IE307_N11.ViewModels
 {
     public class AppViewModel : BaseViewModel
     {
         #region Child View Model
         
         public HomeViewModel HomeViewModel { get; set; }
-        public TransactionsViewModel TransactionViewModel { get; set; }
+        public TransactionPageViewModel TransactionPageViewModel { get; set; }
         //public PlanViewModel PlanViewModel { get; set; }
         //public AccountViewModel AccountViewModel { get; set; } 
 
         #endregion
 
         #region Public Property
-
-        public string WalletIconUrl { get; set; }
-        public Wallet CurrentWallet { get; set; }
 
         #endregion
 
@@ -36,8 +33,8 @@ namespace DoAn_IE307_N11.ViewModels.All
 
         public AppViewModel()
         {
-            //HomeViewModel = new HomeViewModel(this);
-            //TransactionViewModel = new TransactionsViewModel(this);
+            HomeViewModel = new HomeViewModel(this);
+            TransactionPageViewModel = new TransactionPageViewModel(this);
         }
 
         #endregion
@@ -49,56 +46,23 @@ namespace DoAn_IE307_N11.ViewModels.All
         {
             IsBusy = true;
 
-            var getWalletResult = await GETWallet();
+            var homePageGETResult = await HomeViewModel.GETData();
+            var transactionPageGETResult = await TransactionPageViewModel.GETData();
 
             IsBusy = false;
-            return CommonResult.Ok;
-        }
 
-        async private Task<CommonResult> GETWallet()
-        {
-            var ip = DependencyService.Get<ConstantService>().MY_IP;
-            var getWalletString = $"http://{ip}/moneybook/api/ServiceController/" +
-                        $"GetAllWallets";
-
-            try
-            {
-                using (var httpClient = new HttpClient())
-                {
-                    // Get wallet
-                    var wallets = await httpClient.GetStringAsync(getWalletString);
-                    var convertedWalelts = JsonConvert.DeserializeObject<List<Wallet>>(wallets);
-
-                    if (convertedWalelts is null || convertedWalelts.Count <= 0)
-                    {
-                        IsBusy = false;
-                        return CommonResult.Fail;
-                    }
-
-                    CurrentWallet = convertedWalelts.FirstOrDefault();
-
-                    // Get icon
-
-                    var getIconString = $"http://{ip}/moneybook/api/ServiceController/" +
-                                $"GetIconById?id={CurrentWallet.IconId}";
-
-                    var icon = await httpClient.GetStringAsync(getIconString);
-                    var convertedIcon = JsonConvert.DeserializeObject<Icon>(icon);
-
-                    if (convertedIcon is null)
-                    {
-                        IsBusy = false;
-                        return CommonResult.Fail;
-                    }
-
-                    WalletIconUrl = convertedIcon.ImageUrl;
-                }
-            }
-            catch
+            if (homePageGETResult == CommonResult.NoInternet || transactionPageGETResult == CommonResult.NoInternet)
             {
                 IsBusy = false;
                 return CommonResult.NoInternet;
             }
+
+            if (homePageGETResult == CommonResult.Fail || transactionPageGETResult == CommonResult.Fail)
+            {
+                IsBusy = false;
+                return CommonResult.Fail;
+            }
+
             return CommonResult.Ok;
         }
 

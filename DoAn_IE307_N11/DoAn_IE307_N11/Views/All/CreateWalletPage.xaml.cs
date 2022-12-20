@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace DoAn_IE307_N11.Views.All
+namespace DoAn_IE307_N11.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateWalletPage : ContentPage
