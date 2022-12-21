@@ -1,4 +1,5 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.Utils;
 using DoAn_IE307_N11.ViewModels.Transaction.Wrapper;
@@ -16,7 +17,8 @@ namespace DoAn_IE307_N11.ViewModels.All
 {
     public class ChooseIconViewModel : BaseViewModel
     {
-        public CreateWalletViewModel ParentViewModel { get; set; }
+        public object ParentViewModel { get; set; }
+        public ForType Type { get; set; }
         private FlexLayout FlexLayout { get; set; }
         public List<Icon> IconList { get; set; } = new List<Icon>();
 
@@ -25,9 +27,11 @@ namespace DoAn_IE307_N11.ViewModels.All
         /// This construction is bad, real bad!
         /// </summary>
         /// <param name="flex"></param>
-        public ChooseIconViewModel(FlexLayout flex)
+        public ChooseIconViewModel(FlexLayout flex, object parent, ForType type)
         {
             this.FlexLayout = flex;
+            this.ParentViewModel = parent;
+            this.Type = type;
         }
 
         /// <summary>

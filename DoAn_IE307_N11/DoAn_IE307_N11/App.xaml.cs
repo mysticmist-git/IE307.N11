@@ -1,5 +1,6 @@
 ﻿using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.ViewModels;
 using DoAn_IE307_N11.Views;
 using DoAn_IE307_N11.Views.All;
 using SQLite;
@@ -26,6 +27,8 @@ namespace DoAn_IE307_N11
             DependencyService.Register<ConstantService>();
             DependencyService.Register<ViewService>();
             DependencyService.Register<UtilsService>();
+            DependencyService.Register<AppViewModel>();
+            DependencyService.Register<ApiService>();
 
             DependencyService.Get<LocalDataService>().InitDB();
 

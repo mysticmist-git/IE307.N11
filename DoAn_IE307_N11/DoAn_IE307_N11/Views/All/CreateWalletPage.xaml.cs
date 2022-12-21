@@ -1,4 +1,5 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.Utils;
 using DoAn_IE307_N11.ViewModels;
@@ -29,17 +30,17 @@ namespace DoAn_IE307_N11.Views
 
         async private void ChooseIcon_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ChooseIconPage(this.BindingContext as CreateWalletViewModel));
+            await Navigation.PushAsync(new ChooseIconPage(this.BindingContext, ForType.ForCreateWallet));
         }
 
         async private void CurrencyAreaTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ChooseCurrencyPage(this.BindingContext as CreateWalletViewModel));
+            await Navigation.PushAsync(new ChooseCurrencyPage(this.BindingContext, ForType.ForCreateWallet));
         }
 
         async private void BalanceAreaTapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new EnterAmountPageForCreateWalletPage(this.BindingContext as CreateWalletViewModel));
+            await Navigation.PushAsync(new SimpleEnterAmountPage(this.BindingContext, ForType.ForCreateWallet));
         }
         async protected override void OnAppearing()
         {
@@ -53,7 +54,7 @@ namespace DoAn_IE307_N11.Views
             switch (checkWalletResult)
             {
                 case Utils.CommonResult.NoInternet:
-                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
                     break;
                 default:
                     break;
@@ -84,7 +85,7 @@ namespace DoAn_IE307_N11.Views
                     await DisplayAlert("Lỗi", "Load Icon thất bại", "Ok");
                     break;
                 case Utils.CommonResult.NoInternet:
-                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
                     break;
             }
 
@@ -110,7 +111,7 @@ namespace DoAn_IE307_N11.Views
                     await DisplayAlert("Lỗi", "Tạo ví thất bại", "Ok");
                     break;
                 case Utils.CommonResult.NoInternet:
-                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
                     break;
             }
 
@@ -119,6 +120,31 @@ namespace DoAn_IE307_N11.Views
                 ToggleAllView(true);
                 return;
             }
+
+
+            // Check wallet exist
+            CommonResult checkWalletResult = await viewModel.CheckWalletExist();
+
+            switch (checkWalletResult)
+            {
+                case Utils.CommonResult.NoInternet:
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
+                    break;
+                default:
+                    break;
+            }
+
+            if (checkWalletResult == CommonResult.Ok)
+            {
+                var mainPage = new NavigationPage(new MainPage());
+                mainPage.BarBackgroundColor = Color.White;
+                mainPage.BarTextColor = Color.Black;
+
+                Application.Current.MainPage = mainPage;
+                ToggleAllView(true);
+                return;
+            }
+
 
             ToggleAllView(true);
         }

@@ -6,7 +6,8 @@
              Title="Đơn vị tiền tệ">
     <ContentPage.Content>
         <Grid>
-            <ContentView ControlTemplate="{StaticResource LoadingScreen}" />
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsBusy}"/>
 
             <ListView ItemsSource="{Binding CurrencyList}"
                       IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}"

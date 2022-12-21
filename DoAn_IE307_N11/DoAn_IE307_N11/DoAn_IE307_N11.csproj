@@ -28,8 +28,8 @@
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Transaction\EnterAmountPageForCreateWalletPage.xaml.cs">
-      <DependentUpon>EnterAmountPageForCreateWalletPage.xaml</DependentUpon>
+    <Compile Update="Views\Transaction\SimpleEnterAmountPage.xaml.cs">
+      <DependentUpon>SimpleEnterAmountPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

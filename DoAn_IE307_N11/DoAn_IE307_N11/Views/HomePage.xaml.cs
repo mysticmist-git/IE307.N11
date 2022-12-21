@@ -40,7 +40,7 @@ namespace DoAn_IE307_N11.Views
             //        await DisplayAlert("Lỗi", "Đã có lỗi gì đó xảy ra", "Ok");
             //        break;
             //    case Utils.CommonResult.NoInternet:
-            //        await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+            //        await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
             //        break;
             //}
 

@@ -57,14 +57,18 @@ namespace DoAn_IE307_N11.ViewModels
             if (homePageGETResult == CommonResult.NoInternet || transactionPageGETResult == CommonResult.NoInternet)
             {
                 //IsBusy = false;
+                Application.Current.MainPage = DependencyService.Get<ViewService>().BuildCreateWalletPage();
                 return CommonResult.NoInternet;
             }
 
             if (homePageGETResult == CommonResult.Fail || transactionPageGETResult == CommonResult.Fail)
             {
                 //IsBusy = false;
+                Application.Current.MainPage = DependencyService.Get<ViewService>().BuildCreateWalletPage();
                 return CommonResult.Fail;
             }
+
+            
 
             return CommonResult.Ok;
         }

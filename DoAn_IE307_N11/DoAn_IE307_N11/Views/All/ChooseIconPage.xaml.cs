@@ -1,29 +1,25 @@
-﻿using DoAn_IE307_N11.Models;
-using DoAn_IE307_N11.ValueConverters;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.ViewModels;
 using DoAn_IE307_N11.ViewModels.All;
-using DoAn_IE307_N11.ViewModels.Transaction.Wrapper;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.CommunityToolkit.Behaviors;
 using Xamarin.CommunityToolkit.Converters;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace DoAn_IE307_N11.Views
 {
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChooseIconPage : ContentPage
     {
-        public ChooseIconPage(CreateWalletViewModel parentViewModel)
+        public ForType Type { get; set; }
+        public ChooseIconPage(object parentViewModel, ForType type)
         {
             InitializeComponent();
 
-            var viewModel = new ChooseIconViewModel(flex);
-            viewModel.ParentViewModel = parentViewModel;
+            var viewModel = new ChooseIconViewModel(flex, parentViewModel, type);
+            Type = type;
 
             this.BindingContext = viewModel;
         }
@@ -43,7 +39,7 @@ namespace DoAn_IE307_N11.Views
                     await DisplayAlert("Lỗi", "Load Icon thất bại", "Ok");
                     break;
                 case Utils.CommonResult.NoInternet:
-                    await DisplayAlert("Lỗi", "Không có Internet", "Ok");
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
                     break;
             }
 
@@ -90,21 +86,36 @@ namespace DoAn_IE307_N11.Views
         private async void Icon_Clicked(object sender, EventArgs e)
         {
             flex.IsEnabled = false;
-            
+
             var viewModel = (this.BindingContext as ChooseIconViewModel);
-            viewModel.IsBusy = true;
 
-            var parentViewModel =
-                viewModel.ParentViewModel;
-            
-            parentViewModel.IconId = ((sender as ImageButton).BindingContext as Icon).Id
+            switch (Type)
+            {
+                case ForType.ForCreateWallet:
+                    {
+                        var parentViewModel = viewModel.ParentViewModel as CreateWalletViewModel;
 
-            parentViewModel.WalletIconUrl =
-                ((sender as ImageButton).BindingContext as Icon).ImageUrl;
+                        parentViewModel.IconId = ((sender as ImageButton).BindingContext as Icon).Id;
+                        parentViewModel.WalletIconUrl =
+                            ((sender as ImageButton).BindingContext as Icon).ImageUrl;
+                    }
+                    break;
+                case ForType.ForEditWallet:
+                    {
+                        var parentViewModel = viewModel.ParentViewModel as EditWalletViewModel;
+
+                        parentViewModel.Wallet.Wallet.IconId = ((sender as ImageButton).BindingContext as Icon).Id;
+                        parentViewModel.Wallet.WalletImageUrl =
+                            ((sender as ImageButton).BindingContext as Icon).ImageUrl;
+                    }
+                    break;
+            }
+
+
+
 
 
             await Navigation.PopAsync();
-
         }
 
         protected override bool OnBackButtonPressed()

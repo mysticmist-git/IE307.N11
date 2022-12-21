@@ -1,4 +1,5 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.Utils;
 using DoAn_IE307_N11.ViewModels.All;
@@ -8,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -16,11 +16,13 @@ namespace DoAn_IE307_N11.ViewModels
 {
     public class ChooseCurrencyViewModel : BaseViewModel
     {
-        public CreateWalletViewModel ParentViewModel { get; set; }
+        public object ParentViewModel { get; set; }
+        public ForType Type { get; set; }
 
-        public ChooseCurrencyViewModel(CreateWalletViewModel createWalletViewModel)
+        public ChooseCurrencyViewModel(object parent, ForType type)
         {
-            ParentViewModel = createWalletViewModel;
+            ParentViewModel = parent;
+            Type = type;
         }
 
         public List<CurrencyViewModel> CurrencyList { get; set; } = new List<CurrencyViewModel>();
@@ -61,12 +63,35 @@ namespace DoAn_IE307_N11.ViewModels
 
         public void LoadSeletedCurrency()
         {
-            // Get to know which one is currenyly selected
-            var selected = CurrencyList
-                .Where(currency => currency.Info.Id == ParentViewModel.Currency.Id)
-                .FirstOrDefault();
+            switch (Type)
+            {
+                case ForType.ForCreateWallet:
+                    {
+                        var parent = ParentViewModel as CreateWalletViewModel;
+                        // Get to know which one is currenyly selected
+                        var selected = CurrencyList
+                            .Where(currency => currency.Info.Id == parent.Currency.Id)
+                            .FirstOrDefault();
 
-            selected.IsSelected = true;
+                        selected.IsSelected = true;
+                    }
+
+                    break;
+                case ForType.ForEditWallet:
+                    {
+                        var parent = ParentViewModel as EditWalletViewModel;
+                        // Get to know which one is currenyly selected
+                        var selected = CurrencyList
+                            .Where(currency => currency.Info.Id == parent.Currency.Id)
+                            .FirstOrDefault();
+
+                        selected.IsSelected = true;
+                    }
+
+                    break;
+            }
+
+
         }
     }
 }

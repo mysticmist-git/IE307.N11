@@ -35,7 +35,7 @@
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="ChooseIcon_Clicked" />
                             </StackLayout.GestureRecognizers>
-                            <Image Source="{Binding WalletIconUrl}" WidthRequest="40" />
+                            <Image Source="{Binding Wallet.WalletImageUrl}" WidthRequest="40" />
                             <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
                              Opacity="0.4"
                              Margin="0, 8, 0, 0" />
@@ -43,7 +43,7 @@
                         <!-- Name -->
                         <StackLayout Grid.Column="1">
                             <custom:CustomEntry Placeholder="Tên ví" 
-                                        Text="{Binding WalletName}"
+                                        Text="{Binding Wallet.Wallet.Name}"
                            FontAttributes="Bold"
                            FontSize="20"
                            TextColor="{StaticResource Foreground}"
@@ -98,14 +98,14 @@
                                 Tapped="BalanceAreaTapped" />
                     </StackLayout.GestureRecognizers>
 
-                    <Label Text="Số dư" 
+                    <Label Text="Nhập số dư hiện tại của ví" 
                            FontSize="16"
                            TextColor="{StaticResource LightForeground}"
                            Margin="0, 8, 0, 0" />
-                    <Label Text="{Binding WalletBalance}" 
+                    <Label Text="{Binding Wallet.Wallet.Balance}" 
                            FontAttributes="Bold"
                            FontSize="20"
-                           TextColor="{Binding WalletBalance, Converter={valueConverters:MoneyColorConverter}}"
+                           TextColor="{Binding Wallet.Wallet.Balance, Converter={valueConverters:MoneyColorConverter}}"
                            Margin="0, 8, 0, 0" />
                     <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
                              Opacity="0.4"
@@ -113,16 +113,25 @@
                 </StackLayout>
 
                 <!-- Tạo ví button -->
-                <Button Text="TẠO VÍ"
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Margin="0, 28, 0, 28"
+                             Orientation="Horizontal">
+
+                    <Label Text="&#xe92b;" FontFamily="Material"
+                           VerticalOptions="Center"
+                           FontSize="32"
+                           TextColor="{StaticResource Foreground}"/>
+
+                    
+                    <Button Text="XOÁ VÍ NÀY"
+                            VerticalOptions="Center"
+                            Style="{StaticResource TransparentButton}"
                             x:Name="CreateWallet_Btn"
-                        TextColor="{StaticResource Primary}"
-                        Background="{StaticResource LightGreen}"
-                        FontAttributes="Bold"
-                        CornerRadius="20"
-                        VerticalOptions="EndAndExpand"
-                        Margin="0, 0, 0, 28"
-                        Clicked="CreateWallet_Clicked"
-                        />
+                            TextColor="Crimson"
+                            FontAttributes="Bold"
+                            Clicked="DeleteWallet_Clicked" />
+                </StackLayout>
 
             </StackLayout>
 

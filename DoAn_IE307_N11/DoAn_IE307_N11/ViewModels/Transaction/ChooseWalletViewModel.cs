@@ -34,7 +34,7 @@ namespace DoAn_IE307_N11.ViewModels
 
             // Get account info
             var account = await DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
-
+                
             if (account is null)
             {
                 IsBusy = false;
