@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAn_IE307_N11.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace DoAn_IE307_N11.Views
             InitializeComponent();
         }
 
+
         private void EnterAmount_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new EnterAmountPage());
@@ -34,7 +36,7 @@ namespace DoAn_IE307_N11.Views
 
         private void Wallet_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ChooseWalletPage());
+            Navigation.PushAsync(new ChooseWalletPage(this.BindingContext as AddTransactionViewModel));
         }
     }
 }

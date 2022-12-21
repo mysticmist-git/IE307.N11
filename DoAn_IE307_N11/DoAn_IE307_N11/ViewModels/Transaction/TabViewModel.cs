@@ -37,7 +37,6 @@ namespace DoAn_IE307_N11.ViewModels
 
         private ObservableCollection<TransactionPod> _transactionPods;
 
-
         #endregion
 
         public TabViewModel(string title, TransactionPageViewModel transactionPageViewModel)
@@ -87,7 +86,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         public TabType TabType { get; set; }
 
-        private void LoadTransactions()
+        public void LoadTransactions()
         {
             //    List<Models.Transaction> transactions = null;
 
@@ -102,6 +101,14 @@ namespace DoAn_IE307_N11.ViewModels
             //        transactions = convertedData;
             //    }
 
+            TransactionPods = new ObservableCollection<TransactionPod>();
+
+            if (ParentViewModel is null || ParentViewModel.Transactions is null)
+            {
+                return;
+            }
+
+
             var temp = ParentViewModel.Transactions
                 .Where(tran =>
                     tran.Transaction.Date.Date >= this.StartDate.Date &&
@@ -109,12 +116,13 @@ namespace DoAn_IE307_N11.ViewModels
                 ).ToArray();
 
             if (temp.Count() <= 0)
+            {
                 return;
+            }
 
             switch (TabType)
             {
                 case TabType.Day:
-                    _transactionPods = new ObservableCollection<TransactionPod>();
 
                     var transactionPod = new TransactionPod
                     {

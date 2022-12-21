@@ -62,8 +62,14 @@ namespace DoAn_IE307_N11.Views
         {
             var viewModel = (this.BindingContext as AppViewModel);
 
+            // Load default data for wallet creation
+            //if (!viewModel.CanLoadMore)
+            //    return;
+
             // This will get wallet info
             var result = await viewModel.GETData();
+
+            //viewModel.CanLoadMore = false;
 
             await HandleGETResult(result);
         }
@@ -82,6 +88,13 @@ namespace DoAn_IE307_N11.Views
                     await DisplayAlert("Lỗi", "Không có Internet", "Ok");
                     break;
             }
+        }
+
+        async private void WalletAreaTapped(object sender, EventArgs e)
+        {
+            var parent = (this.BindingContext as AppViewModel).TransactionPageViewModel;
+
+            await Navigation.PushAsync(new ChooseWalletPage(parent));
         }
     }
 }

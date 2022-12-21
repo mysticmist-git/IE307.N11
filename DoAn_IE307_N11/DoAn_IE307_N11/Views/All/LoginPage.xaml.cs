@@ -112,8 +112,12 @@ namespace DoAn_IE307_N11.Views.All
             await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<Transaction>();
             await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<Event>();
             await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<Acquaintance_Transaction>();
+            await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<LocalData>();
+
+            userAccount.ServerId = userAccount.Id;
 
             await DependencyService.Get<SQLiteDBAsync>().DB.InsertAsync(userAccount);
+            await DependencyService.Get<SQLiteDBAsync>().DB.InsertAsync(new LocalData());
 
             var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage();
             Application.Current.MainPage = createWalletPage;

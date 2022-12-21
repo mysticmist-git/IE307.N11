@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -26,6 +27,8 @@ namespace DoAn_IE307_N11.ViewModels
 
         #region Public Property
 
+        public new bool IsBusy => HomeViewModel.IsBusy || TransactionPageViewModel.IsBusy;
+
         #endregion
 
 
@@ -44,22 +47,22 @@ namespace DoAn_IE307_N11.ViewModels
 
         async public Task<CommonResult> GETData()
         {
-            IsBusy = true;
+            //IsBusy = true;
 
             var homePageGETResult = await HomeViewModel.GETData();
             var transactionPageGETResult = await TransactionPageViewModel.GETData();
 
-            IsBusy = false;
+            //IsBusy = false;
 
             if (homePageGETResult == CommonResult.NoInternet || transactionPageGETResult == CommonResult.NoInternet)
             {
-                IsBusy = false;
+                //IsBusy = false;
                 return CommonResult.NoInternet;
             }
 
             if (homePageGETResult == CommonResult.Fail || transactionPageGETResult == CommonResult.Fail)
             {
-                IsBusy = false;
+                //IsBusy = false;
                 return CommonResult.Fail;
             }
 
@@ -67,5 +70,10 @@ namespace DoAn_IE307_N11.ViewModels
         }
 
         #endregion
+
+        public void PublicOnPropertyChanged(string name)
+        {
+            OnPropertyChanged(name);
+        }
     }
 }

@@ -115,18 +115,21 @@ namespace DoAn_IE307_N11.ViewModels
         {
             IsBusy = true;
 
+            // Get local data
+            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+
             try
             {
                 using (var httpClient = new HttpClient())
                 {
                     var ip = DependencyService.Get<ConstantService>().MY_IP;
-                    var walletId = ParentViewModel.HomeViewModel.CurrentWallet.Id;
+                    var walletId = localData.WalletId;
 
                     var datas = await httpClient.GetStringAsync($"http://{ip}/moneybook/api/ServiceController/" +
                         $"GetTransactionsByWallet?walletId={walletId}");
                     var convertedData = JsonConvert.DeserializeObject<List<Models.Transaction>>(datas);
 
-                    if (convertedData is null || convertedData.Count <= 0)
+                    if (convertedData is null)
                     {
                         IsBusy = false;
                         return CommonResult.Fail;
@@ -172,6 +175,8 @@ namespace DoAn_IE307_N11.ViewModels
                     }
 
                     Transactions = new ObservableCollection<TransactionViewModel>(wrappedDatas);
+                    UpdateTabItem();
+                    ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.TransactionPageViewModel));
                 }
             }
             catch
@@ -182,6 +187,14 @@ namespace DoAn_IE307_N11.ViewModels
 
             IsBusy = false;
             return CommonResult.Ok;
+        }
+
+        private void UpdateTabItem()
+        {
+            foreach (var item in TabVms)
+            {
+                item.LoadTransactions();
+            }
         }
 
         #endregion

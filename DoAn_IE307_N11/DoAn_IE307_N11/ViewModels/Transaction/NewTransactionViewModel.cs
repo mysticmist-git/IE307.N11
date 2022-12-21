@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.ViewModels
 {
-    public class NewTransactionViewModel : BaseViewModel
+    public class AddTransactionViewModel : BaseViewModel
     {
         //#region Private Members
 

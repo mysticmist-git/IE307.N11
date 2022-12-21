@@ -89,7 +89,7 @@ namespace DoAn_IE307_N11.ViewModels.All
             }
 
             // Get account info
-            var account = DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
+            var account = await DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
 
             if (account is null)
             {
@@ -97,7 +97,7 @@ namespace DoAn_IE307_N11.ViewModels.All
                 return CommonResult.Fail;
             }
 
-            var accountId = account.Id;
+            var accountId = account.ServerId;
 
             // Generate wallet model
             Wallet newWallet = new Wallet
@@ -181,8 +181,11 @@ namespace DoAn_IE307_N11.ViewModels.All
         {
             IsBusy = true;
 
+            // Get local data
+            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+
             // Get account info
-            var account = DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
+            var account = await DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
 
             if (account is null)
             {
@@ -190,12 +193,14 @@ namespace DoAn_IE307_N11.ViewModels.All
                 return CommonResult.Fail;
             }
 
-            var accountId = account.Id;
+            var accountId = account.ServerId;
 
             // Get wallet
             var ip = DependencyService.Get<ConstantService>().MY_IP;
             var getString = $"http://{ip}/moneybook/api/ServiceController/" +
                         $"GetWalletsByAccount?accountId={accountId}";
+
+            List<Wallet> convertedWalelts = null;
 
             try
             {
@@ -203,15 +208,20 @@ namespace DoAn_IE307_N11.ViewModels.All
                 {
                     // Get currency
                     var wallets = await httpClient.GetStringAsync(getString);
-                    var convertedWalelts = JsonConvert.DeserializeObject<List<Wallet>>(wallets);
+                    convertedWalelts = JsonConvert.DeserializeObject<List<Wallet>>(wallets);
 
                     if (convertedWalelts is null || convertedWalelts.Count <= 0)
                     {
                         IsBusy = false;
                         return CommonResult.Fail;
                     }
-                }
 
+                    if (!convertedWalelts.Where(wallet => wallet.Id == localData.WalletId).Any())
+                    {
+                        localData.WalletId = convertedWalelts.FirstOrDefault().Id;
+                        await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
+                    }
+                }
             }
             catch
             {
@@ -223,5 +233,29 @@ namespace DoAn_IE307_N11.ViewModels.All
             IsBusy = false;
             return CommonResult.Ok;
         }
+
+        #region Getter Setter
+
+        public string GetWalletIconUrl()
+        {
+            return WalletIconUrl;
+        }
+
+        public int GetIconId()
+        {
+            return IconId;
+        }
+
+        public void SetWalletIconUrl(string value)
+        {
+            WalletIconUrl = value;
+        }
+
+        public void SetIconId(int value)
+        {
+            IconId = value;
+        }
+
+        #endregion
     }
 }

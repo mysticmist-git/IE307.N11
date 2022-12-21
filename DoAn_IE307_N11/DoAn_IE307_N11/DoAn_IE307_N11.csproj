@@ -61,6 +61,9 @@
     <EmbeddedResource Update="Views\Transaction\ChooseWalletPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Transaction\EditWalletPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Transaction\EnterAmountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -84,6 +87,5 @@
   <ItemGroup>
     <Folder Include="ViewModels\Account\" />
     <Folder Include="ViewModels\Plan\" />
-    <Folder Include="ViewModels\Transaction\Wrapper\" />
   </ItemGroup>
 </Project>

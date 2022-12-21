@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:custom="clr-namespace:DoAn_IE307_N11.CustomRenderer" xmlns:valueConverters="clr-namespace:DoAn_IE307_N11.ValueConverters" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             x:Class="DoAn_IE307_N11.Views.EditWalletPage"
+             x:DataType="vm:EditWalletViewModel"
+             Title="Sửa ví">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Lưu"
+                 Order="Primary"
+                 Priority="0"
+                 Clicked="SaveWallet_Clicked"/>
+    </ContentPage.ToolbarItems>
+
+    <NavigationPage.TitleIconImageSource>
+        <FontImageSource Glyph="&#xe5cd;" />
+    </NavigationPage.TitleIconImageSource>
+
+    <ContentPage.Content>
+        <Grid>
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsBusy}"/>
+
+            <!-- Info part -->
+            <StackLayout VerticalOptions="FillAndExpand" Margin="32, 20, 32, 0">
+                <!-- Name -->
+                <StackLayout x:Name="NameArea">
+                    <Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />
+                    <Grid ColumnDefinitions="Auto, *">
+                        <!-- Icon -->
+                        <StackLayout Grid.Column="0" VerticalOptions="End">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ChooseIcon_Clicked" />
+                            </StackLayout.GestureRecognizers>
+                            <Image Source="{Binding WalletIconUrl}" WidthRequest="40" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+                        <!-- Name -->
+                        <StackLayout Grid.Column="1">
+                            <custom:CustomEntry Placeholder="Tên ví" 
+                                        Text="{Binding WalletName}"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           TextColor="{StaticResource Foreground}"
+                           Margin="0, 8, 0, 0" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+
+                <!-- Đơn vị tiền tệ -->
+                <StackLayout Margin="0, 24, 0, 0" x:Name="CurrencyArea">
+
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="CurrencyAreaTapped" />
+                    </StackLayout.GestureRecognizers>
+
+                    <Label Text="Đơn vị tiền tệ" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />
+                    <FlexLayout Direction="Row" 
+                                VerticalOptions="Start"
+                                JustifyContent="SpaceBetween"
+                                AlignContent="Start"
+                                Margin="0, 8, 0, 0"
+                                >
+                        <Label Text="{Binding Currency.Name}" 
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               TextColor="{StaticResource Foreground}"
+                            />
+                        <Button Text="Sửa" Style="{StaticResource TransparentButton}"
+                                VerticalOptions="Center"
+                                TextColor="{StaticResource Primary}" />
+                    </FlexLayout>
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                </StackLayout>
+
+
+                <!-- Số dư -->
+                <StackLayout x:Name="BalanceArea">
+
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="BalanceAreaTapped" />
+                    </StackLayout.GestureRecognizers>
+
+                    <Label Text="Số dư" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />
+                    <Label Text="{Binding WalletBalance}" 
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           TextColor="{Binding WalletBalance, Converter={valueConverters:MoneyColorConverter}}"
+                           Margin="0, 8, 0, 0" />
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                </StackLayout>
+
+                <!-- Tạo ví button -->
+                <Button Text="TẠO VÍ"
+                            x:Name="CreateWallet_Btn"
+                        TextColor="{StaticResource Primary}"
+                        Background="{StaticResource LightGreen}"
+                        FontAttributes="Bold"
+                        CornerRadius="20"
+                        VerticalOptions="EndAndExpand"
+                        Margin="0, 0, 0, 28"
+                        Clicked="CreateWallet_Clicked"
+                        />
+
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

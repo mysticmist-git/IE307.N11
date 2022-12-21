@@ -61,7 +61,11 @@ namespace DoAn_IE307_N11.Views
 
             if (checkWalletResult == CommonResult.Ok)
             {
-                Application.Current.MainPage = new NavigationPage(new MainPage());
+                var mainPage = new NavigationPage(new MainPage());
+                mainPage.BarBackgroundColor = Color.White;
+                mainPage.BarTextColor = Color.Black;
+
+                Application.Current.MainPage = mainPage;
                 return;
             }
 

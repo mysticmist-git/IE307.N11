@@ -26,6 +26,7 @@ namespace DoAn_IE307_N11.Services
                 DependencyService.Get<SQLiteDB>().DB.CreateTable<Transaction>();
                 DependencyService.Get<SQLiteDB>().DB.CreateTable<Event>();
                 DependencyService.Get<SQLiteDB>().DB.CreateTable<Acquaintance_Transaction>();
+                DependencyService.Get<SQLiteDB>().DB.CreateTable<LocalData>();
 
                 return true;
             }

@@ -11,7 +11,7 @@
              ios:Page.UseSafeArea="true">
 
     <ContentPage.BindingContext>
-        <vm:NewTransactionViewModel />
+        <vm:AddTransactionViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>

@@ -5,6 +5,7 @@ using DoAn_IE307_N11.ViewModels.Transaction.Wrapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.CommunityToolkit.Behaviors;
@@ -17,7 +18,6 @@ namespace DoAn_IE307_N11.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChooseIconPage : ContentPage
     {
-
         public ChooseIconPage(CreateWalletViewModel parentViewModel)
         {
             InitializeComponent();
@@ -96,17 +96,15 @@ namespace DoAn_IE307_N11.Views
 
             var parentViewModel =
                 viewModel.ParentViewModel;
+            
+            parentViewModel.IconId = ((sender as ImageButton).BindingContext as Icon).Id
 
-            parentViewModel.IconId =
-                ((sender as ImageButton).BindingContext as Icon).Id;
             parentViewModel.WalletIconUrl =
                 ((sender as ImageButton).BindingContext as Icon).ImageUrl;
 
 
             await Navigation.PopAsync();
 
-            viewModel.IsBusy = false;
-            flex.IsEnabled = true;
         }
 
         protected override bool OnBackButtonPressed()

@@ -32,9 +32,26 @@ namespace DoAn_IE307_N11.ViewModels
 
         async public Task<CommonResult> GETData()
         {
+            IsBusy = true;
+
+            // Get local data
+            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+
+            // Get account info
+            var account = await DependencyService.Get<SQLiteDBAsync>().DB.Table<Account>().FirstOrDefaultAsync();
+
+            if (account is null)
+            {
+                IsBusy = false;
+                return CommonResult.Fail;
+            }
+
+            var accountId = account.ServerId;
+
+            // Ip info
             var ip = DependencyService.Get<ConstantService>().MY_IP;
             var getWalletString = $"http://{ip}/moneybook/api/ServiceController/" +
-                        $"GetAllWallets";
+                        $"GetWalletsByAccount?accountId={accountId}";
 
             try
             {
@@ -50,7 +67,8 @@ namespace DoAn_IE307_N11.ViewModels
                         return CommonResult.Fail;
                     }
 
-                    CurrentWallet = convertedWalelts.FirstOrDefault();
+                    CurrentWallet = convertedWalelts.Where(wallet => wallet.Id == localData.WalletId).FirstOrDefault();
+                    CurrentWallet.ServerId = CurrentWallet.Id;
 
                     // Get icon
 

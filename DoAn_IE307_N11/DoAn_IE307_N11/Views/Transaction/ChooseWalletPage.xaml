@@ -1,27 +1,74 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
              x:Class="DoAn_IE307_N11.Views.ChooseWalletPage"
+             x:DataType="vm:ChooseWalletViewModel"
              Title="Chọn Ví">
-    <ContentPage.Content>
-        <StackLayout BackgroundColor="#eee">
-            <Label Text="Tính vào tổng" Padding="10" FontAttributes="Bold"/>
-            <Frame Margin="0,0,0,20">
-                <Grid RowSpacing="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="40"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
 
-                    <Image Source="TienMat.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" WidthRequest="40"/>
-                    <Label Text="Tiền mặt" Grid.Column="1" Grid.Row="0" TextColor="Black" FontSize="17" Margin="10,0,0,0"/>
-                    <Label Text="190,000 đ" Grid.Column="1" Grid.Row="1" FontSize="15" Margin="10,0,0,0"/>
-                </Grid>
-            </Frame>
-        </StackLayout>
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem Text="Sửa"
+                 Order="Primary"
+                 Priority="0"
+                     Clicked="WalletEdit_Click"/>
+    </ContentPage.ToolbarItems-->
+
+    <ContentPage.Content>
+        <Grid>
+
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsBusy}"/>
+
+            <StackLayout BackgroundColor="#eee">
+                <Label Text="Tính vào tổng" Padding="10" FontAttributes="Bold"/>
+                <ListView ItemsSource="{Binding WalletList}" HasUnevenRows="True" ItemSelected="WalletSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:WalletViewModel">
+                            <ViewCell>
+
+                                <!-- Context action -->
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="OnEdit_Clicked"
+                                              CommandParameter="{Binding . }"
+                                         Text="Sửa" />
+                                </ViewCell.ContextActions>
+
+                                <Grid Padding="24, 8">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding WalletImageUrl}" Grid.Column="0"
+                                               WidthRequest="40"
+                                               VerticalOptions="Center"/>
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center" Margin="24, 0">
+                                        <Label Text="{Binding Wallet.Name}" TextColor="Black" 
+                                               FontSize="17" />
+                                        <Label Text="{Binding Wallet.Balance, StringFormat='{0:0.0} đ'}" 
+                                                   FontSize="15" />
+                                    </StackLayout>
+
+                                    <Label Text="&#xe5ca;" FontFamily="Material"
+                                       FontSize="20"
+                                       VerticalOptions="Center"
+                                       Grid.Column="2"
+                                       IsVisible="{Binding IsSelected}"
+                                       TextColor="{StaticResource Primary}" />
+
+                                    <Label Text="&#xe5ca;" FontFamily="Material"
+                                       Grid.Column="2"
+                                       TextColor="Transparent" />
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+            
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
