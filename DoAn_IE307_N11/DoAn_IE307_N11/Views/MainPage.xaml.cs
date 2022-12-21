@@ -15,7 +15,7 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
 
-            this.BindingContext = new AppViewModel();
+            this.BindingContext = new AppViewModel(this);
         }
 
         #region Home Page

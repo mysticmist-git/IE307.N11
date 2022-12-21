@@ -3,6 +3,7 @@
     public enum ForType
     {
         ForCreateWallet,
-        ForEditWallet
+        ForEditWallet,
+        ForAddTransaction
     }
 }

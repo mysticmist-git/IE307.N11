@@ -16,8 +16,14 @@ namespace DoAn_IE307_N11.ViewModels
 {
     public class AppViewModel : BaseViewModel
     {
+        #region Associate view
+
+        public Views.MainPage View { get; set; }
+
+        #endregion
+
         #region Child View Model
-        
+
         public HomeViewModel HomeViewModel { get; set; }
         public TransactionPageViewModel TransactionPageViewModel { get; set; }
         //public PlanViewModel PlanViewModel { get; set; }
@@ -34,10 +40,12 @@ namespace DoAn_IE307_N11.ViewModels
 
         #region Constructor
 
-        public AppViewModel()
+        public AppViewModel(Views.MainPage mainPage) // passing view to viewmodel is real bad
         {
             HomeViewModel = new HomeViewModel(this);
             TransactionPageViewModel = new TransactionPageViewModel(this);
+
+            View = mainPage;
         }
 
         #endregion

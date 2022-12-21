@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +14,11 @@ namespace DoAn_IE307_N11.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EnterAmountPage : ContentPage
     {
-        public EnterAmountPage()
+        public EnterAmountPage(object parent, ForType type)
         {
             InitializeComponent();
+
+            this.BindingContext = new EnterAmountViewModel(parent, type);
         }
 
         private decimal firstNumner;

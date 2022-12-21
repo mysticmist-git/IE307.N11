@@ -102,7 +102,7 @@
                            FontSize="16"
                            TextColor="{StaticResource LightForeground}"
                            Margin="0, 8, 0, 0" />
-                    <Label Text="{Binding Wallet.Wallet.Balance}" 
+                    <Label Text="{Binding Wallet.Wallet.Balance, StringFormat='{0:0,0}'}" 
                            FontAttributes="Bold"
                            FontSize="20"
                            TextColor="{Binding Wallet.Wallet.Balance, Converter={valueConverters:MoneyColorConverter}}"

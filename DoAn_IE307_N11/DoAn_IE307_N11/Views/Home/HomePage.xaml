@@ -21,7 +21,7 @@
                 <StackLayout Orientation="Vertical">
                     <StackLayout Orientation="Horizontal">
                         <!--<Label Text="190,000đ"-->
-                        <Label Text="{Binding CurrentWallet.Balance, StringFormat='{0:0.0} đ'}"
+                        <Label Text="{Binding CurrentWallet.Balance, StringFormat='{0:0,0} đ'}"
                            HorizontalOptions="StartAndExpand"
                            FontSize="30" TextColor="Black"/>
                         <!--Button +-->
@@ -61,7 +61,7 @@
                                        VerticalTextAlignment="Center"/>
                             </StackLayout>
                             <!--<Label Text="190,000đ"-->
-                            <Label Text="{Binding CurrentWallet.Balance, StringFormat='{0:0.0} đ'}"
+                            <Label Text="{Binding CurrentWallet.Balance, StringFormat='{0:0,0} đ'}"
                                    TextColor="Black"
                                    FontSize="14"
                                    VerticalTextAlignment="Center"/>

@@ -21,7 +21,7 @@ namespace DoAn_IE307_N11.Views
 
         private void EnterAmount_Clicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new EnterAmountPage());
+            Navigation.PushAsync(new SimpleEnterAmountPage(this.BindingContext, Enums.ForType.ForAddTransaction));
         }
 
         private void ChooseType_Clicked(object sender, EventArgs e)

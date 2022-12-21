@@ -71,6 +71,7 @@ namespace DoAn_IE307_N11.Views
             {
                 LblResult.Text += button.Text;
             }
+
         }
 
         private void BtnCommonOperation_Clicked(object sender, EventArgs e)

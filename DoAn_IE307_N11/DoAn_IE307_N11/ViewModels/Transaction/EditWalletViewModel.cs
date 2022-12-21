@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using MvvmHelpers;
 using System.Data;
+using System.Xml.XPath;
 
 namespace DoAn_IE307_N11.ViewModels
 {
@@ -90,6 +91,31 @@ namespace DoAn_IE307_N11.ViewModels
             return true;
         }
 
+
+        async public Task<CommonResult> PUTWallet()
+        {
+            IsBusy = true;
+            var result = await PUTWalletApi();
+            IsBusy = false;
+            return result;
+        }
+
+        async public Task<CommonResult> PUTWalletApi()
+        {
+            var wallet = this.Wallet.Wallet;
+            wallet.CurrencyId = Currency.Id;
+
+            // get wallet id
+            var apiService = DependencyService.Get<ApiService>();
+
+            if (!await apiService.UpdateWallet(wallet))
+            {
+                return CommonResult.Fail;
+            }
+
+            return CommonResult.Ok;
+        }
+
         public async Task<CommonResult> DELETEWallet()
         {
             IsBusy = true;
@@ -135,6 +161,7 @@ namespace DoAn_IE307_N11.ViewModels
         {
             OnPropertyChanged(propretyName);
         }
+
     }
 }
 

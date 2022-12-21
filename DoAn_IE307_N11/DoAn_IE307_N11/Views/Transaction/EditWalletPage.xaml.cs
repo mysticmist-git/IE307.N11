@@ -45,7 +45,7 @@ namespace DoAn_IE307_N11.Views
                 return;
 
             var viewModel = (this.BindingContext as EditWalletViewModel);
-
+            var result = await viewModel.PUTWallet();
 
             switch (result)
             {
@@ -65,6 +65,9 @@ namespace DoAn_IE307_N11.Views
             {
                 return;
             }
+
+            //await viewModel.ParentViewModel.GETData();
+            await Navigation.PopAsync();
         }
         private async void DeleteWallet_Clicked(object sender, EventArgs e)
         {
@@ -95,6 +98,9 @@ namespace DoAn_IE307_N11.Views
             {
                 return;
             }
+
+            //await viewModel.ParentViewModel.GETData();
+            await Navigation.PopAsync();
         }
     }
 }

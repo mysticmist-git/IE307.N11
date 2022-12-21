@@ -46,7 +46,7 @@
                                     <StackLayout Grid.Column="1" VerticalOptions="Center" Margin="24, 0">
                                         <Label Text="{Binding Wallet.Name}" TextColor="Black" 
                                                FontSize="17" />
-                                        <Label Text="{Binding Wallet.Balance, StringFormat='{0:0.0} đ'}" 
+                                        <Label Text="{Binding Wallet.Balance, StringFormat='{0:0,0} đ'}" 
                                                    FontSize="15" />
                                     </StackLayout>
 

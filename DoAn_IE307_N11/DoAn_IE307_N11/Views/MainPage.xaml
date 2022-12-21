@@ -55,7 +55,7 @@
                             <StackLayout Orientation="Vertical">
                                 <StackLayout Orientation="Horizontal">
                                     <!--<Label Text="190,000đ"-->
-                                    <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0.0} đ'}"
+                                    <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0,0} đ'}"
                            HorizontalOptions="StartAndExpand"
                            FontSize="30" TextColor="Black"/>
                                     <!--Button +-->
@@ -95,7 +95,7 @@
                                        VerticalTextAlignment="Center"/>
                                         </StackLayout>
                                         <!--<Label Text="190,000đ"-->
-                                        <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0.0} đ'}"
+                                        <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0,0} đ'}"
                                    TextColor="Black"
                                    FontSize="14"
                                    VerticalTextAlignment="Center"/>
@@ -207,7 +207,7 @@
                             <StackLayout HorizontalOptions="Center" Grid.Column="0" Grid.ColumnSpan="2">
                                 <Label Text="Số dư" HorizontalTextAlignment="Center" FontSize="Small"
                            HorizontalOptions="Center" />
-                                <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0.0} đ'}  " TextColor="{StaticResource Foreground}" 
+                                <Label Text="{Binding HomeViewModel.CurrentWallet.Balance, StringFormat='{0:0,0} đ'}  " TextColor="{StaticResource Foreground}" 
                            HorizontalOptions="Center"
                            FontSize="Large" FontAttributes="Bold" />
 

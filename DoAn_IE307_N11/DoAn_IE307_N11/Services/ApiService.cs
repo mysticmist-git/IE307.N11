@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -69,6 +70,49 @@ namespace DoAn_IE307_N11.Services
             catch
             {
                 return null;
+            }
+        }
+
+        #endregion
+
+        #region PUT
+
+        async public Task<bool> UpdateWallet(Wallet wallet)
+        {
+            if (wallet is null)
+                return false;
+
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var putString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"UpdateWallet";
+
+            var myContent = JsonConvert.SerializeObject(wallet);
+
+            // construct a content object to send this data
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            // Next, you want to set the content type to let the API know this is JSON.
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Then you can send your request very similar to your previous example with the form content:
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PutAsync(putString, byteContent);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 
