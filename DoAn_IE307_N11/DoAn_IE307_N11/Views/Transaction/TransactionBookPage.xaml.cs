@@ -25,7 +25,7 @@ namespace DoAn_IE307_N11.Views
 
         private async void AddNewTransactionPage_Click(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync(nameof(NewTransactionPage));
+            //await Shell.Current.GoToAsync(nameof(NewTransactionPage));
         }
 
         private async void OpenTransactionDetail(object sender, EventArgs e)

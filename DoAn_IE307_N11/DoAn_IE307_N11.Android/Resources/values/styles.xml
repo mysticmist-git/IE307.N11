@@ -17,5 +17,23 @@
 	  <item name="android:actionMenuTextColor">#1f1f1f</item>
 	  <item name="android:textAllCaps">false</item>
 	  <item name="android:actionModeBackground">@color/ActionModeColor</item>
+	  <item name="android:datePickerDialogTheme">@style/CustomDatePickerDialog</item>
   </style>
+
+
+	<style name="CustomDatePickerDialog" parent="ThemeOverlay.AppCompat.Dialog">
+		<!--header background-->
+		<item name="colorAccent">#009933</item>
+		<!--header textcolor-->
+		<item name="android:textColorPrimaryInverse">#fff</item>
+		<!--selected day-->
+		<item name="android:colorControlActivated">#009933</item>
+		<!--days of the month-->
+		<item name="android:textColorPrimary">#000</item>
+		<!--days of the week-->
+		<item name="android:textColorSecondary">#009933</item>
+		<!--cancel&ok-->
+		<item name="android:textColor">#009933</item>
+	</style>
+	
 </resources>

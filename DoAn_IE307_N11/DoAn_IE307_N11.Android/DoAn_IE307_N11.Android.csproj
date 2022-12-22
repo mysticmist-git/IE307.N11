@@ -214,9 +214,6 @@
     <AndroidResource Include="Resources\drawable\VuiChoi.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\QuestionMarkIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\bell.png" />
   </ItemGroup>
   <ItemGroup>

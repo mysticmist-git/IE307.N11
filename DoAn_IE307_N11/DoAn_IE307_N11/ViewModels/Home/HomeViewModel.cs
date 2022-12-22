@@ -28,6 +28,7 @@ namespace DoAn_IE307_N11.ViewModels
             this.ParentViewModel = appViewModel;
         }
 
+
         public ICommand OpenWebCommand { get; }
 
         async public Task<CommonResult> GETData()

@@ -43,6 +43,36 @@ namespace DoAn_IE307_N11.Services
                 return null;
             }
         }
+        
+        async public Task<Wallet> GetWalletById(int walletId)
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getWalletString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"GetWalletById?id={walletId}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var wallet = await httpClient.GetStringAsync(getWalletString);
+                    var convertedWallet = JsonConvert.DeserializeObject<Wallet>(wallet);
+
+                    if (convertedWallet is null)
+                    {
+                        return null;
+                    }
+
+                    convertedWallet.ServerId = convertedWallet.Id;
+                    return convertedWallet;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         async public Task<List<int?>> GetAllAcquaintance_TransactionIdByTransaction(int transactionId)
         {

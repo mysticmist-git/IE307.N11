@@ -14,8 +14,8 @@ namespace DoAn_IE307_N11
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(NewTransactionPage), typeof(NewTransactionPage));
-            Routing.RegisterRoute(nameof(TransactionDetailPage), typeof(TransactionDetailPage));
+            //Routing.RegisterRoute(nameof(NewTransactionPage), typeof(NewTransactionPage));
+            //Routing.RegisterRoute(nameof(TransactionDetailPage), typeof(TransactionDetailPage));
         }
 
         async protected override void OnAppearing()

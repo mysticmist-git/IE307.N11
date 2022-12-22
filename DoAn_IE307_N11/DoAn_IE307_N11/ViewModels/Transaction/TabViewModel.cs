@@ -142,6 +142,8 @@ namespace DoAn_IE307_N11.ViewModels
                 case TabType.Year:
                     break;
             }
+
+            OnPropertyChanged(nameof(TransactionPods));
         }
 
         #endregion

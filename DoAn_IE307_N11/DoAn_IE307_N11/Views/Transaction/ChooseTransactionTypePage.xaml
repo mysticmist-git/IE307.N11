@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels.Transaction.Wrapper"
              x:Class="DoAn_IE307_N11.Views.ChooseTransactionTypePage"
              Title="Chọn loại Giao dịch">
     <ContentPage.Content>
-        <StackLayout>
-            <SearchBar Placeholder="Nhập loại giao dịch"
+        <Grid>
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsBusy}" />
+
+            <StackLayout>
+
+                <SearchBar Placeholder="Nhập loại giao dịch"
                        x:Name="SearchTransacionType"
                        TextChanged="SearchTransacionType_TextChanged"
                        VerticalOptions="CenterAndExpand"
@@ -15,28 +20,62 @@
                        HorizontalOptions="Fill"
                        FontSize="15"/>
 
-            <ListView x:Name="LstTransactionType"
-                      RowHeight="150">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
+                <ListView x:Name="LstTransactionType"
+                      ItemsSource="{Binding TransactionTypeList}"
+                          ItemSelected="LstTransactionType_ItemSelected"
+                      HasUnevenRows="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:TransactionTypeViewModel">
+                            <ViewCell>
+                                <!--<Grid RowDefinitions="Auto, Auto, Auto, Auto"
                                   ColumnDefinitions="Auto, *"
                                   Padding="20">
 
-                                <Image Source="{Binding TransactionType.Image}"
+                                    <Image Source="{Binding TypeImageUrl}"
                                        Grid.Column="0" Grid.Row="0"
                                        WidthRequest="60"/>
 
-                                <Label Text="{Binding TransactionType.Name}"
+                                    <Label Text="{Binding TransactionType.Name}"
                                        Grid.Column="1" Grid.Row="0"
                                        VerticalOptions="Center"
                                        FontSize="Medium"/>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+                                </Grid>-->
+
+                                <Grid Padding="24, 8">
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding TypeImageUrl}" Grid.Column="0"
+                                               WidthRequest="40"
+                                               VerticalOptions="Center"/>
+                                    <StackLayout Grid.Column="1" VerticalOptions="Center" Margin="24, 0">
+                                        <Label Text="{Binding TransactionType.Name}" TextColor="Black" 
+                                               FontSize="17" />
+                                    </StackLayout>
+                                        <!--<Label Text="{Binding Wallet.Balance, StringFormat='{0:0,0} đ'}" 
+                                                   FontSize="15" />-->
+                                    <!--</StackLayout>-->
+
+                                    <Label Text="&#xe5ca;" FontFamily="Material"
+                                       FontSize="20"
+                                       VerticalOptions="Center"
+                                       Grid.Column="2"
+                                       IsVisible="{Binding IsSelected}"
+                                       TextColor="{StaticResource Primary}" />
+
+                                    <Label Text="&#xe5ca;" FontFamily="Material"
+                                       Grid.Column="2"
+                                       TextColor="Transparent" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

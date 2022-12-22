@@ -16,27 +16,86 @@ namespace DoAn_IE307_N11.Views
         public AddTransactionPage()
         {
             InitializeComponent();
+
+            this.BindingContext = new TransactionViewModel();
         }
 
-
-        private void EnterAmount_Clicked(object sender, EventArgs e)
+        async protected override void OnAppearing()
         {
-            Navigation.PushAsync(new SimpleEnterAmountPage(this.BindingContext, Enums.ForType.ForAddTransaction));
+            base.OnAppearing();
+
+            date.MaximumDate = DateTime.Now.Date;
+
+            var viewModel = this.BindingContext as TransactionViewModel;
+            if (viewModel.CanLoadMore)
+                await viewModel.GetWalletForCreateTransaction();
         }
 
-        private void ChooseType_Clicked(object sender, EventArgs e)
+        async private void AmountAreaTapped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ChooseTransactionTypePage());
+            (sender as StackLayout).IsEnabled = false;
+            await Navigation.PushAsync(new SimpleEnterAmountPage(this.BindingContext, Enums.ForType.ForAddTransaction));
+            (sender as StackLayout).IsEnabled = true;
         }
 
-        private void AddNote_Clicked(object sender, EventArgs e)
+        async private void TypeAreaTapped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new NotePage());
+            (sender as StackLayout).IsEnabled = false;
+            await Navigation.PushAsync(new ChooseTransactionTypePage(this.BindingContext));
+            (sender as StackLayout).IsEnabled = true;
         }
 
-        private void Wallet_Clicked(object sender, EventArgs e)
+        async private void NoteAreaTapped(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new ChooseWalletPage(this.BindingContext as AddTransactionViewModel));
+            (sender as StackLayout).IsEnabled = false;
+            await Navigation.PushAsync(new NotePage(this.BindingContext));
+            (sender as StackLayout).IsEnabled = true;
         }
+
+        async private void WalletAreaTapped(object sender, EventArgs e)
+        {
+            (sender as StackLayout).IsEnabled = false;
+
+            await Navigation.PushAsync(new ChooseWalletPage(this.BindingContext, Enums.ForType.ForAddTransaction));
+
+            (sender as StackLayout).IsEnabled = true;
+        }
+
+        private void DateAreaTapped(object sender, EventArgs e)
+        {
+            date.Focus();
+        }
+
+        private void date_DateSelected(object sender, DateChangedEventArgs e)
+        {
+            var viewModel = (this.BindingContext as TransactionViewModel);
+            viewModel.PublicOnPropertyChanged(nameof(viewModel.DateDisplayer));
+        }
+
+        async private void SaveTransation_Click(object sender, EventArgs e)
+        {
+            var viewModel = (this.BindingContext as TransactionViewModel);
+            var result = await viewModel.CreateTransaction();
+
+            switch (result)
+            {
+                case TransactionPOSTResult.Ok:
+                    await Navigation.PopAsync();
+                    break;
+                case TransactionPOSTResult.ZeroAmount:
+                    await DisplayAlert("Thông báo", "Vui lòng nhập số tiền", "Ok");
+                    break;
+                case TransactionPOSTResult.NoType:
+                    await DisplayAlert("Thông báo", "Vui lòng chọn nhóm giao dịch", "Ok");
+                    break;
+                case TransactionPOSTResult.Fail:
+                    await DisplayAlert("Thông báo", "Thêm giao dịch thất bại", "Ok");
+                    break;
+                case TransactionPOSTResult.NoInternet:
+                    await DisplayAlert("Thông báo", "Lỗi mạng", "Ok");
+                    break;
+            }
+        }
+
     }
 }

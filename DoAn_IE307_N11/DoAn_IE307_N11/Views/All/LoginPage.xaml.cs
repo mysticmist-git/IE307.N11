@@ -119,7 +119,7 @@ namespace DoAn_IE307_N11.Views.All
             await DependencyService.Get<SQLiteDBAsync>().DB.InsertAsync(userAccount);
             await DependencyService.Get<SQLiteDBAsync>().DB.InsertAsync(new LocalData());
 
-            var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage();
+            var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage(Enums.ForType.ForOriginalCreateWallet);
             Application.Current.MainPage = createWalletPage;
         }
 
@@ -148,7 +148,7 @@ namespace DoAn_IE307_N11.Views.All
             var accounts = DependencyService.Get<SQLiteDB>().DB.Table<Account>().ToArray();
             if (accounts != null && accounts.Length > 0)
             {
-                var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage();
+                var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage(Enums.ForType.ForOriginalCreateWallet);
                 Application.Current.MainPage = createWalletPage;
             }
 

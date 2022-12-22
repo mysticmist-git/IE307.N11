@@ -1,14 +1,15 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
              x:Class="DoAn_IE307_N11.Views.NotePage"
+             x:DataType="vm:NoteViewModel"
              Title="Ghi chú">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="LƯU"/>
+        <ToolbarItem Text="LƯU" Clicked="SaveNote_Clicked"/>
     </ContentPage.ToolbarItems>
         
     <ContentPage.Content>
         <StackLayout Padding="10">
-            <Editor VerticalOptions="FillAndExpand"></Editor>
+            <Editor Text="{Binding Note}" VerticalOptions="FillAndExpand"></Editor>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

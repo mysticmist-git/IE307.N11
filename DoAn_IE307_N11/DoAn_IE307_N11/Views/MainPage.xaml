@@ -80,7 +80,11 @@
                                    TextColor="Black"/>
                                         <Label Text="Xem tất cả"
                                    FontSize="15"
-                                   TextColor="{StaticResource Primary}"/>
+                                   TextColor="{StaticResource Primary}">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Tapped="ViewAllWallet_Clicked" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
                                     </StackLayout>
                                     <BoxView HeightRequest="1"
                                  Color="#eee"/>
@@ -270,12 +274,12 @@
 
                             <CollectionView x:Name="CustomTabsView"
                                 Grid.Row="0"
-                                HorizontalScrollBarVisibility="Never"
                                 ItemSizingStrategy="MeasureAllItems"
                                 ItemsSource="{Binding TransactionPageViewModel.TabVms}"
                                 ItemsUpdatingScrollMode="KeepItemsInView"
                                 SelectedItem="{Binding TransactionPageViewModel.CurrentTabVm, Mode=TwoWay}"
                                 SelectionMode="Single"
+                                HorizontalScrollBarVisibility="Never"
                                 VerticalScrollBarVisibility="Never">
 
                                 <CollectionView.ItemsLayout>
@@ -406,7 +410,7 @@
 
                                                 <!-- Transaction pods -->
                                                 <StackLayout BindableLayout.ItemsSource="{Binding TransactionPods}"
-                                                 IsVisible="{Binding HaveTransaction}">
+                                                 IsVisible="{Binding HaveTransaction}" Margin="0, 0, 0, 40">
 
                                                     <BindableLayout.ItemTemplate>
                                                         <DataTemplate x:DataType="vm:TransactionPod">
@@ -550,7 +554,13 @@
 
                     <!-- Content -->
                     <Grid>
-                        <Label Text="Transaction" />
+
+                        <Button x:Name="login_btn" Text="ĐĂNG XUẤT" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="30" 
+                                VerticalOptions="Center"
+                                HorizontalOptions="Center"
+                                Padding="40, 0"
+                                Clicked="SignOut_Clicked" />
+
                     </Grid>
 
 

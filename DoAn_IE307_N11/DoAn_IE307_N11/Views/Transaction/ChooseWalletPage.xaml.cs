@@ -1,4 +1,5 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.ViewModels;
 using DoAn_IE307_N11.ViewModels.All;
@@ -17,11 +18,13 @@ namespace DoAn_IE307_N11.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ChooseWalletPage : ContentPage
     {
-        public ChooseWalletPage(object parent)
+        public ForType Type { get; set; }
+        public ChooseWalletPage(object parent, ForType type)
         {
             InitializeComponent();
 
-            this.BindingContext = new ChooseWalletViewModel(parent);
+            this.BindingContext = new ChooseWalletViewModel(parent, type);
+            this.Type = type;
         }
 
         async protected override void OnAppearing()
@@ -52,18 +55,34 @@ namespace DoAn_IE307_N11.Views
 
         private async void WalletSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            switch (Type)
+            {
+                case ForType.ForTransactionTab:
+                    {
+                        // Get local data
+                        var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+                        var homeViewModel = ((this.BindingContext as ChooseWalletViewModel).ParentViewModel as TransactionPageViewModel)
+                            .ParentViewModel.HomeViewModel;
 
-            // Get local data
-            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+                        homeViewModel.CurrentWallet = (e.SelectedItem as WalletViewModel).Wallet;
+                        homeViewModel.WalletIconUrl = (e.SelectedItem as WalletViewModel).WalletImageUrl;
+                        localData.WalletId = (e.SelectedItem as WalletViewModel).Wallet.Id;
+                        await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
+                    }
+                    break;
+                case ForType.ForAddTransaction:
+                    {
 
-            var homeViewModel = ((this.BindingContext as ChooseWalletViewModel).ParentViewModel as TransactionPageViewModel)
-                .ParentViewModel.HomeViewModel;
+                        //var homeViewModel = ((this.BindingContext as ChooseWalletViewModel).ParentViewModel as TransactionPageViewModel)
+                        //    .ParentViewModel.HomeViewModel;
 
-            homeViewModel.CurrentWallet = (e.SelectedItem as WalletViewModel).Wallet;
-            homeViewModel.WalletIconUrl = (e.SelectedItem as WalletViewModel).WalletImageUrl;
-            localData.WalletId = (e.SelectedItem as WalletViewModel).Wallet.Id;
-
-            await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
+                        var transactionViewModel = ((this.BindingContext as ChooseWalletViewModel).ParentViewModel as TransactionViewModel);
+                        transactionViewModel.Wallet= (e.SelectedItem as WalletViewModel).Wallet;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
             await Navigation.PopAsync();
         }
@@ -77,6 +96,11 @@ namespace DoAn_IE307_N11.Views
 
             await Navigation.PushAsync(editWalletPage);
             
+        }
+
+        private async void CreateWallet_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CreateWalletPage(Enums.ForType.ForCreateWalletFromChooseWallet));
         }
     }
 }

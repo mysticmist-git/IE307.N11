@@ -1,4 +1,5 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.Utils;
 using MvvmHelpers;
@@ -17,6 +18,13 @@ namespace DoAn_IE307_N11.ViewModels.All
 {
     public class CreateWalletViewModel : BaseViewModel
     {
+        public ForType type { get; set; }
+
+        public CreateWalletViewModel(ForType type)
+        {
+            this.type = type;
+        }
+
         public string WalletIconUrl { get; set; } = "TienMat.png";
         public int IconId { get; set; }
         public string WalletName { get; set; } = "Tiền mặt";
@@ -114,7 +122,6 @@ namespace DoAn_IE307_N11.ViewModels.All
             IsBusy = false;
             return postResult;
         }
-
 
         async private Task<CommonResult> POSTWallet(Wallet newWallet)
         {

@@ -1,6 +1,10 @@
-﻿using DoAn_IE307_N11.Utils;
+﻿using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.Utils;
 using DoAn_IE307_N11.ViewModels;
+using DoAn_IE307_N11.Views.All;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +19,7 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
 
-            this.BindingContext = new AppViewModel(this);
+            this.BindingContext = new AppViewModel();
         }
 
         #region Home Page
@@ -39,11 +43,6 @@ namespace DoAn_IE307_N11.Views
             this.CustomTabsView.ScrollTo(e.CurrentItem, null, ScrollToPosition.Center, true);
         }
 
-        private async void AddNewTransactionPage_Click(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync(nameof(NewTransactionPage));
-        }
-
         private async void OpenTransactionDetail(object sender, EventArgs e)
         {
             var transaction = (sender as StackLayout).BindingContext as TransactionViewModel;
@@ -53,9 +52,30 @@ namespace DoAn_IE307_N11.Views
 
         #endregion
 
-        private void MiddleButton_Tapped(object sender, EventArgs e)
+        #region Account
+        async private void SignOut_Clicked(object sender, EventArgs e)
         {
+            var viewModel = this.BindingContext as AppViewModel;
+            viewModel.AccountViewModel.IsBusy = true;
 
+            // Delete account
+            await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<Account>();
+
+            // Delete local data
+            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+            localData.WalletId = 0;
+            await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
+
+            Application.Current.MainPage = new LoginPage();
+
+            viewModel.AccountViewModel.IsBusy = false;
+        }
+
+        #endregion
+
+        private async void MiddleButton_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new AddTransactionPage());
         }
 
         async protected override void OnAppearing()
@@ -72,6 +92,11 @@ namespace DoAn_IE307_N11.Views
             //viewModel.CanLoadMore = false;
 
             await HandleGETResult(result);
+
+            // Scroll to end of transaction tab
+            //var tabCount = (this.BindingContext as AppViewModel).TransactionPageViewModel.TabVms.Count;
+            //this.CustomTabsView.ScrollTo(tabCount - 1, null, ScrollToPosition.MakeVisible, true);
+            //CustomTabsView.ScrollTo(viewModel.TransactionPageViewModel.TabVms.Last(), null, ScrollToPosition.End, true);
         }
 
         async private Task HandleGETResult(CommonResult result)
@@ -94,7 +119,12 @@ namespace DoAn_IE307_N11.Views
         {
             var parent = (this.BindingContext as AppViewModel).TransactionPageViewModel;
 
-            await Navigation.PushAsync(new ChooseWalletPage(parent));
+            await Navigation.PushAsync(new ChooseWalletPage(parent, Enums.ForType.ForTransactionTab));
+        }
+
+        async private void ViewAllWallet_Clicked(object sender, EventArgs e)
+        {
+            
         }
     }
 }

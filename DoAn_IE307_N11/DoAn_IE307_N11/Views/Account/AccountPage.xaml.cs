@@ -16,5 +16,10 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
         }
+
+        private void SignOut_Clicked(object sender, EventArgs e)
+        {
+
+        }
     }
 }

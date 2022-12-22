@@ -21,11 +21,13 @@ namespace DoAn_IE307_N11.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CreateWalletPage : ContentPage
     {
-        public CreateWalletPage()
+        public ForType Type { get; set; }
+        public CreateWalletPage(ForType type)
         {
             InitializeComponent();
 
-            this.BindingContext = new CreateWalletViewModel();
+            this.BindingContext = new CreateWalletViewModel(type);
+            this.Type = type;
         }
 
         async private void ChooseIcon_Clicked(object sender, EventArgs e)
@@ -46,6 +48,22 @@ namespace DoAn_IE307_N11.Views
         {
             base.OnAppearing();
 
+            switch (Type)
+            {
+                case ForType.ForOriginalCreateWallet:
+                    await OriginalAppearing();
+                    break;
+                case ForType.ForCreateWalletFromChooseWallet:
+                    await FromChooseWalletAppearing();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        async private Task OriginalAppearing()
+        {
             var viewModel = (this.BindingContext as CreateWalletViewModel);
 
             // Check wallet exist
@@ -95,9 +113,56 @@ namespace DoAn_IE307_N11.Views
             viewModel.CanLoadMore = false;
         }
 
+        async private Task FromChooseWalletAppearing()
+        {
+            var viewModel = (this.BindingContext as CreateWalletViewModel);
+
+            // Load default data for wallet creation
+            if (!viewModel.CanLoadMore)
+                return;
+
+            var result = await viewModel.LoadDefaultValue();
+
+            switch (result)
+            {
+                case Utils.CommonResult.Ok:
+                    //await DisplayAlert("Lỗi", "Lỗi không xác định", "Ok");
+                    break;
+                case Utils.CommonResult.Fail:
+                    await DisplayAlert("Lỗi", "Load Icon thất bại", "Ok");
+                    break;
+                case Utils.CommonResult.NoInternet:
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
+                    break;
+            }
+
+            if (result != Utils.CommonResult.Ok)
+                return;
+
+            viewModel.CanLoadMore = false;
+        }
+
         async private void CreateWallet_Clicked(object sender, EventArgs e)
         {
             ToggleAllView(false);
+
+            switch (Type)
+            {
+                case ForType.ForOriginalCreateWallet:
+                    await CreateWalletOriginal();
+                    break;
+                case ForType.ForCreateWalletFromChooseWallet:
+                    await CreateWalletFromChooseWallet();
+                    break;
+                default:
+                    break;
+            }
+
+            ToggleAllView(true);
+        }
+
+        async private Task CreateWalletOriginal()
+        {
             var viewModel = (this.BindingContext as CreateWalletViewModel);
 
             CommonResult result = await viewModel.CreateWallet();
@@ -121,7 +186,6 @@ namespace DoAn_IE307_N11.Views
                 return;
             }
 
-
             // Check wallet exist
             CommonResult checkWalletResult = await viewModel.CheckWalletExist();
 
@@ -144,9 +208,34 @@ namespace DoAn_IE307_N11.Views
                 ToggleAllView(true);
                 return;
             }
+        }
 
+        async private Task CreateWalletFromChooseWallet()
+        {
+            var viewModel = (this.BindingContext as CreateWalletViewModel);
 
-            ToggleAllView(true);
+            CommonResult result = await viewModel.CreateWallet();
+
+            switch (result)
+            {
+                case Utils.CommonResult.Ok:
+                    //await DisplayAlert("Lỗi", "Lỗi không xác định", "Ok");
+                    break;
+                case Utils.CommonResult.Fail:
+                    await DisplayAlert("Lỗi", "Tạo ví thất bại", "Ok");
+                    break;
+                case Utils.CommonResult.NoInternet:
+                    await DisplayAlert("Lỗi", "Lỗi mạng", "Ok");
+                    break;
+            }
+
+            if (result != Utils.CommonResult.Ok)
+            {
+                ToggleAllView(true);
+                return;
+            }
+
+            await Navigation.PopAsync();
         }
 
         private void ToggleAllView(bool mode)

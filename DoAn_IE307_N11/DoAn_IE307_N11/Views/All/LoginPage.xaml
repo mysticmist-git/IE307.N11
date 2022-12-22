@@ -18,7 +18,7 @@
 
 
                         <StackLayout Margin="10">
-                            <Label Text="SIGN IN" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                            <Label Text="ĐĂNG NHẬP" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
                         </StackLayout>
 
                         <StackLayout Padding="0" Margin="15,10">
@@ -29,7 +29,7 @@
                                         <Image Source="https://www.findool.com/images/avatars/avatar.png" Aspect="AspectFill" Margin="0"/>
                                     </Frame>
 
-                                    <local:CustomEntry Placeholder="Username" TextColor="HotPink" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"
+                                    <local:CustomEntry Placeholder="Tên đăng nhập" TextColor="{StaticResource Foreground}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"
                                                        x:Name="username_entry"
                                                        />
                                 </StackLayout>
@@ -41,26 +41,26 @@
                                         <Image Source="https://images.all-free-download.com/images/graphicthumb/lock_icon_6813906.jpg" Aspect="AspectFill" Margin="0"/>
                                     </Frame>
 
-                                    <local:CustomEntry Placeholder="Password" IsPassword="True" TextColor="HotPink" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"
+                                    <local:CustomEntry Placeholder="Mật khẩu" IsPassword="True" TextColor="{StaticResource Foreground}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"
                                                        x:Name="password_entry" />
                                 </StackLayout>
                             </Frame>
 
                             <StackLayout  Orientation="Horizontal">
                                 <CheckBox IsChecked="False" Color="{StaticResource Primary}" />
-                                <Label Text="Remember me" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                                <Label Text="Nhớ đăng nhập" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
 
-                                <Label Text="Forgot Password" TextColor="{StaticResource Primary}" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                                <Label Text="Quên mật khẩu" TextColor="{StaticResource Primary}" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
 
 
                             </StackLayout>
 
-                            <Button x:Name="login_btn" Text="SIGN IN" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="30" 
+                            <Button x:Name="login_btn" Text="ĐĂNG NHẬP" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="30" 
                                     Clicked="Login_Clicked" />
                             
                             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                <Label Text="Still Not Connected ?" TextColor="DarkGray" FontSize="Small"/>
-                                <Label Text="Sign Up" TextColor="{StaticResource Primary}" FontAttributes="Bold" FontSize="Small"/>
+                                <Label Text="Không kết nối?" TextColor="DarkGray" FontSize="Small"/>
+                                <Label Text="Đăng ký" TextColor="{StaticResource Primary}" FontAttributes="Bold" FontSize="Small"/>
                             </StackLayout>
 
                             <StackLayout Margin="0,25,0,0" Padding="0">

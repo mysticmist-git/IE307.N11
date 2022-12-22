@@ -4,6 +4,9 @@
     {
         ForCreateWallet,
         ForEditWallet,
-        ForAddTransaction
+        ForAddTransaction,
+        ForCreateWalletFromChooseWallet,
+        ForOriginalCreateWallet,
+        ForTransactionTab
     }
 }

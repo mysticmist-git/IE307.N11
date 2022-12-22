@@ -25,7 +25,7 @@
                            HorizontalOptions="StartAndExpand"
                            FontSize="30" TextColor="Black"/>
                         <!--Button +-->
-                        <Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>
+                        <!--<Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>-->
                         <Image Source="bell.png" HorizontalOptions="End" WidthRequest="25">
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer x:Name="ImgNotification" Tapped="ImgNotification_Tapped"/>
@@ -44,7 +44,9 @@
                                    HorizontalOptions="StartAndExpand"
                                    FontSize="17"
                                    TextColor="Black"/>
-                            <Label Text="Xem tất cả"
+                            <Button Text="Xem tất cả"
+                                    Clicked="AllWallet_Clicked"
+                                    Style="{StaticResource TransparentButton}"
                                    FontSize="15"
                                    TextColor="{StaticResource Primary}"/>
                         </StackLayout>

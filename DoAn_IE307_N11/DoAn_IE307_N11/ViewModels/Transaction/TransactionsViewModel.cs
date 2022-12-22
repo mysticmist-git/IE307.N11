@@ -67,19 +67,19 @@ namespace DoAn_IE307_N11.ViewModels
         {
             this.TabVms = new ObservableCollection<TabViewModel>();
 
-            this.TabVms.Insert(0, new TabViewModel("TƯƠNG LAI", this)
-            {
-                StartDate = DateTime.Now.Date.AddDays(1),
-                EndDate = DateTime.MaxValue.Date,
-            });
+            //this.TabVms.Add(new TabViewModel("TƯƠNG LAI", this)
+            //{
+            //    StartDate = DateTime.Now.Date.AddDays(1),
+            //    EndDate = DateTime.MaxValue.Date,
+            //});
 
-            this.TabVms.Insert(0, new TabViewModel("HÔM NAY", this)
+            this.TabVms.Add(new TabViewModel("HÔM NAY", this)
             {
                 StartDate = DateTime.Now.Date,
                 EndDate = DateTime.Now.Date,
             });
 
-            this.TabVms.Insert(0, new TabViewModel("HÔM QUA", this)
+            this.TabVms.Add(new TabViewModel("HÔM QUA", this)
             {
                 StartDate = DateTime.Now.Date.AddDays(-1),
                 EndDate = DateTime.Now.Date.AddDays(-1),
@@ -87,14 +87,14 @@ namespace DoAn_IE307_N11.ViewModels
 
             for (int i = 2; i < 15; i++)
             {
-                this.TabVms.Insert(0, new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString(), this)
+                this.TabVms.Add(new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString(), this)
                 {
                     StartDate = DateTime.Now.Date.AddDays(-i),
                     EndDate = DateTime.Now.Date.AddDays(-i),
                 });
             }
 
-            this.CurrentTabVm = this.TabVms[this.TabVms.Count - 2];
+            this.CurrentTabVm = this.TabVms.FirstOrDefault();
         }
 
         #endregion
@@ -177,6 +177,7 @@ namespace DoAn_IE307_N11.ViewModels
                     Transactions = new ObservableCollection<TransactionViewModel>(wrappedDatas);
                     UpdateTabItem();
                     ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.TransactionPageViewModel));
+                    ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.TransactionPageViewModel.TabVms));
                 }
             }
             catch

@@ -29,7 +29,7 @@
                                 <ViewCell.ContextActions>
                                     <MenuItem Clicked="OnEdit_Clicked"
                                               CommandParameter="{Binding . }"
-                                         Text="Sửa" />
+                                         Text="Sửa"  />
                                 </ViewCell.ContextActions>
 
                                 <Grid Padding="24, 8">
@@ -68,7 +68,20 @@
                 </ListView>
 
             </StackLayout>
-            
+
+            <Button Text="&#xe145;" FontFamily="Material"
+                    Background="{StaticResource Primary}" 
+                    HeightRequest="64"
+                    WidthRequest="64"
+                    FontSize="32"
+                    TextColor="White"
+                    VerticalOptions="End"
+                    HorizontalOptions="End"
+                    CornerRadius="100"
+                    Margin="20"
+                    IsVisible="{Binding IsAddButtonVisible}"
+                    Clicked="CreateWallet_Clicked"/>
+
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -1,6 +1,8 @@
-﻿using DoAn_IE307_N11.Models;
+﻿using DoAn_IE307_N11.Enums;
+using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
 using DoAn_IE307_N11.Utils;
+using DoAn_IE307_N11.Views;
 using MvvmHelpers;
 using Newtonsoft.Json;
 using System;
@@ -19,13 +21,13 @@ namespace DoAn_IE307_N11.ViewModels
     public class ChooseWalletViewModel : BaseViewModel
     {
         public object ParentViewModel { get; set; }
-        public Type ParentType { get; set; }
+        public ForType Type{ get; set; }
         public ObservableCollection<WalletViewModel> WalletList { get; set; }
-
-        public ChooseWalletViewModel(object parent)
+        public bool IsAddButtonVisible => Type == ForType.ForTransactionTab;
+        public ChooseWalletViewModel(object parent, ForType type)
         {
             this.ParentViewModel = parent;
-            this.ParentType = parent.GetType();
+            this.Type = type;
         }
 
         async public Task<CommonResult> GETData()
@@ -85,15 +87,37 @@ namespace DoAn_IE307_N11.ViewModels
                         data.IsSelected = false;
                     }
 
-                    // TODO: not dynamically
-                    var parent = ParentViewModel as TransactionPageViewModel;
-                    var currentWalletId = parent.ParentViewModel.HomeViewModel.CurrentWallet.ServerId;
+                    switch (Type)
+                    {
+                        case ForType.ForTransactionTab:
+                            {
 
-                    wrappedDatas.Where(data => data.Wallet.Id == currentWalletId)
-                        .FirstOrDefault()
-                        .IsSelected = true;
+                                var parent = ParentViewModel as TransactionPageViewModel;
+                                var currentWalletId = parent.ParentViewModel.HomeViewModel.CurrentWallet.ServerId;
 
-                    WalletList = new ObservableCollection<WalletViewModel>(wrappedDatas);
+                                wrappedDatas.Where(data => data.Wallet.Id == currentWalletId)
+                                    .FirstOrDefault()
+                                    .IsSelected = true;
+
+                                WalletList = new ObservableCollection<WalletViewModel>(wrappedDatas);
+                            }
+                            break;
+                        case ForType.ForAddTransaction:
+                            {
+                                var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+                                var currentWalletId = localData.WalletId;
+
+                                wrappedDatas.Where(data => data.Wallet.Id == currentWalletId)
+                                    .FirstOrDefault()
+                                    .IsSelected = true;
+
+                                WalletList = new ObservableCollection<WalletViewModel>(wrappedDatas);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+
                 }
             }
             catch

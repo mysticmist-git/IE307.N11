@@ -30,6 +30,9 @@ namespace DoAn_IE307_N11.Views
                 case ForType.ForEditWallet:
                     LblResult.Text = (parent as EditWalletViewModel).Wallet.Wallet.Balance.ToString();
                     break;
+                case ForType.ForAddTransaction:
+                    LblResult.Text = (parent as TransactionViewModel).Transaction.Amount.ToString();
+                    break;
             }
         }
 
@@ -107,6 +110,15 @@ namespace DoAn_IE307_N11.Views
                             var result = int.Parse(LblResult.Text);
                             parent.Wallet.Wallet.Balance = result;
                             parent.PublicOnPropertyChanged(nameof(parent.Wallet));
+                            await Navigation.PopAsync();
+                        }
+                        break;
+                    case ForType.ForAddTransaction:
+                        {
+                            var parent = viewModel.ParentViewModel as TransactionViewModel;
+                            var result = int.Parse(LblResult.Text);
+                            parent.Transaction.Amount= result;
+                            parent.PublicOnPropertyChanged(nameof(parent.Transaction));
                             await Navigation.PopAsync();
                         }
                         break;

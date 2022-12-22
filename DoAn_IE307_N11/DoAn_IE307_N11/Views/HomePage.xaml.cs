@@ -47,5 +47,15 @@ namespace DoAn_IE307_N11.Views
             //if (result != Utils.CommonResult.Ok)
             //    return;
         }
+
+        private void AllWallet_Clicked(object sender, EventArgs e)
+        {
+
+        }
+
+        //async private void AllWallet_Clicked(object sender, EventArgs e)
+        //{
+        //    await Navigation.PushAsync(new ChooseWalletPage())
+        //}
     }
 }
