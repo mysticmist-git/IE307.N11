@@ -124,7 +124,7 @@ namespace DoAn_IE307_N11.Views
 
         async private void ViewAllWallet_Clicked(object sender, EventArgs e)
         {
-            
+            await Navigation.PushAsync(new ChooseWalletPage((this.BindingContext as AppViewModel).TransactionPageViewModel, Enums.ForType.ForTransactionTab));
         }
     }
 }
