@@ -52,6 +52,8 @@ namespace DoAn_IE307_N11.ViewModels
 
             var homePageGETResult = await HomeViewModel.GETData();
             var transactionPageGETResult = await TransactionPageViewModel.GETData();
+            HomeViewModel.UpdateCurrentTransactions();
+            OnPropertyChanged(nameof(HomeViewModel));
 
             //IsBusy = false;
 

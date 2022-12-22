@@ -9,12 +9,12 @@ namespace DoAn_IE307_N11.ValueConverters
     {
         public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var money = (int)value;
+            var isExpense = System.Convert.ToBoolean(value);
 
-            if (money < 0)
+            if (isExpense)
                 return Color.Red;
-
-            return Color.Green;
+            else
+                return Color.Green;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

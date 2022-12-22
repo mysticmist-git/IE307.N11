@@ -46,8 +46,6 @@ namespace DoAn_IE307_N11.Views
         private async void OpenTransactionDetail(object sender, EventArgs e)
         {
             var transaction = (sender as StackLayout).BindingContext as TransactionViewModel;
-
-            await Shell.Current.GoToAsync($"{nameof(TransactionDetailPage)}?transactionId={transaction.Transaction.Id}");
         }
 
         #endregion

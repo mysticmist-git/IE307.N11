@@ -18,7 +18,7 @@ namespace DoAn_IE307_N11.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             global::Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             LoadApplication(new App());
-            Window.SetStatusBarColor(Android.Graphics.Color.Argb(45, 184, 76, 0));
+            Window.SetStatusBarColor(Android.Graphics.Color.Rgb(35, 181, 116));
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

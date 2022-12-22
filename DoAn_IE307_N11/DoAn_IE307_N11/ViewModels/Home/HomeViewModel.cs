@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using DoAn_IE307_N11.ViewModels.All;
+using System.Collections.ObjectModel;
 
 namespace DoAn_IE307_N11.ViewModels
 {
@@ -21,7 +22,9 @@ namespace DoAn_IE307_N11.ViewModels
         public string WalletIconUrl { get; set; }
         public Wallet CurrentWallet { get; set; }
         public AppViewModel ParentViewModel { get; set; }
-
+        public ObservableCollection<TransactionViewModel> CurrentTransactions { get; set; } 
+            = new ObservableCollection<TransactionViewModel>();
+        
         public HomeViewModel(AppViewModel appViewModel)
         {
 
@@ -94,6 +97,30 @@ namespace DoAn_IE307_N11.ViewModels
                 return CommonResult.NoInternet;
             }
             return CommonResult.Ok;
+        }
+
+        public void UpdateCurrentTransactions()
+        {
+            if (ParentViewModel.TransactionPageViewModel.Transactions is null)
+                CurrentTransactions = new ObservableCollection<TransactionViewModel>();
+
+            var transactions = ParentViewModel.TransactionPageViewModel.Transactions.ToList();
+
+            var filtered = transactions.OrderByDescending(tran => tran.Transaction.Date).ToList();
+
+            ObservableCollection<TransactionViewModel> result = new ObservableCollection<TransactionViewModel>();
+
+            int count = 3;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (filtered[i] == null)
+                    break;
+
+                result.Add(filtered[i]);
+            }
+
+            CurrentTransactions = result;
         }
     }
 }

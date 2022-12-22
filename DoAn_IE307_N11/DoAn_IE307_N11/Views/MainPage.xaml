@@ -59,7 +59,7 @@
                            HorizontalOptions="StartAndExpand"
                            FontSize="30" TextColor="Black"/>
                                     <!--Button +-->
-                                    <Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>
+                                    <!--<Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>-->
                                     <Image Source="bell.png" HorizontalOptions="End" WidthRequest="25">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer x:Name="ImgNotification" Tapped="ImgNotification_Tapped"/>
@@ -151,22 +151,47 @@
                            TextColor="{StaticResource Primary}"/>
                             </StackLayout>
 
-                            <Frame CornerRadius="10" Margin="0,0,0,20">
+                            <Frame CornerRadius="10" Margin="0,10,0,20">
                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
+                                    <ListView ItemsSource="{Binding HomeViewModel.CurrentTransactions}" HasUnevenRows="True"
+                                              HeightRequest="170">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:TransactionViewModel">
+                                                <ViewCell>
+                                                    <Grid>
+                                                        <StackLayout>
 
-                                    <Image Source="AnUong.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" WidthRequest="40"/>
-                                    <Label Text="Ăn uống" Grid.Column="1" Grid.Row="0" TextColor="Black" FontSize="15" Margin="10,0,0,0"/>
-                                    <Label Text="7 tháng 10 2022" Grid.Column="1" Grid.Row="1" FontSize="12" Margin="10,0,0,0"/>
-                                    <Label Text="45,000" Grid.Column="2" Grid.Row="0" TextColor="Red" FontSize="16" HorizontalTextAlignment="End"/>
+                                                            <StackLayout.GestureRecognizers>
+                                                                <TapGestureRecognizer Tapped="OpenTransactionDetail" />
+                                                            </StackLayout.GestureRecognizers>
+
+                                                            <!-- Transactions -->
+                                                            <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
+                                                                <Image Source="{Binding TypeImage}" WidthRequest="48" Grid.Column="0" />
+                                                                <StackLayout Margin="16, 0"
+                                                                                     VerticalOptions="Center" 
+                                                                                     Grid.Column="1">
+                                                                    <Label Text="{Binding Type.Name}" TextColor="{StaticResource Foreground}" />
+                                                                    <Label Text="{Binding Transaction.Note}" />
+                                                                </StackLayout>
+                                                                <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
+                                                                               TextColor="{Binding Type.IsExpense, Converter={valueConverters:MoneyColorConverter}}"
+                                                                               Grid.Column="2"
+                                                                               FontSize="Medium"
+                                                                               VerticalOptions="Center"
+                                                                               HorizontalOptions="End" />
+                                                            </Grid>
+
+                                                        </StackLayout>
+                                                    </Grid>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <Label Text="Loading..." TextColor="{StaticResource LightForeground}"
+                                       HorizontalOptions="Center"
+                                       IsVisible="{Binding IsBusy}"
+                                       FontSize="16" />
                                 </Grid>
                             </Frame>
 
@@ -465,7 +490,7 @@
                                                                                         <Label Text="{Binding Transaction.Note}" />
                                                                                     </StackLayout>
                                                                                     <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
-                                                                               TextColor="{Binding Transaction.Amount, Converter={valueConverters:MoneyColorConverter}}"
+                                                                               TextColor="{Binding Type.IsExpense, Converter={valueConverters:MoneyColorConverter}}"
                                                                                Grid.Column="2"
                                                                                FontSize="Medium"
                                                                                VerticalOptions="Center"
