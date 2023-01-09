@@ -69,8 +69,6 @@ namespace DoAn_IE307_N11.ViewModels
                 return CommonResult.Fail;
             }
 
-            
-
             return CommonResult.Ok;
         }
 

@@ -176,8 +176,6 @@ namespace DoAn_IE307_N11.ViewModels
 
                     Transactions = new ObservableCollection<TransactionViewModel>(wrappedDatas);
                     UpdateTabItem();
-                    ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.TransactionPageViewModel));
-                    ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.TransactionPageViewModel.TabVms));
                 }
             }
             catch

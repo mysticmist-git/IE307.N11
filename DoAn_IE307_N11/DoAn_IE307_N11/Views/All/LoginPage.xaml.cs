@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
+using Xamarin.Forms.PlatformConfiguration.GTKSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace DoAn_IE307_N11.Views.All
@@ -120,7 +122,7 @@ namespace DoAn_IE307_N11.Views.All
             await DependencyService.Get<SQLiteDBAsync>().DB.InsertAsync(new LocalData());
 
             var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage(Enums.ForType.ForOriginalCreateWallet);
-            Application.Current.MainPage = createWalletPage;
+            Xamarin.Forms.Application.Current.MainPage = createWalletPage;
         }
 
         private void ToggleBusyMode(bool mode)
@@ -149,10 +151,20 @@ namespace DoAn_IE307_N11.Views.All
             if (accounts != null && accounts.Length > 0)
             {
                 var createWalletPage = DependencyService.Get<ViewService>().BuildCreateWalletPage(Enums.ForType.ForOriginalCreateWallet);
-                Application.Current.MainPage = createWalletPage;
+                Xamarin.Forms.Application.Current.MainPage = createWalletPage;
             }
 
             ToggleBusyMode(true);
+        }
+
+        /// <summary>
+        /// Register a new account
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async private void Register_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new RegisterPage());
         }
     }
 

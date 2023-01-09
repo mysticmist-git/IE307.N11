@@ -59,7 +59,7 @@
                            HorizontalOptions="StartAndExpand"
                            FontSize="30" TextColor="Black"/>
                                     <!--Button +-->
-                                    <Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>
+                                    <!--<Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>-->
                                     <Image Source="bell.png" HorizontalOptions="End" WidthRequest="25">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer x:Name="ImgNotification" Tapped="ImgNotification_Tapped"/>
@@ -465,7 +465,7 @@
                                                                                         <Label Text="{Binding Transaction.Note}" />
                                                                                     </StackLayout>
                                                                                     <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
-                                                                               TextColor="{Binding Transaction.Amount, Converter={valueConverters:MoneyColorConverter}}"
+                                                                               TextColor="{Binding Type.IsExpense, Converter={valueConverters:MoneyColorConverter}}"
                                                                                Grid.Column="2"
                                                                                FontSize="Medium"
                                                                                VerticalOptions="Center"

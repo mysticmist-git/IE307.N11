@@ -32,7 +32,7 @@ namespace DoAn_IE307_N11
 
             DependencyService.Get<LocalDataService>().InitDB();
 
-            MainPage = new LoginPage();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

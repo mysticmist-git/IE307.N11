@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DoAn_IE307_N11.CustomRenderer"
              NavigationPage.HasNavigationBar="False"
-             x:Class="DoAn_IE307_N11.Views.All.LoginPage">
+             x:Class="DoAn_IE307_N11.Views.RegisterPage">
     
     <StackLayout BackgroundColor="#e6e6e6">
         <Grid>
@@ -19,11 +19,19 @@
 
 
                         <StackLayout Margin="10">
-                            <Label Text="ĐĂNG NHẬP" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
+                            <Label Text="ĐĂNG KÝ" TextColor="Black" HorizontalOptions="CenterAndExpand" FontAttributes="Bold"/>
                         </StackLayout>
 
                         <StackLayout Padding="0" Margin="15,10">
 
+                            <!-- Label --><!--
+                            <Label Text="Thông tin tài khoản"
+                                   TextColor="{StaticResource Foreground}"
+                                   Margin="0, 0, 0, 12"
+                                   />-->
+
+                            <!-- Fields -->
+                            <!-- Username -->
                             <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                                 <StackLayout Orientation="Horizontal">
                                     <Frame BackgroundColor="{StaticResource Primary}" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
@@ -36,6 +44,7 @@
                                 </StackLayout>
                             </Frame>
 
+                            <!-- Password  -->
                             <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
                                 <StackLayout Orientation="Horizontal">
                                     <Frame BackgroundColor="{StaticResource Primary}" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
@@ -47,52 +56,43 @@
                                 </StackLayout>
                             </Frame>
 
-                            <!--<StackLayout  Orientation="Horizontal">
-                                <CheckBox IsChecked="False" Color="{StaticResource Primary}" />
-                                <Label Text="Nhớ đăng nhập" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                            <!-- Re-Password -->
+                            <Frame BackgroundColor="Transparent" BorderColor="DarkGray" Margin="0,15,0,0" Padding="0" HorizontalOptions="FillAndExpand" CornerRadius="30">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame BackgroundColor="Transparent" HeightRequest="40" WidthRequest="40" CornerRadius="30" Padding="0" Margin="5">
+                                        <Image Aspect="AspectFill" Margin="0"
+                                               />
+                                    </Frame>
 
-                                <Label Text="Quên mật khẩu" TextColor="{StaticResource Primary}" FontAttributes="Bold" HorizontalOptions="EndAndExpand" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                                    <local:CustomEntry Placeholder="Nhập lại mật khẩu" IsPassword="True" TextColor="{StaticResource Foreground}" FontAttributes="None" HorizontalOptions="FillAndExpand" Margin="0,0,20,0"
+                                                       x:Name="password_reentry" />
+                                </StackLayout>
+                            </Frame>
 
+                            <StackLayout Orientation="Horizontal" Margin="0, 12, 0, 0">
 
-                            </StackLayout>-->
+                                <Button x:Name="close_btn" Text="Huỷ" 
+                                    BackgroundColor="{StaticResource Secondary}" 
+                                       HorizontalOptions="FillAndExpand"
+                                    TextColor="White"
+                                    FontSize="Medium"
+                                    FontAttributes="Bold"
+                                    CornerRadius="30" 
+                                    Margin="0, 12, 0, 0"
+                                    Clicked="Close_Clicked" />
 
-                            <Button x:Name="login_btn" Text="ĐĂNG NHẬP" 
+                                <Button x:Name="register_btn" Text="Đăng ký" 
                                     BackgroundColor="{StaticResource Primary}" 
+                                    FontSize="Medium"
+                                    HorizontalOptions="FillAndExpand"
+                                    FontAttributes="Bold"
                                     TextColor="White"
                                     CornerRadius="30" 
                                     Margin="0, 12, 0, 0"
-                                    Clicked="Login_Clicked" />
+                                    Clicked="Register_Clicked" />
+
+                            </StackLayout>
                             
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand"
-                                         Margin="0, 12, 0, 0">
-                                <Label Text="Không kết nối?" TextColor="DarkGray" FontSize="Small"
-                                        VerticalOptions="Center" />
-                                <Button Text="Đăng ký" TextColor="{StaticResource Primary}" 
-                                        Clicked="Register_Clicked"
-                                        Style="{StaticResource TransparentButton}"
-                                        VerticalOptions="Center"
-                                        FontAttributes="Bold" 
-                                        FontSize="Small"/>
-                            </StackLayout>
-
-                            <StackLayout Margin="0,25,0,0" Padding="0">
-                                <Grid>
-                                    <BoxView BackgroundColor="DarkGray" HeightRequest="1" WidthRequest="150"  HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
-                                        <Label Text="OR" TextColor="DarkGray" FontSize="Small" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                                    </Frame>
-                                </Grid>
-                            </StackLayout>
-
-                            <StackLayout Margin="0,25" Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                                <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
-                                    <Image Source="https://www.pngitem.com/pimgs/m/44-440455_transparent-background-fb-logo-hd-png-download.png" Aspect="AspectFill" Margin="0"/>
-                                </Frame>
-                                <Frame BackgroundColor="White" HeightRequest="45" WidthRequest="45" CornerRadius="45" HasShadow="False" BorderColor="DarkGray" Margin="0" HorizontalOptions="Center" Padding="0">
-                                    <Image Source="https://blog.hubspot.com/hubfs/image8-2.jpg" Aspect="AspectFill" Margin="0"/>
-                                </Frame>
-                            </StackLayout>
-
                         </StackLayout>
 
 

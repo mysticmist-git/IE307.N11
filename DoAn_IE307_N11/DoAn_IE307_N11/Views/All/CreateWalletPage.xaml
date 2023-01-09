@@ -7,114 +7,115 @@
              NavigationPage.HasNavigationBar="False">
     <ContentPage.Content>
         <Grid>
-
-            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+            <ScrollView>
+                <Grid>
+                    <ContentView ControlTemplate="{StaticResource LoadingScreen}"
                          IsVisible="{Binding IsBusy}" />
 
-            <StackLayout Margin="32, 0" IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}">
-                <!-- Upper part -->
-                <StackLayout>
-                    <Label Text="Đầu tiên, hãy tạo ví" HorizontalOptions="Center"
+                    <StackLayout Margin="32, 0" IsVisible="{Binding IsBusy, Converter={xct:InvertedBoolConverter}}">
+                        <!-- Upper part -->
+                        <StackLayout>
+                            <Label Text="Đầu tiên, hãy tạo ví" HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    FontAttributes="Bold" FontSize="24"
                    TextColor="{StaticResource Foreground}"
                    Margin="0, 64, 0, 0" />
-                    <Label Text="Money Book giúp bạn ghi chép chi tiêu từ nhiều Ví khác nhau" 
+                            <Label Text="Money Book giúp bạn ghi chép chi tiêu từ nhiều Ví khác nhau" 
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    FontSize="16"
                    TextColor="{StaticResource LightForeground}"
                    Margin="0, 8, 0, 0" />
-                    <Image Source="{Binding WalletIconUrl}" WidthRequest="64"
+                            <Image Source="{Binding WalletIconUrl}" WidthRequest="64"
                    Margin="0, 24, 0, 0" />
-                    <Button Text="Đổi hình đại diện" Style="{StaticResource TransparentButton}"
+                            <Button Text="Đổi hình đại diện" Style="{StaticResource TransparentButton}"
                         Clicked="ChooseIcon_Clicked"
                     TextColor="{StaticResource Primary}"/>
-                </StackLayout>
+                        </StackLayout>
 
-                <!-- Info part -->
-                <StackLayout VerticalOptions="FillAndExpand">
-                    <!-- Name -->
-                    <StackLayout x:Name="NameArea">
-                        <Label Text="Tên ví" 
+                        <!-- Info part -->
+                        <StackLayout VerticalOptions="FillAndExpand">
+                            <!-- Name -->
+                            <StackLayout x:Name="NameArea">
+                                <Label Text="Tên ví" 
                            FontSize="16"
                            TextColor="{StaticResource LightForeground}"
                            Margin="0, 8, 0, 0" />
-                        <!--<Label Text="Tên ví" 
+                                <!--<Label Text="Tên ví" 
                            FontAttributes="Bold"
                            FontSize="20"
                            TextColor="{StaticResource Foreground}"
                            Margin="0, 8, 0, 0" />-->
-                        <custom:CustomEntry Placeholder="Tên ví" 
+                                <custom:CustomEntry Placeholder="Tên ví" 
                                             Text="{Binding WalletName}"
                            FontAttributes="Bold"
                            FontSize="20"
                            TextColor="{StaticResource Foreground}"
                            Margin="0, 8, 0, 0" />
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                                <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
                              Opacity="0.4"
                              Margin="0, 8, 0, 0" />
-                    </StackLayout>
+                            </StackLayout>
 
-                    <!-- Đơn vị tiền tệ -->
-                    <StackLayout Margin="0, 24, 0, 0" x:Name="CurrencyArea">
+                            <!-- Đơn vị tiền tệ -->
+                            <StackLayout Margin="0, 24, 0, 0" x:Name="CurrencyArea">
 
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
                                 Tapped="CurrencyAreaTapped" />
-                        </StackLayout.GestureRecognizers>
+                                </StackLayout.GestureRecognizers>
 
-                        <Label Text="Đơn vị tiền tệ" 
+                                <Label Text="Đơn vị tiền tệ" 
                            FontSize="16"
                            TextColor="{StaticResource LightForeground}"
                            Margin="0, 8, 0, 0" />
-                        <FlexLayout Direction="Row" 
+                                <FlexLayout Direction="Row" 
                                 VerticalOptions="Start"
                                 JustifyContent="SpaceBetween"
                                 AlignContent="Start"
                                 Margin="0, 8, 0, 0"
                                 >
-                            <Label Text="{Binding Currency.Name}" 
+                                    <Label Text="{Binding Currency.Name}" 
                                VerticalOptions="Center"
                                VerticalTextAlignment="Center"
                                FontAttributes="Bold"
                                FontSize="20"
                                TextColor="{StaticResource Foreground}"
                             />
-                            <Button Text="Sửa" Style="{StaticResource TransparentButton}"
+                                    <Button Text="Sửa" Style="{StaticResource TransparentButton}"
                                 VerticalOptions="Center"
                                 TextColor="{StaticResource Primary}" />
-                        </FlexLayout>
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                                </FlexLayout>
+                                <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
                              Opacity="0.4"
                              Margin="0, 8, 0, 0" />
-                    </StackLayout>
+                            </StackLayout>
 
 
-                    <!-- Số dư -->
-                    <StackLayout x:Name="BalanceArea">
+                            <!-- Số dư -->
+                            <StackLayout x:Name="BalanceArea">
 
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer
                                 Tapped="BalanceAreaTapped" />
-                        </StackLayout.GestureRecognizers>
+                                </StackLayout.GestureRecognizers>
 
-                        <Label Text="Số dư" 
+                                <Label Text="Số dư" 
                            FontSize="16"
                            TextColor="{StaticResource LightForeground}"
                            Margin="0, 8, 0, 0" />
-                        <Label Text="{Binding DisplayWalletBalance}" 
+                                <Label Text="{Binding DisplayWalletBalance}" 
                            FontAttributes="Bold"
                            FontSize="20"
                            TextColor="{Binding IsZeroBalance, Converter={valueConverters:IsZeroBalanceConverter}}"
                            Margin="0, 8, 0, 0" />
-                        <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                                <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
                              Opacity="0.4"
                              Margin="0, 8, 0, 0" />
-                    </StackLayout>
+                            </StackLayout>
 
-                    <!-- Tạo ví button -->
-                    <Button Text="TẠO VÍ"
+                            <!-- Tạo ví button -->
+                            <Button Text="TẠO VÍ"
                             x:Name="CreateWallet_Btn"
                         TextColor="{StaticResource Primary}"
                         Background="{StaticResource LightGreen}"
@@ -125,9 +126,11 @@
                         Clicked="CreateWallet_Clicked"
                         />
 
-                </StackLayout>
+                        </StackLayout>
 
-            </StackLayout>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
         </Grid>
         
     </ContentPage.Content>

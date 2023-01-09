@@ -11,6 +11,7 @@
             <!--#region COLOR -->
 
             <Color x:Key="Primary">#2DB84C</Color>
+            <Color x:Key="Secondary">#FE6601</Color>
             <Color x:Key="Background">#fff</Color>
             <Color x:Key="GrayBackground">#f5f5f5</Color>
             <Color x:Key="LightForeground">#ababab</Color>

@@ -1,5 +1,6 @@
 ﻿using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Utils;
+using DoAn_IE307_N11.ViewModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,20 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.Services
 {
+    public enum ApiCallResult
+    {
+        NullData,
+        Success,
+        Fail,
+        UnknownError,
+        None,
+    }
+
     public class ApiService
     {
         #region GET
@@ -103,6 +114,88 @@ namespace DoAn_IE307_N11.Services
             }
         }
 
+        /// <summary>
+        /// Check if a username is already existed
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>True: username existed</returns>
+        public async Task<bool> CheckUsernameExisted(string username)
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getAccountString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"GetAccountByUsername?username={username}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var accounts = await httpClient.GetStringAsync(getAccountString);
+                    var convertedAccount = JsonConvert.DeserializeObject<Account>(accounts);
+
+                    return convertedAccount != null;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
+        #endregion
+
+        #region POST
+
+        #region Account Related
+
+        /// <summary>
+        /// Register a new account
+        /// </summary>
+        /// <param name="newAccount"></param>
+        /// <returns>Indicates if the registeration is successful or not</returns>
+        public async Task<ApiCallResult> RegisterAccount(Account newAccount)
+        {
+            if (newAccount == null)
+                return ApiCallResult.NullData;
+
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var postString = $"http://{ip}/moneybook/api/ServiceController/" +
+                $"CreateAccount";
+
+            var myContent = JsonConvert.SerializeObject(newAccount);
+
+            // construct a content object to send this data
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            // Next, you want to set the content type to let the API know this is JSON.
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Then you can send your request very similar to your previous example with the form content:
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PostAsync(postString, byteContent);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return ApiCallResult.Fail;
+                    }
+
+                    return ApiCallResult.Success;
+                }
+            }
+            catch
+            {
+                return ApiCallResult.UnknownError;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region PUT
@@ -150,6 +243,11 @@ namespace DoAn_IE307_N11.Services
 
         #region DELETE
 
+        /// <summary>
+        /// DELETE All Acquaintance_Transaction by Transaction Id
+        /// </summary>
+        /// <param name="transactionId"></param>
+        /// <returns></returns>
         async public Task<bool> DeleteAllAcquaintance_TransactionByTransaction(int transactionId)
         {
             // Ip info
@@ -176,6 +274,11 @@ namespace DoAn_IE307_N11.Services
             }
         }
 
+        /// <summary>
+        /// DELETE all transaction by wallet id
+        /// </summary>
+        /// <param name="walletId"></param>
+        /// <returns></returns>
         async public Task<bool> DeleteAllTransactionByWallet(int walletId)
         {
             // Ip info
@@ -202,6 +305,11 @@ namespace DoAn_IE307_N11.Services
             }
         }
 
+        /// <summary>
+        /// DELETE wallet
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         async public Task<bool> DeleteWallet(int id)
         {
             // Ip info

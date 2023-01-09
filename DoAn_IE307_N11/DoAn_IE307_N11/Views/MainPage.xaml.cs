@@ -53,6 +53,7 @@ namespace DoAn_IE307_N11.Views
         #endregion
 
         #region Account
+
         async private void SignOut_Clicked(object sender, EventArgs e)
         {
             var viewModel = this.BindingContext as AppViewModel;
@@ -66,7 +67,7 @@ namespace DoAn_IE307_N11.Views
             localData.WalletId = 0;
             await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
 
-            Application.Current.MainPage = new LoginPage();
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
 
             viewModel.AccountViewModel.IsBusy = false;
         }
