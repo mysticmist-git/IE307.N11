@@ -67,20 +67,20 @@ namespace DoAn_IE307_N11.ViewModels
         /// <summary>
         /// A list contains all transaction in a container such as: day, week, month
         /// </summary>
-        public ObservableCollection<TransactionPod> TransactionPods
-        {
-            get
-            {
-                if (_transactionPods is null)
-                    LoadTransactions();
+        public ObservableCollection<TransactionPod> TransactionPods { get; set; }
+        //{
+        //    get
+        //    {
+        //        if (_transactionPods is null)
+        //            LoadTransactions();
 
-                return _transactionPods;
-            }
+        //        return _transactionPods;
+        //    }
 
-            set => _transactionPods = value;
-        }
+        //    set => _transactionPods = value;
+        //}
 
-        public bool HaveTransaction => TransactionPods != null && TransactionPods.Count() > 0;
+        public bool HaveTransaction => TransactionPods != null && TransactionPods.Count > 0;
 
         #region Private Functions
 
@@ -144,6 +144,10 @@ namespace DoAn_IE307_N11.ViewModels
             }
 
             OnPropertyChanged(nameof(TransactionPods));
+            OnPropertyChanged(nameof(HaveTransaction));
+            OnPropertyChanged(nameof(Income));
+            OnPropertyChanged(nameof(Outcome));
+            OnPropertyChanged(nameof(Balance));
         }
 
         #endregion

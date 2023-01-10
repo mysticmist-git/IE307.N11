@@ -6,6 +6,6 @@ namespace DoAn_IE307_N11.Services
 {
     public class ConstantService
     {
-        public string MY_IP = "192.168.1.7";
+        public string MY_IP = "192.168.1.4";
     }
 }

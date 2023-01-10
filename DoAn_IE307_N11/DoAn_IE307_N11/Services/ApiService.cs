@@ -239,6 +239,45 @@ namespace DoAn_IE307_N11.Services
             }
         }
 
+        async public Task<bool> UpdateTransaction(Models.Transaction transaction)
+        {
+            if (transaction is null)
+                return false;
+
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var putString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"UpdateTransaction";
+
+            var myContent = JsonConvert.SerializeObject(transaction);
+
+            // construct a content object to send this data
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            // Next, you want to set the content type to let the API know this is JSON.
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Then you can send your request very similar to your previous example with the form content:
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PutAsync(putString, byteContent);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         #endregion
 
         #region DELETE
@@ -322,6 +361,32 @@ namespace DoAn_IE307_N11.Services
                 using (var httpClient = new HttpClient())
                 {
                     // Delete wallet
+                    var response = await httpClient.DeleteAsync(deleteString);
+
+                    if (response.IsSuccessStatusCode)
+                        return true;
+
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        async public Task<bool> DeleteTransaction(int transactionId)
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var deleteString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"DeleteTransaction?id={transactionId}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Delete transaction
                     var response = await httpClient.DeleteAsync(deleteString);
 
                     if (response.IsSuccessStatusCode)

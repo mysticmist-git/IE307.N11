@@ -19,7 +19,7 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
 
-            this.BindingContext = new AppViewModel();
+            this.BindingContext = DependencyService.Get<AppViewModel>();
         }
 
         #region Home Page
@@ -38,16 +38,17 @@ namespace DoAn_IE307_N11.Views
 
         #region Transaction Page
 
-        private void CarouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
-        {
-            this.CustomTabsView.ScrollTo(e.CurrentItem, null, ScrollToPosition.Center, true);
-        }
+        //private void CarouselView_CurrentItemChanged(object sender, CurrentItemChangedEventArgs e)
+        //{
+        //    this.CustomTabsView.ScrollTo(e.CurrentItem, null, ScrollToPosition.Center, true);
+        //}
 
         private async void OpenTransactionDetail(object sender, EventArgs e)
         {
             var transaction = (sender as StackLayout).BindingContext as TransactionViewModel;
+            transaction.Wallet = DependencyService.Get<AppViewModel>().HomeViewModel.CurrentWallet;
 
-            await Shell.Current.GoToAsync($"{nameof(TransactionDetailPage)}?transactionId={transaction.Transaction.Id}");
+            await Navigation.PushAsync(new TransactionDetailPage(transaction));
         }
 
         #endregion
@@ -93,7 +94,7 @@ namespace DoAn_IE307_N11.Views
             //viewModel.CanLoadMore = false;
 
             await HandleGETResult(result);
-
+            
             // Scroll to end of transaction tab
             //var tabCount = (this.BindingContext as AppViewModel).TransactionPageViewModel.TabVms.Count;
             //this.CustomTabsView.ScrollTo(tabCount - 1, null, ScrollToPosition.MakeVisible, true);
@@ -124,6 +125,28 @@ namespace DoAn_IE307_N11.Views
         }
 
         async private void ViewAllWallet_Clicked(object sender, EventArgs e)
+        {
+            var parent = (this.BindingContext as AppViewModel).TransactionPageViewModel;
+
+            await Navigation.PushAsync(new ChooseWalletPage(parent, Enums.ForType.ForTransactionTab));
+        }
+
+        async private void RecentTransactionSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            // Unselect it because i don't want to =((
+            (sender as ListView).SelectedItem = null;
+
+            // Open transaction detail
+            if (e.SelectedItem is null) // Null check
+                return;
+
+            var transaction = e.SelectedItem as TransactionViewModel;
+            transaction.Wallet = DependencyService.Get<AppViewModel>().HomeViewModel.CurrentWallet;
+
+            await Navigation.PushAsync(new TransactionDetailPage(transaction));
+        }
+
+        private void MyWalletTapped(object sender, EventArgs e)
         {
             
         }

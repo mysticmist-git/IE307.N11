@@ -94,7 +94,7 @@ namespace DoAn_IE307_N11.ViewModels
                 });
             }
 
-            this.CurrentTabVm = this.TabVms.FirstOrDefault();
+            //this.CurrentTabVm = this.TabVms.FirstOrDefault();
         }
 
         #endregion
@@ -176,6 +176,10 @@ namespace DoAn_IE307_N11.ViewModels
 
                     Transactions = new ObservableCollection<TransactionViewModel>(wrappedDatas);
                     UpdateTabItem();
+                    OnPropertyChanged(nameof(Transactions));
+                    OnPropertyChanged(nameof(TabVms));
+
+                    IsBusy = false;
                 }
             }
             catch

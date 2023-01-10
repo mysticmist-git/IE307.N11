@@ -13,14 +13,25 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using DoAn_IE307_N11.ViewModels.All;
+using System.Collections.ObjectModel;
 
 namespace DoAn_IE307_N11.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
+        #region Constants
+
+        public double RECENT_TRANSACTION_ROW_HEIGHT = 52;
+
+        #endregion
+
+        public AppViewModel ParentViewModel { get; set; }
         public string WalletIconUrl { get; set; }
         public Wallet CurrentWallet { get; set; }
-        public AppViewModel ParentViewModel { get; set; }
+
+        public ObservableCollection<TransactionViewModel> RecentTransactions { get; set; }
+
+        public double RecentTransactionsHeight { get; set; }
 
         public HomeViewModel(AppViewModel appViewModel)
         {
@@ -86,6 +97,7 @@ namespace DoAn_IE307_N11.ViewModels
                     }
 
                     WalletIconUrl = convertedIcon.ImageUrl;
+                    IsBusy = false;
                 }
             }
             catch
@@ -93,7 +105,46 @@ namespace DoAn_IE307_N11.ViewModels
                 IsBusy = false;
                 return CommonResult.NoInternet;
             }
+
+            // Update recent transactions
+            UpdateRecentTransactions();
+
+            IsBusy = false;
             return CommonResult.Ok;
         }
+
+        #region Methods
+
+        public void UpdateRecentTransactions()
+        {
+            // Get AppViewModel
+            var appViewModel = DependencyService.Get<AppViewModel>();
+
+            // Null check
+            if (appViewModel.TransactionPageViewModel.Transactions is null)
+                return;
+
+            // Order the list (sort)
+            var orderedTransactions = appViewModel.TransactionPageViewModel.Transactions
+                .OrderByDescending(tran => tran.Transaction.Date)
+                .ToList();
+
+            // Get top 3
+            var topThreeTransactions = new List<TransactionViewModel>();
+
+            var count = Math.Min(3, orderedTransactions.Count);
+
+            for (int i = 0; i < count; i++)
+                topThreeTransactions.Add(orderedTransactions.ElementAt(i));
+
+            // Assign it
+            RecentTransactions = new ObservableCollection<TransactionViewModel>(topThreeTransactions);
+
+            // TODO: This is really bad.
+            // We are trying to calculate the height of the list view because it's not gonna auto fit
+            RecentTransactionsHeight = RecentTransactions.Count * RECENT_TRANSACTION_ROW_HEIGHT;
+        }
+
+        #endregion
     }
 }

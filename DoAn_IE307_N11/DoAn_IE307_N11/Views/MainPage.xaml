@@ -24,14 +24,17 @@
     <ContentPage.Content>
 
         <Grid>
+            <ContentView ControlTemplate="{StaticResource LoadingScreen}"
+                         IsVisible="{Binding IsAppBusy}"/>
 
-            <xct:TabView 
+            <xct:TabView IsVisible="{Binding IsAppBusy, Converter={xct:InvertedBoolConverter}}"
                          TabStripPlacement="Bottom"
                          TabStripBackgroundColor="White"
                          TabStripHeight="60"
                          TabIndicatorColor="{StaticResource Primary}"
                          TabContentBackgroundColor="White"
-                         IsSwipeEnabled="False">
+                         IsSwipeEnabled="False"
+                         x:Name="tabsTabView">
 
                 <!-- Tổng quan -->
                 <xct:TabViewItem
@@ -60,11 +63,11 @@
                            FontSize="30" TextColor="Black"/>
                                     <!--Button +-->
                                     <!--<Button x:Name="BtnAdd" Text="+" FontSize="Large" Clicked="BtnAdd_Clicked"/>-->
-                                    <Image Source="bell.png" HorizontalOptions="End" WidthRequest="25">
+                                    <!--<Image Source="bell.png" HorizontalOptions="End" WidthRequest="25">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer x:Name="ImgNotification" Tapped="ImgNotification_Tapped"/>
                                         </Image.GestureRecognizers>
-                                    </Image>
+                                    </Image>-->
                                 </StackLayout>
                                 <Label Text="Tổng số dư"
                            FontSize="13"/>
@@ -89,6 +92,11 @@
                                     <BoxView HeightRequest="1"
                                  Color="#eee"/>
                                     <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="MyWalletTapped" />
+                                        </StackLayout.GestureRecognizers>
+                                        
                                         <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
                                             <Image Source="{Binding HomeViewModel.WalletIconUrl}" WidthRequest="40"/>
                                             <!--<Label Text="Tiền mặt"-->
@@ -142,32 +150,62 @@
                             </Frame>
 
                             <!--recent transaction-->
-                            <StackLayout Orientation="Horizontal">
+                            <!--<StackLayout Orientation="Horizontal">
                                 <Label Text="Giao dịch gần đây"
-                           HorizontalOptions="StartAndExpand"
-                           FontSize="15"/>
+                                       HorizontalOptions="StartAndExpand"
+                                       FontSize="15"/>
                                 <Label Text="Xem tất cả"
-                           FontSize="15"
-                           TextColor="{StaticResource Primary}"/>
-                            </StackLayout>
+                                       FontSize="15"
+                                       TextColor="{StaticResource Primary}"/>
+                            </StackLayout>-->
+                            <Label Text="Giao dịch gần đây"
+                                       HorizontalOptions="StartAndExpand"
+                                       FontSize="15"/>
 
-                            <Frame CornerRadius="10" Margin="0,0,0,20">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="70"/>
-                                    </Grid.ColumnDefinitions>
-
-                                    <Image Source="AnUong.png" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" WidthRequest="40"/>
-                                    <Label Text="Ăn uống" Grid.Column="1" Grid.Row="0" TextColor="Black" FontSize="15" Margin="10,0,0,0"/>
-                                    <Label Text="7 tháng 10 2022" Grid.Column="1" Grid.Row="1" FontSize="12" Margin="10,0,0,0"/>
-                                    <Label Text="45,000" Grid.Column="2" Grid.Row="0" TextColor="Red" FontSize="16" HorizontalTextAlignment="End"/>
-                                </Grid>
+                            <Frame CornerRadius="10">
+                                <ListView ItemsSource="{Binding HomeViewModel.RecentTransactions}"
+                                          HeightRequest="{Binding HomeViewModel.RecentTransactionsHeight}"
+                                          VerticalOptions="Center"
+                                          HasUnevenRows="True"
+                                          ItemSelected="RecentTransactionSelected">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:TransactionViewModel">
+                                            <ViewCell>
+                                                <Grid Padding="12, 4">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    
+                                                    <Image Source="{Binding TypeImage}" 
+                                                           Grid.Column="0" 
+                                                           WidthRequest="40"
+                                                           VerticalOptions="Center" />
+                                                    <StackLayout Grid.Column="1"
+                                                                 VerticalOptions="Center">
+                                                        <Label Text="{Binding Type.Name}" 
+                                                               TextColor="Black" 
+                                                               FontSize="15" 
+                                                               Margin="10,0,0,0"
+                                                               VerticalOptions="Center" />
+                                                        <Label Text="{Binding DateDisplayer}"
+                                                               FontSize="12"
+                                                               Margin="10,0,0,0"
+                                                               VerticalOptions="Center" />
+                                                    </StackLayout>
+                                                    <Label Text="{Binding Transaction.Amount}" 
+                                                           Grid.Column="2"
+                                                           TextColor="Red" 
+                                                           FontSize="16"
+                                                           VerticalOptions="Center" 
+                                                           HorizontalTextAlignment="End"/>
+                                                    
+                                                </Grid>
+                                            </ViewCell>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
                             </Frame>
 
                             <!--personal plan-->
@@ -266,237 +304,175 @@
                         </Grid>
 
                         <!-- Tabs -->
-                        <Grid x:DataType="{x:Null}" RowSpacing="0" Grid.Row="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="45" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                        <xct:TabView Grid.Row="1"
+                                     TabIndicatorColor="{StaticResource Primary}"
+                                     TabIndicatorHeight="3"
+                                     TabStripPlacement="Top"
+                                     TabItemsSource="{Binding TransactionPageViewModel.TabVms}">
 
-                            <CollectionView x:Name="CustomTabsView"
-                                Grid.Row="0"
-                                ItemSizingStrategy="MeasureAllItems"
-                                ItemsSource="{Binding TransactionPageViewModel.TabVms}"
-                                ItemsUpdatingScrollMode="KeepItemsInView"
-                                SelectedItem="{Binding TransactionPageViewModel.CurrentTabVm, Mode=TwoWay}"
-                                SelectionMode="Single"
-                                HorizontalScrollBarVisibility="Never"
-                                VerticalScrollBarVisibility="Never">
+                            <!-- Tab View Item Data Template -->
+                            <xct:TabView.TabViewItemDataTemplate>
+                                <DataTemplate x:DataType="vm:TabViewModel">
+                                    <Grid>
+                                        <Label Text="{Binding Title}"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Foreground}"
+                                               FontSize="16"
+                                               Padding="4, 0"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center" />
+                                    </Grid>
+                                </DataTemplate>
+                            </xct:TabView.TabViewItemDataTemplate>
+                                
+                            <!-- Tab Content Data Template-->
+                            <xct:TabView.TabContentDataTemplate>
+                                <DataTemplate x:DataType="vm:TabViewModel">
 
-                                <CollectionView.ItemsLayout>
-                                    <LinearItemsLayout Orientation="Horizontal" />
-                                </CollectionView.ItemsLayout>
+                                    <ScrollView Grid.Row="1" Background="{StaticResource GrayBackground}">
+                                        <StackLayout>
 
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:TabViewModel">
-                                        <Grid RowSpacing="0">
-
-                                            <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup x:Name="CommonStates">
-                                                    <VisualState x:Name="Normal">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="Transparent" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                    <VisualState x:Name="Selected">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="Transparent" />
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateManager.VisualStateGroups>
-
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="3" />
-                                            </Grid.RowDefinitions>
-                                            <Label x:Name="TitleLabel"
-                                       Grid.Row="0"
-                                       Padding="15,0"
-                                       FontAttributes="Bold"
-                                       FontSize="Small"
-                                       HeightRequest="50"
-                                       HorizontalTextAlignment="Center"
-                                       Text="{Binding Title}"
-                                       TextColor="{StaticResource Foreground}"
-                                       VerticalTextAlignment="Center" />
-                                            <BoxView Grid.Row="1"
-                                         BackgroundColor="{StaticResource LightForeground}"/>
-                                            <BoxView x:Name="ActiveIndicator"
-                                         Grid.Row="1"
-                                         BackgroundColor="{StaticResource Foreground}"
-                                         IsVisible="{Binding IsSelected, Mode=TwoWay}" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-
-                            </CollectionView>
-
-                            <CarouselView Grid.Row="1"
-                              x:Name="carouselView"
-                              CurrentItem="{Binding TransactionPageViewModel.CurrentTabVm, Mode=TwoWay}"
-                              CurrentItemChanged="CarouselView_CurrentItemChanged"
-                              HorizontalScrollBarVisibility="Never"
-                              IsScrollAnimated="True"
-                              IsSwipeEnabled="True"
-                              ItemsSource="{Binding TransactionPageViewModel.TabVms}"
-                              VerticalScrollBarVisibility="Never">
-                                <CarouselView.ItemTemplate>
-                                    <DataTemplate x:DataType="vm:TabViewModel">
-                                        <!--<Grid Margin="10">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <Label Grid.Row="0"
-                                       Margin="10"
-                                       LineBreakMode="WordWrap"
-                                       Text="{Binding Content}"
-                                       VerticalTextAlignment="Center" />
-                            </Grid>-->
-
-                                        <ScrollView Grid.Row="1" Background="{StaticResource GrayBackground}">
-
-                                            <StackLayout>
-
-                                                <!-- Total transaction overview -->
-                                                <StackLayout Background="{StaticResource Background}" Padding="20, 8" Margin="0, 0, 0, 36">
-                                                    <!-- Tiền vào -->
-                                                    <Grid ColumnDefinitions="*, *">
-                                                        <Label Text="Tiền vào"
-                                                   Grid.Column="0"
-                                                   HorizontalOptions="Start"
-                                                   FontSize="Medium" />
-                                                        <Label Text="{Binding Income, StringFormat='{0:0,0}'}"
-                                                   Grid.Column="1" 
-                                                   HorizontalOptions="End"
-                                                   FontSize="Medium"
-                                                   TextColor="{StaticResource Blue}"/>
-                                                    </Grid>
-
-                                                    <!-- Tiền ra -->
-                                                    <Grid ColumnDefinitions="*, *">
-                                                        <Label Text="Tiền ra"
-                                                   Grid.Column="0"
-                                                   HorizontalOptions="Start"
-                                                   FontSize="Medium" />
-                                                        <Label Text="{Binding Outcome, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
-                                                               Grid.Column="1" 
-                                                               HorizontalOptions="End"
-                                                               FontSize="Medium"
-                                                               TextColor="{StaticResource Red}"/>
-                                                    </Grid>
-
-                                                    <!-- Divider line -->
-                                                    <Grid ColumnDefinitions="*, *">
-                                                        <BoxView Grid.Column="1" HeightRequest="1" Color="{StaticResource LightForeground}" />
-                                                    </Grid>
-
-                                                    <!-- Tiền còn -->
-                                                    <Grid ColumnDefinitions="*, *">
-                                                        <Label Text="{Binding Balance, StringFormat='{0:0,0}'}"
-                                                   Grid.Column="1" 
-                                                   HorizontalOptions="End"
-                                                   FontSize="Medium"
-                                                   TextColor="{StaticResource Foreground}"/>
-                                                    </Grid>
-
-                                                    <!-- Xem báo cáo -->
-                                                    <Button Text="Xem báo cáo cho giai đoạn này"
-                                                TextColor="{StaticResource Primary}"
-                                                Background="{StaticResource LightGreen}"
-                                                CornerRadius="24"
-                                                Margin="32, 0" />
-
-                                                </StackLayout>
-
-                                                <!-- Transaction pods -->
-                                                <StackLayout BindableLayout.ItemsSource="{Binding TransactionPods}"
-                                                 IsVisible="{Binding HaveTransaction}" Margin="0, 0, 0, 40">
-
-                                                    <BindableLayout.ItemTemplate>
-                                                        <DataTemplate x:DataType="vm:TransactionPod">
-
-                                                            <!-- Pod overview-->
-                                                            <StackLayout Background="{StaticResource Background}">
-
-                                                                <!-- Date and balance -->
-                                                                <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
-                                                                    <Label Text="{Binding DateTime, StringFormat='{0:dd}'}"
-                                                               Grid.Column="0"
-                                                               FontSize="30"
-                                                               TextColor="{StaticResource Foreground}"
-                                                               VerticalOptions="Center" />
-                                                                    <StackLayout Margin="16, 0"
-                                                                     VerticalOptions="Center" 
-                                                                     Grid.Column="1">
-                                                                        <Label Text="{Binding DateTime, StringFormat='{0:dddd}'}"
-                                                                   TextColor="{StaticResource Foreground}" />
-                                                                        <Label Text="{Binding DateTime, StringFormat='tháng {0:MM yyyy}'}" />
-                                                                    </StackLayout>
-                                                                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}"
-                                                               TextColor="{StaticResource Foreground}"
-                                                               Grid.Column="2"
-                                                               FontSize="Medium"
-                                                               VerticalOptions="Center"
-                                                               HorizontalOptions="End" />
-                                                                </Grid>
-
-                                                                <!-- Seperator line -->
-                                                                <BoxView HeightRequest="1" Color="{StaticResource LightForeground}" />
-
-                                                                <!-- Transactions-->
-                                                                <StackLayout BindableLayout.ItemsSource="{Binding Transactions}">
-
-                                                                    <BindableLayout.ItemTemplate>
-                                                                        <DataTemplate x:DataType="vm:TransactionViewModel">
-
-                                                                            <StackLayout>
-
-                                                                                <StackLayout.GestureRecognizers>
-                                                                                    <TapGestureRecognizer Tapped="OpenTransactionDetail" />
-                                                                                </StackLayout.GestureRecognizers>
-
-                                                                                <!-- Transactions -->
-                                                                                <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
-                                                                                    <Image Source="{Binding TypeImage}" WidthRequest="48" Grid.Column="0" />
-                                                                                    <StackLayout Margin="16, 0"
-                                                                                     VerticalOptions="Center" 
-                                                                                     Grid.Column="1">
-                                                                                        <Label Text="{Binding Type.Name}" TextColor="{StaticResource Foreground}" />
-                                                                                        <Label Text="{Binding Transaction.Note}" />
-                                                                                    </StackLayout>
-                                                                                    <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
-                                                                               TextColor="{Binding Type.IsExpense, Converter={valueConverters:MoneyColorConverter}}"
-                                                                               Grid.Column="2"
-                                                                               FontSize="Medium"
-                                                                               VerticalOptions="Center"
-                                                                               HorizontalOptions="End" />
-                                                                                </Grid>
-
-                                                                            </StackLayout>
-
-                                                                        </DataTemplate>
-                                                                    </BindableLayout.ItemTemplate>
-                                                                </StackLayout>
-
-                                                            </StackLayout>
-                                                        </DataTemplate>
-                                                    </BindableLayout.ItemTemplate>
-
-                                                </StackLayout>
-
-                                                <Grid IsVisible="{Binding HaveTransaction, Converter={xct:InvertedBoolConverter}}">
-                                                    <Label Text="Không có giao dịch nào" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Large" />
+                                            <!-- Total transaction overview -->
+                                            <StackLayout Background="{StaticResource Background}" Padding="20, 8" Margin="0, 0, 0, 36">
+                                                <!-- Tiền vào -->
+                                                <Grid ColumnDefinitions="*, *">
+                                                    <Label Text="Tiền vào"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Start"
+                                                FontSize="Medium" />
+                                                    <Label Text="{Binding Income, StringFormat='{0:0,0}'}"
+                                                Grid.Column="1" 
+                                                HorizontalOptions="End"
+                                                FontSize="Medium"
+                                                TextColor="{StaticResource Blue}"/>
                                                 </Grid>
+
+                                                <!-- Tiền ra -->
+                                                <Grid ColumnDefinitions="*, *">
+                                                    <Label Text="Tiền ra"
+                                                Grid.Column="0"
+                                                HorizontalOptions="Start"
+                                                FontSize="Medium" />
+                                                    <Label Text="{Binding Outcome, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
+                                                            Grid.Column="1" 
+                                                            HorizontalOptions="End"
+                                                            FontSize="Medium"
+                                                            TextColor="{StaticResource Red}"/>
+                                                </Grid>
+
+                                                <!-- Divider line -->
+                                                <Grid ColumnDefinitions="*, *">
+                                                    <BoxView Grid.Column="1" HeightRequest="1" Color="{StaticResource LightForeground}" />
+                                                </Grid>
+
+                                                <!-- Tiền còn -->
+                                                <Grid ColumnDefinitions="*, *">
+                                                    <Label Text="{Binding Balance, StringFormat='{0:0,0}'}"
+                                                Grid.Column="1" 
+                                                HorizontalOptions="End"
+                                                FontSize="Medium"
+                                                TextColor="{StaticResource Foreground}"/>
+                                                </Grid>
+
+                                                <!-- Xem báo cáo -->
+                                                <Button Text="Xem báo cáo cho giai đoạn này"
+                                            TextColor="{StaticResource Primary}"
+                                            Background="{StaticResource LightGreen}"
+                                            CornerRadius="24"
+                                            Margin="32, 0" />
 
                                             </StackLayout>
 
-                                        </ScrollView>
+                                            <!-- Transaction pods -->
+                                            <StackLayout BindableLayout.ItemsSource="{Binding TransactionPods}"
+                                                 Margin="0, 0, 0, 40">
 
-                                    </DataTemplate>
-                                </CarouselView.ItemTemplate>
-                            </CarouselView>
-                        </Grid>
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate x:DataType="vm:TransactionPod">
 
+                                                        <!-- Pod overview-->
+                                                        <StackLayout Background="{StaticResource Background}">
+
+                                                            <!-- Date and balance -->
+                                                            <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
+                                                                <Label Text="{Binding DateTime, StringFormat='{0:dd}'}"
+                                                            Grid.Column="0"
+                                                            FontSize="30"
+                                                            TextColor="{StaticResource Foreground}"
+                                                            VerticalOptions="Center" />
+                                                                <StackLayout Margin="16, 0"
+                                                                    VerticalOptions="Center" 
+                                                                    Grid.Column="1">
+                                                                    <Label Text="{Binding DateTime, StringFormat='{0:dddd}'}"
+                                                                TextColor="{StaticResource Foreground}" />
+                                                                    <Label Text="{Binding DateTime, StringFormat='tháng {0:MM yyyy}'}" />
+                                                                </StackLayout>
+                                                                <Label Text="{Binding Balance, StringFormat='{0:0,0}'}"
+                                                            TextColor="{StaticResource Foreground}"
+                                                            Grid.Column="2"
+                                                            FontSize="Medium"
+                                                            VerticalOptions="Center"
+                                                            HorizontalOptions="End" />
+                                                            </Grid>
+
+                                                            <!-- Seperator line -->
+                                                            <BoxView HeightRequest="1" Color="{StaticResource LightForeground}" />
+
+                                                            <!-- Transactions-->
+                                                            <StackLayout BindableLayout.ItemsSource="{Binding Transactions}"
+                                                                         >
+
+                                                                <BindableLayout.ItemTemplate>
+                                                                    <DataTemplate x:DataType="vm:TransactionViewModel">
+
+                                                                        <StackLayout>
+
+                                                                            <StackLayout.GestureRecognizers>
+                                                                                <TapGestureRecognizer Tapped="OpenTransactionDetail" />
+                                                                            </StackLayout.GestureRecognizers>
+
+                                                                            <!-- Transactions -->
+                                                                            <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
+                                                                                <Image Source="{Binding TypeImage}" WidthRequest="48" Grid.Column="0" />
+                                                                                <StackLayout Margin="16, 0"
+                                                                                    VerticalOptions="Center" 
+                                                                                    Grid.Column="1">
+                                                                                    <Label Text="{Binding Type.Name}" TextColor="{StaticResource Foreground}" />
+                                                                                    <Label Text="{Binding Transaction.Note}" />
+                                                                                </StackLayout>
+                                                                                <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0}', Converter={valueConverters:MoneyConverter}}"
+                                                                            TextColor="{Binding Type.IsExpense, Converter={valueConverters:MoneyColorConverter}}"
+                                                                            Grid.Column="2"
+                                                                            FontSize="Medium"
+                                                                            VerticalOptions="Center"
+                                                                            HorizontalOptions="End" />
+                                                                            </Grid>
+
+                                                                        </StackLayout>
+
+                                                                    </DataTemplate>
+                                                                </BindableLayout.ItemTemplate>
+                                                            </StackLayout>
+
+                                                        </StackLayout>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+
+                                            </StackLayout>
+
+                                            <Grid IsVisible="{Binding HaveTransaction, Converter={xct:InvertedBoolConverter}}">
+                                                <Label Text="Không có giao dịch nào" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Large" />
+                                            </Grid>
+
+                                        </StackLayout>
+
+                                    </ScrollView>
+
+                                </DataTemplate>
+                            </xct:TabView.TabContentDataTemplate>
+                        </xct:TabView>
                     </Grid>
 
                 </xct:TabViewItem>
@@ -567,8 +543,6 @@
                 </xct:TabViewItem>
 
             </xct:TabView>
-
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

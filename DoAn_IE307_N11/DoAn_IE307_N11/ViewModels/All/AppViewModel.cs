@@ -11,6 +11,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace DoAn_IE307_N11.ViewModels
 {
@@ -27,7 +28,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         #region Public Property
 
-        public new bool IsBusy => HomeViewModel.IsBusy || TransactionPageViewModel.IsBusy || AccountViewModel.IsBusy;
+        public bool IsAppBusy => HomeViewModel.IsBusy || TransactionPageViewModel.IsBusy || AccountViewModel.IsBusy;
 
         #endregion
 
@@ -45,13 +46,20 @@ namespace DoAn_IE307_N11.ViewModels
 
         #region Methods
 
-
         async public Task<CommonResult> GETData()
         {
             //IsBusy = true;
-
+            HomeViewModel.IsBusy = true;
+            OnPropertyChanged(nameof(IsAppBusy));
             var homePageGETResult = await HomeViewModel.GETData();
+            OnPropertyChanged(nameof(IsAppBusy));
+
+            TransactionPageViewModel.IsBusy = true;
+            OnPropertyChanged(nameof(IsAppBusy));
             var transactionPageGETResult = await TransactionPageViewModel.GETData();
+            OnPropertyChanged(nameof(IsAppBusy));
+
+            HomeViewModel.UpdateRecentTransactions();
 
             //IsBusy = false;
 
@@ -68,6 +76,9 @@ namespace DoAn_IE307_N11.ViewModels
                 Application.Current.MainPage = DependencyService.Get<ViewService>().BuildCreateWalletPage(Enums.ForType.ForOriginalCreateWallet);
                 return CommonResult.Fail;
             }
+
+            OnPropertyChanged(nameof(TransactionPageViewModel));
+            OnPropertyChanged(nameof(HomeViewModel));
 
             return CommonResult.Ok;
         }

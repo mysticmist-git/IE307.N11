@@ -4,74 +4,210 @@
              xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
              xmlns:converters="clr-namespace:DoAn_IE307_N11.ValueConverters"
              x:Class="DoAn_IE307_N11.Views.TransactionDetailPage"
+             x:DataType="vm:TransactionViewModel"
              Title="Thông tin giao dịch">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Xoá"
+                     Clicked="DeleteTransation_Click" />
+        <ToolbarItem Text="Lưu"
+                     Clicked="SaveTransation_Click" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout>
-            <!-- Buttons -->
 
-            <Grid ColumnDefinitions="Auto, *">
-                
-                <Button Text="&#xe5cd;"
-                        Grid.Column="0"
-                        Style="{StaticResource TransparentButton}"
-                        FontFamily="Material" />
+            <!--<Button x:Name="EnterAmount" Text="0đ" Clicked="EnterAmount_Clicked"/>
+            <Button x:Name="ChooseType" Text="Chọn nhóm" Clicked="ChooseType_Clicked"/>
+            <Button x:Name="AddNote" Text="Thêm ghi chú" Clicked="AddNote_Clicked"/>
+            <Button x:Name="Wallet" Text="Tiền mặt" Clicked="Wallet_Clicked"/>-->
 
-                <StackLayout HorizontalOptions="End" Grid.Column="1"
-                             Orientation="Horizontal">
-                    <Button Text="&#xe3c9;"
-                        Style="{StaticResource TransparentButton}"
-                        FontFamily="Material" />
-                    <Button Text="&#xe872;"
-                        Style="{StaticResource TransparentButton}"
-                        FontFamily="Material" />
+            <!-- Info part -->
+            <StackLayout VerticalOptions="FillAndExpand" Margin="20, 20, 20, 0">
+
+
+                <!-- Tiền giao dịch -->
+                <StackLayout x:Name="AmountArea" Margin="40, 0, 0, 0">
+
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer
+                                Tapped="AmountAreaTapped" />
+                    </StackLayout.GestureRecognizers>
+
+                    <!--<Label Text="Nhập số dư hiện tại của ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                    <Label Text="{Binding Transaction.Amount, StringFormat='{0:0,0} đ'}" 
+                           FontSize="32"
+                           TextColor="{Binding Transaction.Amount, Converter={converters:MoneyColorConverter}}"
+                           Margin="12, 8, 0, 0" />
+                    <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="12, 8, 0, 0" />
                 </StackLayout>
-                
-            </Grid>
-            
-            <Grid RowDefinitions="Auto, Auto, Auto, Auto"
-              ColumnDefinitions="Auto, *"
-              Padding="20">
 
-                <Image Source="{Binding TransactionType.Image}"
-                   Grid.Column="0" Grid.Row="0"
-                   WidthRequest="60"
-                   />
+                <!-- Type -->
+                <StackLayout x:Name="TypeArea">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TypeAreaTapped" />
+                    </StackLayout.GestureRecognizers>
+                    <!--<Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                    <Grid ColumnDefinitions="Auto, *">
 
-                <Label Text="{Binding TransactionType.Name}"
-                   Grid.Column="1" Grid.Row="0"
-                   VerticalOptions="Center"
-                   FontSize="Medium"
-                   />
+                        <!-- Icon -->
+                        <StackLayout Grid.Column="0" VerticalOptions="End">
+                            <Image Source="{Binding TypeImage}" WidthRequest="40" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
 
-                <Label Text="{Binding Transaction.Amount,Converter={converters:MoneyConverter}}"
-                   TextColor="{Binding Transaction.Amount, Converter={converters:MoneyColorConverter}}"
-                   Grid.Column="1" Grid.Row="1"
-                   VerticalOptions="Center"
-                   FontSize="Medium"/>
+                        <!-- Name -->
+                        <StackLayout Grid.Column="1">
+                            <Label Text="{Binding Type.Name, Converter={converters:TypeNameConverter}}"
+                                   FontSize="28"
+                                   TextColor="{StaticResource Foreground}"
+                                   Margin="12, 8, 0, 0">
+                            </Label>
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
 
-                <Label Text="&#xebcc;"
-                   FontFamily="Material"
-                   Grid.Column="0" Grid.Row="2"
-                   VerticalOptions="Center"
-                   FontSize="Medium"/>
+                <!-- Note -->
+                <StackLayout x:Name="NoteArea" Margin="0, 8">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NoteAreaTapped" />
+                    </StackLayout.GestureRecognizers>
+                    <!--<Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                    <Grid ColumnDefinitions="Auto, *">
 
-                <Label Text="{Binding Transaction.DateTime, StringFormat='{0:dd/MM/yyyy}'}"
-                   Grid.Column="1" Grid.Row="2"
-                   VerticalOptions="Center"
-                   FontSize="Medium"/>
+                        <!-- Icon -->
+                        <StackLayout Grid.Column="0" VerticalOptions="End">
+                            <Image WidthRequest="40" VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource Glyph="&#xe8d2;"
+                                                     FontFamily="Material"
+                                                     Color="{StaticResource Foreground}"/>
+                                </Image.Source>
+                            </Image>
+                            <BoxView HeightRequest="1" BackgroundColor="Transparent"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
 
-                <Image Source="{Binding }"
-                   Grid.Column="0" Grid.Row="0"
-                   />
+                        <!-- Name -->
+                        <StackLayout Grid.Column="1">
+                            <Label Text="{Binding Transaction.Note, Converter={converters:TransactionNoteConverter}}"
+                                   FontSize="16"
+                                   TextColor="{StaticResource Foreground}"
+                                   Margin="12, 8, 0, 0" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
 
-                <Label Text="{Binding Wallet.Name}"
-                   Grid.Column="1" Grid.Row="1"
-                   VerticalOptions="Center"
-                   FontSize="Medium" />
+                    </Grid>
+                </StackLayout>
 
-            </Grid>
+                <!-- Date -->
+                <Grid>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="DateAreaTapped" />
+                    </Grid.GestureRecognizers>
+                    <DatePicker Date="{Binding Transaction.Date}"
+                                DateSelected="date_DateSelected"
+                                x:Name="date"
+                                IsVisible="False"
+                                />
+                    <StackLayout x:Name="DateArea">
+                        <!--<Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                        <Grid ColumnDefinitions="Auto, *">
+
+                            <!-- Icon -->
+                            <StackLayout Grid.Column="0" VerticalOptions="End">
+                                <Image WidthRequest="40" VerticalOptions="Center">
+                                    <Image.Source>
+                                        <FontImageSource Glyph="&#xe878;"
+                                                     FontFamily="Material"
+                                                     Color="{StaticResource Foreground}"/>
+                                    </Image.Source>
+                                </Image>
+                                <BoxView HeightRequest="1" BackgroundColor="Transparent"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                            </StackLayout>
+
+                            <!-- Date -->
+                            <StackLayout Grid.Column="1">
+                                <Label  Text="{Binding DateDisplayer}"
+                                        FontSize="16"
+                                        TextColor="{StaticResource Foreground}"
+                                        Margin="12, 8, 0, 0" />
+                                <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                            </StackLayout>
+
+                        </Grid>
+                    </StackLayout>
+                </Grid>
+
+                <!-- Wallet -->
+                <StackLayout x:Name="WalletArea">
+                    <!--<StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="WalletAreaTapped"
+                                              />
+                    </StackLayout.GestureRecognizers>-->
+                    <!--<Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                    <Grid ColumnDefinitions="Auto, *">
+
+                        <!-- Icon -->
+                        <StackLayout Grid.Column="0" VerticalOptions="End">
+                            <Image WidthRequest="40" VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource Glyph="&#xe850;"
+                                                     FontFamily="Material"
+                                                     Color="{StaticResource Foreground}"/>
+                                </Image.Source>
+                            </Image>
+                            <BoxView HeightRequest="1" BackgroundColor="Transparent"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+
+                        <!-- Wallet -->
+                        <StackLayout Grid.Column="1">
+                            <Label 
+                                  Text="{Binding Wallet.Name}"
+                                  FontSize="16"
+                                  TextColor="{StaticResource Foreground}"
+                                  Margin="12, 12, 0, 4" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+
+                    </Grid>
+                </StackLayout>
+
+            </StackLayout>
 
         </StackLayout>
-        
-        </ContentPage.Content>
+    </ContentPage.Content>
 </ContentPage>
