@@ -1,5 +1,6 @@
 ﻿using DoAn_IE307_N11.Models;
 using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.Utils;
 using MvvmHelpers;
 using Newtonsoft.Json;
 using SQLite;
@@ -79,6 +80,7 @@ namespace DoAn_IE307_N11.ViewModels
         #region Private Functions
 
         public TransactionTabType TabType { get; set; }
+        public bool IsYearTabType => TabType == TransactionTabType.Year;
 
         public void LoadTransactions()
         {
@@ -189,7 +191,36 @@ namespace DoAn_IE307_N11.ViewModels
                         break;
                     }
                 case TransactionTabType.Year:
-                    break;
+                    {
+                        foreach (var transaction in temp)
+                        {
+                            var transactionPod = TransactionPods
+                                .Where(
+                                    pod => 
+                                    transaction.Transaction.Date.Date >= pod.DateTime.Date &&
+                                    transaction.Transaction.Date.Date <= pod.EndDateTime.Date 
+
+                                )
+                                .FirstOrDefault();
+
+                            if (transactionPod is null)
+                            {
+                                transactionPod = new TransactionPod
+                                {
+                                    TransactionTabType = TabType,
+                                    DateTime = DateTimeExtensions.firstDayOfMonth(transaction.Transaction.Date),
+                                    EndDateTime = DateTimeExtensions.lastDayOfMonth(transaction.Transaction.Date),
+                                };
+
+                                TransactionPods.Add(transactionPod);
+                            }
+
+                            transactionPod.Transactions.Add(transaction);
+
+                            transactionPod.UpdateBalance();
+                        }
+                        break;
+                    }
             }
 
             OnPropertyChanged(nameof(TransactionPods));

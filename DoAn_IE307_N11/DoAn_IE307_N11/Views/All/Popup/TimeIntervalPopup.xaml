@@ -9,10 +9,10 @@
             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}" />
         </StackLayout.Resources>
 
-        <Button Text="Ngày" />
-        <Button Text="Tuần" />
-        <Button Text="Tháng" />
-        <Button Text="Năm" />
+        <Button Text="Ngày" Clicked="Day_Clicked" />
+        <Button Text="Tuần" Clicked="Week_Clicked" />
+        <Button Text="Tháng" Clicked="Month_Clicked" />
+        <Button Text="Năm" Clicked="Year_Clicked" />
 
     </StackLayout>
 

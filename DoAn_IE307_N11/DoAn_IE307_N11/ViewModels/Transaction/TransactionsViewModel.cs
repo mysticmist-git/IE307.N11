@@ -52,7 +52,7 @@ namespace DoAn_IE307_N11.ViewModels
             }
         }
 
-        public TransactionTabType TabType { get; set; } = TransactionTabType.Month;
+        public TransactionTabType TabType { get; set; } = TransactionTabType.Day;
 
         #endregion
 
@@ -86,6 +86,9 @@ namespace DoAn_IE307_N11.ViewModels
                 case TransactionTabType.Month:
                     GenerateMonthTabs();
                     break;
+                //case TransactionTabType.Quarter:
+                //    GenerateYearTabs();
+                //    break;
                 case TransactionTabType.Year:
                     GenerateYearTabs();
                     break;
@@ -237,28 +240,32 @@ namespace DoAn_IE307_N11.ViewModels
             //    EndDate = DateTime.MaxValue.Date,
             //});
 
-            this.TabVms.Add(new TabViewModel("TUẦN NÀY", this)
+            this.TabVms.Add(new TabViewModel("NĂM NÀY", this)
             {
-                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday),
-                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday).AddDays(6),
-                    TabType = this.TabType
+                StartDate = DateTimeExtensions.firstDayOfYear(DateTime.Now),
+                EndDate = DateTimeExtensions.lastDayOfYear(DateTime.Now),
+                TabType = this.TabType
             });
 
-            this.TabVms.Add(new TabViewModel("TUẦN TRƯỚC", this)
+            this.TabVms.Add(new TabViewModel("NĂM TRƯỚC", this)
             {
-                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-1), DayOfWeek.Monday),
-                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-1), DayOfWeek.Monday).AddDays(6),
-                    TabType = this.TabType
+                StartDate = DateTimeExtensions.firstDayOfYear(DateTime.Now.AddYears(-1)),
+                EndDate = DateTimeExtensions.lastDayOfYear(DateTime.Now.AddYears(-1)),
+                TabType = this.TabType
             });
 
             for (int i = 2; i < 15; i++)
             {
-                this.TabVms.Add(new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString(), this)
+                var newTabViewModel = new TabViewModel("", this)
                 {
-                    StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i), DayOfWeek.Monday),
-                    EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i), DayOfWeek.Monday).AddDays(6),
+                    StartDate = DateTimeExtensions.firstDayOfYear(DateTime.Now.AddYears(-i)),
+                    EndDate = DateTimeExtensions.lastDayOfYear(DateTime.Now.AddYears(-i)),
                     TabType = this.TabType
-                });
+                };
+
+                newTabViewModel.Title = String.Format("{0:yyyy}", newTabViewModel.StartDate);
+
+                this.TabVms.Add(newTabViewModel);
             }
 
             //this.CurrentTabVm = this.TabVms.FirstOrDefault();
@@ -359,7 +366,7 @@ namespace DoAn_IE307_N11.ViewModels
             return CommonResult.Ok;
         }
 
-        private void UpdateTabItem()
+        public void UpdateTabItem()
         {
             foreach (var item in TabVms)
             {

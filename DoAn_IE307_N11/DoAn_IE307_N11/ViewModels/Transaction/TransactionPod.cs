@@ -20,6 +20,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         public TransactionTabType TransactionTabType { get; set; }
         public DateTime DateTime { get; set; }
+        public DateTime EndDateTime { get; set; }
 
         public int Income { get; set; }
         

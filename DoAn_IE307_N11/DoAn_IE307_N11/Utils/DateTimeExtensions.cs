@@ -26,5 +26,19 @@ namespace DoAn_IE307_N11.Utils
 
             return lastDayOfMonth;
         }
+        public static DateTime firstDayOfYear(this DateTime dt)
+        {
+            var firstDayOfMonth = new DateTime(dt.Year, 1, 1);
+
+            return firstDayOfMonth;
+        }
+
+        public static DateTime lastDayOfYear(this DateTime dt)
+        {
+            var firstDay = firstDayOfYear(dt);
+            var lastDayOfMonth = firstDay.AddYears(1).AddTicks(-1);
+
+            return lastDayOfMonth;
+        }
     }
 }
