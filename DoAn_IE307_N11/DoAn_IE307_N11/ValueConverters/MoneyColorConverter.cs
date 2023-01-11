@@ -13,8 +13,8 @@ namespace DoAn_IE307_N11.ValueConverters
             
             if (isExpense)
                 return Color.Red;
-
-            return Color.Green;
+            else
+                return Color.Green;
         }
 
         public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

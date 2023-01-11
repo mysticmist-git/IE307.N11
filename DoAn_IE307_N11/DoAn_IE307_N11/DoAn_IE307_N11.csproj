@@ -6,11 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Fonts\Material\**" />
+    <EmbeddedResource Remove="Fonts\Material\**" />
+    <None Remove="Fonts\Material\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Font Awesome 6 Brands-Regular-400.otf" />
+    <None Remove="Fonts\Font Awesome 6 Free-Regular-400.otf" />
+    <None Remove="Fonts\Font Awesome 6 Free-Solid-900.otf" />
     <None Remove="Fonts\MaterialIcons-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Fonts\Material\MaterialIcons-Regular.ttf" />
+    <EmbeddedResource Include="Fonts\Font Awesome 6 Brands-Regular-400.otf" />
+    <EmbeddedResource Include="Fonts\Font Awesome 6 Free-Regular-400.otf" />
+    <EmbeddedResource Include="Fonts\Font Awesome 6 Free-Solid-900.otf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,6 +29,7 @@
     <PackageReference Include="PropertyChanged.Fody" Version="4.0.5" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="3.0.0.5" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />  
@@ -31,25 +43,22 @@
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Transaction\SimpleEnterAmountPage.xaml.cs">
-      <DependentUpon>SimpleEnterAmountPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Account\AccountPage.xaml">
+    <EmbeddedResource Update="Views\AccountManagementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\All\ChooseCurrencyPage.xaml">
+    <EmbeddedResource Update="Views\AccountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\All\ChooseIconPage.xaml">
+    <EmbeddedResource Update="Views\AddTransactionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\All\CreateWalletPage.xaml">
+    <EmbeddedResource Update="Views\BankServicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\All\LoginPage.xaml">
+    <EmbeddedResource Update="Views\BudgetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\All\Popup\TimeIntervalPopup.xaml">
@@ -61,36 +70,44 @@
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\AddTransactionPage.xaml">
+    <EmbeddedResource Update="Views\ChangPasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\ChooseTransactionTypePage.xaml">
+    <EmbeddedResource Update="Views\ChooseTransactionTypePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\ChooseWalletPage.xaml">
+    <EmbeddedResource Update="Views\ChooseWalletPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\EditWalletPage.xaml">
+    <EmbeddedResource Update="Views\EnterAmountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\EnterAmountPage.xaml">
+    <EmbeddedResource Update="Views\EventPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\NotePage.xaml">
+    <EmbeddedResource Update="Views\ForgetPasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Plan\PlanPage.xaml">
+    <EmbeddedResource Update="Views\InvoicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\TransactionBookPage.xaml">
+    <EmbeddedResource Update="Views\NewTransactionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Transaction\TransactionDetailPage.xaml">
+    <EmbeddedResource Update="Views\NotePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Plan\" />
+    <EmbeddedResource Update="Views\PeriodicTransactionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\PlanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TransactionBookPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\TransactionDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

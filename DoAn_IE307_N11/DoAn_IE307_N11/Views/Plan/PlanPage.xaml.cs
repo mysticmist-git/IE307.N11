@@ -16,5 +16,25 @@ namespace DoAn_IE307_N11.Views
         {
             InitializeComponent();
         }
+
+        private void Bill_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BudgetPage());
+        }
+
+        private void Transaction_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PeriodicTransactionPage());
+        }
+
+        private void Event_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new EventPage());
+        }
+
+        private void Budget_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new InvoicePage());
+        }
     }
 }

@@ -19,7 +19,15 @@ namespace DoAn_IE307_N11.Views
 
         private void SignOut_Clicked(object sender, EventArgs e)
         {
+        }
+        private void Information_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AccountManagementPage());
+        }
 
+        private void BtnBankService_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BankServicePage());
         }
     }
 }

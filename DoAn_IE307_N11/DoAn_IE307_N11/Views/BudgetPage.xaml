@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.BudgetPage"
+            NavigationPage.HasNavigationBar="False"
+            BarBackground="{StaticResource Background}"
+            SelectedTabColor="Black"
+            UnselectedTabColor="#d3d3d3"
+            Background="{StaticResource Background}"
+            Title="Ngân sách">
+    <!--<TabbedPage.ToolbarItems>
+        <ToolbarItem Text="{StaticResource Search}"/>
+    </TabbedPage.ToolbarItems>-->
+    
+    <ContentPage Title="THÁNG TRƯỚC">
+        <Label Text="ha a"/>
+        <!--<ListView x:Name="LstTransaction">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer/>
+                            </Frame.GestureRecognizers>
+
+                            <Grid Padding="10" ColumnDefinitions="*, auto, 2*">
+                                <Image Source="{Binding }" WidthRequest="50" Grid.Column="0"/>
+                                    <Label Text="Ăn uống" Grid.Column="1"/>
+                                <Button Text="Thêm"
+                        TextTransform="None"
+                        BorderColor="Gray"
+                        CornerRadius="50"
+                                        Grid.Column="2"/>
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+    </ContentPage>
+
+    <ContentPage Title="THÁNG NÀY">
+        
+    </ContentPage>
+</TabbedPage>

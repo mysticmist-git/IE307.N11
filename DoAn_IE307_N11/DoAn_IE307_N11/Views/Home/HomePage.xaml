@@ -37,7 +37,7 @@
                 </StackLayout>
 
                 <!--my wallet-->
-                <Frame CornerRadius="10" Margin="0,20,0,20">
+                <Frame CornerRadius="10" Margin="0,20,0,20" >
                     <StackLayout Orientation="Vertical">
                         <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
                             <Label Text="Ví của tôi"
