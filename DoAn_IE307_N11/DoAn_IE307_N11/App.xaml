@@ -109,13 +109,25 @@
                         Source="{TemplateBinding CurrentIcon}" />
                 </Grid>
             </ControlTemplate>
-        </ResourceDictionary>
-    </Application.Resources>
-</Application>
 
+            <x:String x:Key="Budget">&#xf0d6;</x:String>
+            <x:String x:Key="Event">&#xf073;</x:String>
+            <x:String x:Key="Transaction">&#xe57f;</x:String>
+            <x:String x:Key="Bill">&#xe1d9;</x:String>
 
+            <x:String x:Key="Wallet">&#xf555;</x:String>
+            <x:String x:Key="Loan">&#xf4c0;</x:String>
+            <x:String x:Key="Tool">&#xf61c;</x:String>
+            <x:String x:Key="Travel">&#xf072;</x:String>
+            <x:String x:Key="Store">&#xf07a;</x:String>
+            <x:String x:Key="Help">&#xf059;</x:String>
+            <x:String x:Key="Setting">&#xf013;</x:String>
+            <x:String x:Key="Introduce">&#xf685;</x:String>
 
-<!--<Style TargetType="Button">
+            <x:String x:Key="Search">&#xf002;</x:String>
+            <x:String x:Key="Reload">&#xf2f9;</x:String>
+
+            <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
@@ -133,4 +145,9 @@
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>
-            </Style>-->
+            </Style>
+
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

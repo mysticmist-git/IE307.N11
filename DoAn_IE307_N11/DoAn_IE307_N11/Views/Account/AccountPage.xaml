@@ -2,12 +2,154 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoAn_IE307_N11.Views.AccountPage"
+             xmlns:ImgCir="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              Background="{StaticResource Background}"
              Title="Tài khoản">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="&#xe7fd;" FontFamily="Material" FontSize="Large" HorizontalOptions="Center" />
-            <Label Text="Trang tài khoản" FontSize="Large" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="20">
+                <!--Account-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="Information_Tapped"/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout Orientation="Vertical">
+                        <ImgCir:CircleImage Source="a.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="100"/>
+                        <Label Text="Dang.thanhngan225"
+                       TextColor="Black"
+                       FontSize="16"
+                       HorizontalTextAlignment="Center"/>
+                        <Label Text="dang.thanhngan225@gmail.com"
+                       FontSize="13"
+                       HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+
+                <!--Ví của tôi-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Wallet}" Grid.Column="0"/>
+                            <Label Text="Ví của tôi" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <Button Text="Liên kết ngân hàng"
+                    TextColor="{StaticResource Primary}"
+                    BackgroundColor="#eaffea"
+                    TextTransform="None"
+                    Margin="20,0,20,0"
+                    CornerRadius="50"
+                        x:Name="BtnBankService"
+                        Clicked="BtnBankService_Clicked"/>
+
+                <!--Sổ nợ-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Wallet}" Grid.Column="0"/>
+                            <Label Text="Sổ nợ" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Công cụ-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Wallet}" Grid.Column="0"/>
+                            <Label Text="Công cụ" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Chế độ du lịch-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Travel}" Grid.Column="0"/>
+                            <Label Text="Chế độ du lịch" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Cửa hàng-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Store}" Grid.Column="0"/>
+                            <Label Text="Cửa hàng" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Hỗ trợ-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Help}" Grid.Column="0"/>
+                            <Label Text="Hỗ trợ" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Cài đặt-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Setting}" Grid.Column="0"/>
+                            <Label Text="Cài đặt" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!--Giới thiệu-->
+                <Frame HasShadow="False" Margin="0">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer/>
+                    </Frame.GestureRecognizers>
+
+                    <StackLayout>
+                        <Grid ColumnDefinitions="*, 10*">
+                            <Label Text="{StaticResource Introduce}" Grid.Column="0"/>
+                            <Label Text="Giới thiệu" Grid.Column="1" TextColor="Black"/>
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

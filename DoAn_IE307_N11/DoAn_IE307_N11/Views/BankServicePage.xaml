@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.BankServicePage"
+             xmlns:ImgCir="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             Background="{StaticResource Background}"
+             Title="Liên kết dịch vụ">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{StaticResource Search}"/>
+        <ToolbarItem Text="{StaticResource Reload}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <!--Ngân hàng ở Việt Nam-->
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Ngân hàng ở Việt Nam" TextColor="Black" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="MỞ RỘNG" TextColor="{StaticResource Primary}" VerticalOptions="End"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <Grid ColumnDefinitions="*, *, *">
+                    <StackLayout Grid.Column="0" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="Vietcombank.webp"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Vietcombank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="VietinBank.webp"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Vietinbank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="2" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="VIB.jpg"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="VIB" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </Grid>
+
+                <!--Mới-->
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Mới" TextColor="Black" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="MỞ RỘNG" TextColor="{StaticResource Primary}" VerticalTextAlignment="End"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <Grid ColumnDefinitions="*, *, *">
+                    <StackLayout Grid.Column="0" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="Timo.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Timo" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="TimoPlus.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Timo Plus" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="2" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="TPBank.jpg"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="TPBank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </Grid>
+                
+                <!--Tất cả-->
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Tất cả" TextColor="Black" FontSize="20" HorizontalOptions="StartAndExpand"/>
+                        <Label Text="MỞ RỘNG" TextColor="{StaticResource Primary}" VerticalTextAlignment="End"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, *">
+                    <StackLayout Grid.Column="0" Grid.Row="0" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="Vietcombank.webp"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Vietcombank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="VietinBank.webp"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Vietinbank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="2" Grid.Row="0" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="VIB.jpg"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="VIB" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="1" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="Timo.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Timo" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="TimoPlus.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="Timo Plus" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+                        <ImgCir:CircleImage Source="TPBank.jpg"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="90"/>
+                        <Label Text="TPBank" TextColor="Black" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Việt Nam" FontSize="10" HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
