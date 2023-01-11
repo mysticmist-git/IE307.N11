@@ -10,7 +10,5 @@ namespace DoAn_IE307_N11.Models
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int WalletId { get; set; }
-        public bool IsTransactionTypeDownloaded { get; set; } = false;
-        public bool IsIconDownloaded { get; set; } = false;
     }
 }

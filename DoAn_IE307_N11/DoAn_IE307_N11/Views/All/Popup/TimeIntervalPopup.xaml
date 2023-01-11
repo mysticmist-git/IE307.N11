@@ -5,14 +5,14 @@
              x:Class="DoAn_IE307_N11.Views.TimeIntervalPopup">
     <StackLayout>
 
-        <StackLayout.Resources>
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}" />
-        </StackLayout.Resources>
-
-        <Button Text="Ngày" Clicked="Day_Clicked" />
-        <Button Text="Tuần" Clicked="Week_Clicked" />
-        <Button Text="Tháng" Clicked="Month_Clicked" />
-        <Button Text="Năm" Clicked="Year_Clicked" />
+        <Button Text="Ngày" Clicked="Day_Clicked" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Tuần" Clicked="Week_Clicked" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Tháng" Clicked="Month_Clicked" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Năm" Clicked="Year_Clicked" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
 
     </StackLayout>
 

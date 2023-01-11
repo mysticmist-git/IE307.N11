@@ -159,5 +159,38 @@ namespace DoAn_IE307_N11.Views
                 Anchor = sender as Button
             });
         }
+
+        #region Plan Tab
+
+        private void Bill_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new BudgetPage());
+        }
+
+        private void Transaction_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new PeriodicTransactionPage());
+        }
+
+        private void Event_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new EventPage());
+        }
+
+        private void Budget_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new InvoicePage());
+        }
+
+        #endregion
+
+        #region Account Tab
+
+        private void BtnChangePassword_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new ChangPasswordPage());
+        }
+
+        #endregion
     }
 }

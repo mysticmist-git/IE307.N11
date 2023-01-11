@@ -7,14 +7,14 @@
 
     <StackLayout>
 
-        <StackLayout.Resources>
-            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource TransparentButton}" />
-        </StackLayout.Resources>
-        
-        <Button Text="Khoảng thời gian" Clicked="TimeInterval_Clicked" />
-        <Button Text="Xem theo giao dịch" />
-        <Button Text="Điều chỉnh số dư" />
-        <Button Text="Sửa ví" />
+        <Button Text="Khoảng thời gian" Clicked="TimeInterval_Clicked" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Xem theo giao dịch" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Điều chỉnh số dư" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
+        <Button Text="Sửa ví" 
+                Background="Transparent" TextColor="{StaticResource Foreground}" />
         
     </StackLayout>
 

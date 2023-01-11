@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:views="clr-namespace:DoAn_IE307_N11.Views"
              xmlns:valueConverters="clr-namespace:DoAn_IE307_N11.ValueConverters" 
-             xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
+             xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels" xmlns:ImgCir="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              NavigationPage.HasNavigationBar="False"
              x:Name="page"
              x:Class="DoAn_IE307_N11.Views.MainPage"
@@ -587,9 +587,128 @@
                     </xct:TabViewItem.Icon>
 
                     <!-- Content -->
-                    <Grid>
-                        <Label Text="Transaction" />
-                    </Grid>
+                    <StackLayout Padding="40, 20, 0, 0">
+                        <!--Ngân sách-->
+                        <Frame HasShadow="False" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Budget_Tapped"/>
+                            </Frame.GestureRecognizers>
+
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*, 10*">
+                                    <Label Text="{StaticResource Budget}"
+                                           FontFamily="Material"
+                                           FontSize="25" Grid.Column="0"/>
+                                    <Grid Grid.Column="1" Padding="0, 5, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="Ngân sách" Grid.Row="0"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Primary}"/>
+                                        <Label Text="Một kế hoạch tài chính giúp bạn cân bằng được khoản thu và khoản chi của mình."
+                                               FontSize="13" Grid.Row="1"/>
+                                        <Label Text="Ngân sách chỉ hỗ trợ Ví cơ bản và Ví liên kết."
+                                               FontSize="13" Grid.Row="2"/>
+                                    </Grid>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+
+
+                        <!--Sự kiện-->
+                        <Frame HasShadow="False" Padding="0" Margin="0, 0, 0, 10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Event_Tapped"/>
+                            </Frame.GestureRecognizers>
+
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*, 10*">
+                                    <Label Text="{StaticResource Event}"
+                                           FontFamily="Material"
+                                           FontSize="25" Grid.Column="0"/>
+                                    <Grid Grid.Column="1" Padding="0, 5, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition Height="70"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="Sự kiện" Grid.Row="0"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Primary}"/>
+                                        <Label Text="Tạo một sự kiện trong ứng dụng để theo dõi việc chi tiêu trong một sự kiện có thực nào đó, ví dụ như đi du lịch cuối tuần."
+                                               FontSize="13" Grid.Row="1"/>
+                                    </Grid>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+
+
+                        <!--Giao dịch định kỳ-->
+                        <Frame HasShadow="False" Padding="0" Margin="0, 0, 0, 10">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Transaction_Tapped"/>
+                            </Frame.GestureRecognizers>
+
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*, 10*">
+                                    <Label Text="{StaticResource Transaction}"
+                                           FontFamily="Material"
+                                           FontSize="25"/>
+                                    <Grid Grid.Column="1" Padding="0, 5, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="Giao dịch định kỳ" Grid.Row="0"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource Primary}"/>
+                                        <Label Text="Tạo ra định kỳ các giao dịch sẽ được tự động thêm trong tương lai."
+                       FontSize="13" Grid.Row="1"/>
+                                    </Grid>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+
+
+                        <!--Hóa đơn-->
+                        <Frame HasShadow="False" Padding="0">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="Bill_Tapped"/>
+                            </Frame.GestureRecognizers>
+
+                            <StackLayout>
+                                <Grid ColumnDefinitions="*, 10*">
+                                    <Label Text="{StaticResource Bill}"
+                                           FontFamily="Material"
+                                           FontSize="25"/>
+                                    <Grid Grid.Column="1" Padding="0, 5, 20, 0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25"/>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Label Text="Hóa đơn" Grid.Row="0"
+                       FontSize="15"
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource Primary}"/>
+                                        <Label Text="Theo dõi hóa đơn của bạn như điện, thuê, thuê bao Internet..."
+                       FontSize="13" Grid.Row="1"/>
+                                    </Grid>
+                                </Grid>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
 
                 </xct:TabViewItem>
 
@@ -609,15 +728,37 @@
                     </xct:TabViewItem.Icon>
 
                     <!-- Content -->
-                    <Grid>
 
-                        <Button x:Name="login_btn" Text="ĐĂNG XUẤT" BackgroundColor="{StaticResource Primary}" TextColor="White" CornerRadius="30" 
-                                VerticalOptions="Center"
-                                HorizontalOptions="Center"
-                                Padding="40, 0"
-                                Clicked="SignOut_Clicked" />
+                    <StackLayout Padding="10">
+                        <StackLayout Orientation="Vertical">
+                            <ImgCir:CircleImage Source="a.png"
+                                        HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
+                                    WidthRequest="100"/>
+                            <Label Text="Dang.thanhngan225"
+                       TextColor="Black"
+                       FontSize="16"
+                       HorizontalTextAlignment="Center"/>
+                            <Label Text="dang.thanhngan225@gmail.com"
+                       FontSize="13"
+                       HorizontalTextAlignment="Center"/>
+                        </StackLayout>
 
-                    </Grid>
+                        <Button Text="Thay đổi mật khẩu"
+                                TextColor="{StaticResource Primary}"
+                                BackgroundColor="{StaticResource Background}"
+                                Margin="0,10,0,10"
+                                x:Name="BtnChangePassword"
+                                Clicked="BtnChangePassword_Clicked"/>
+
+                        <Button Text="Đăng xuất"
+                                TextColor="{StaticResource Primary}"
+                                Margin="20,0,20,0"
+                                CornerRadius="50"
+                                BackgroundColor="#eee"
+                                Clicked="SignOut_Clicked"
+                                />
+                    </StackLayout>
 
 
                 </xct:TabViewItem>

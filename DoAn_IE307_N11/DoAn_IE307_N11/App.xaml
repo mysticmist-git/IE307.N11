@@ -111,22 +111,22 @@
                 </Grid>
             </ControlTemplate>
 
-            <x:String x:Key="Budget">&#xf0d6;</x:String>
-            <x:String x:Key="Event">&#xf073;</x:String>
-            <x:String x:Key="Transaction">&#xe57f;</x:String>
-            <x:String x:Key="Bill">&#xe1d9;</x:String>
+            <x:String x:Key="Budget">&#xe870;</x:String>
+            <x:String x:Key="Event">&#xebcc;</x:String>
+            <x:String x:Key="Transaction">&#xe889;</x:String>
+            <x:String x:Key="Bill">&#xef6e;</x:String>
 
-            <x:String x:Key="Wallet">&#xf555;</x:String>
-            <x:String x:Key="Loan">&#xf4c0;</x:String>
-            <x:String x:Key="Tool">&#xf61c;</x:String>
-            <x:String x:Key="Travel">&#xf072;</x:String>
-            <x:String x:Key="Store">&#xf07a;</x:String>
-            <x:String x:Key="Help">&#xf059;</x:String>
-            <x:String x:Key="Setting">&#xf013;</x:String>
-            <x:String x:Key="Introduce">&#xf685;</x:String>
+            <x:String x:Key="Wallet">&#xe850;</x:String>
+            <x:String x:Key="Loan">&#xe73a;</x:String>
+            <x:String x:Key="Tool">&#xf8cd;</x:String>
+            <x:String x:Key="Travel">&#xeb9b;</x:String>
+            <x:String x:Key="Store">&#xeb88;</x:String>
+            <x:String x:Key="Help">&#xe887;</x:String>
+            <x:String x:Key="Setting">&#xe8b8;</x:String>
+            <x:String x:Key="Introduce">&#xe871;</x:String>
 
-            <x:String x:Key="Search">&#xf002;</x:String>
-            <x:String x:Key="Reload">&#xf2f9;</x:String>
+            <x:String x:Key="Search">&#xe8b6;</x:String>
+            <x:String x:Key="Reload">&#xe5d5;</x:String>
 
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>

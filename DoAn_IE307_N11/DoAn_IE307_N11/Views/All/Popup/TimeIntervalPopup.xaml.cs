@@ -44,14 +44,18 @@ namespace DoAn_IE307_N11.Views
 
         #region Methods
 
-        private void UpdateTransactionTab(TransactionTabType type)
+        private async void UpdateTransactionTab(TransactionTabType type)
         {
             var appViewModel = DependencyService.Get<AppViewModel>();
 
             appViewModel.TransactionPageViewModel.TabType = type;
 
+            appViewModel.TransactionPageViewModel.IsBusy = true;
+
             appViewModel.TransactionPageViewModel.GenerateTabs();
             appViewModel.TransactionPageViewModel.UpdateTabItem();
+
+            appViewModel.TransactionPageViewModel.IsBusy = false;
         }
 
         #endregion
