@@ -6,6 +6,7 @@ using DoAn_IE307_N11.Views.All;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static SQLite.SQLite3;
@@ -149,6 +150,14 @@ namespace DoAn_IE307_N11.Views
         private void MyWalletTapped(object sender, EventArgs e)
         {
             
+        }
+
+        private async void TransactionContextMenu_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.ShowPopupAsync(new TransactionPopup()
+            {
+                Anchor = sender as Button
+            });
         }
     }
 }

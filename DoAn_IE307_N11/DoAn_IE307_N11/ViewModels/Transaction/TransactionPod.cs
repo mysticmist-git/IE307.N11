@@ -9,11 +9,6 @@ using Xamarin.Forms;
 
 namespace DoAn_IE307_N11.ViewModels
 {
-    public enum TransactionPodType
-    {
-        Day,
-        Month
-    }
 
     public class TransactionPod : BaseViewModel
     {
@@ -23,52 +18,16 @@ namespace DoAn_IE307_N11.ViewModels
 
         #endregion
 
-        public TransactionPodType TransactionPodType { get; set; }
+        public TransactionTabType TransactionTabType { get; set; }
         public DateTime DateTime { get; set; }
 
-        public int Income
-        {
-            get
-            {
-                if (this.TransactionPodType == TransactionPodType.Day)
-                {
-                    return Transactions
-                        .Where(tran => tran.Transaction.Amount > 0)
-                        .Sum(tran => tran.Transaction.Amount);
-                }
-                else
-                {
-                    return Transactions
-                        .Where(tran =>
-                            tran.Transaction.Amount > 0
-                            )
-                        .Sum(tran => tran.Transaction.Amount);
-                }
-            }
-        }
+        public int Income { get; set; }
+        
 
-        public int Outcome
-        {
-            get
-            {
-                if (this.TransactionPodType == TransactionPodType.Day)
-                {
-                    return Transactions
-                        .Where(tran => tran.Transaction.Amount < 0)
-                        .Sum(tran => tran.Transaction.Amount);
-                }
-                else
-                {
-                    return Transactions
-                        .Where(tran =>
-                            tran.Transaction.Amount < 0
-                            )
-                        .Sum(tran => tran.Transaction.Amount);
-                }
-            }
-        }
+        public int Outcome { get; set; }
+       
 
-        public int Balance => Income + Outcome;
+        public int Balance { get; set; }
 
         public ObservableCollection<TransactionViewModel> Transactions
         {
@@ -82,5 +41,22 @@ namespace DoAn_IE307_N11.ViewModels
 
             set => _transactions = value;
         }
+
+        #region Methods
+
+        public void UpdateBalance()
+        {
+            Income = Transactions
+                        .Where(tran => !tran.Type.IsExpense)
+                        .Sum(tran => tran.Transaction.Amount);
+
+            Outcome = Transactions
+                    .Where(tran => tran.Type.IsExpense)
+                    .Sum(tran => tran.Transaction.Amount);
+
+            Balance = Income - Outcome;
+        }
+
+        #endregion
     }
 }

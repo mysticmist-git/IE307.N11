@@ -294,11 +294,12 @@
                             TextColor="{StaticResource Foreground}"
                             FontSize="32" />
                                 <Button Text="&#xe5d4;" 
-                            WidthRequest="52"
-                            FontFamily="Material" 
-                            Background="Transparent" 
-                            TextColor="{StaticResource Foreground}"
-                            FontSize="32" />
+                                        WidthRequest="52"
+                                        FontFamily="Material" 
+                                        Background="Transparent" 
+                                        TextColor="{StaticResource Foreground}"
+                                        FontSize="32"
+                                        Clicked="TransactionContextMenu_Clicked"/>
                             </StackLayout>
 
                         </Grid>
@@ -393,7 +394,8 @@
                                                     <DataTemplate x:DataType="vm:TransactionPod">
 
                                                         <!-- Pod overview-->
-                                                        <StackLayout Background="{StaticResource Background}">
+                                                        <StackLayout Background="{StaticResource Background}"
+                                                                     Margin="0, 0, 0, 20">
 
                                                             <!-- Date and balance -->
                                                             <Grid Padding="16, 4" ColumnDefinitions="Auto, *, *" >
@@ -405,7 +407,7 @@
                                                                 <StackLayout Margin="16, 0"
                                                                     VerticalOptions="Center" 
                                                                     Grid.Column="1">
-                                                                    <Label Text="{Binding DateTime, StringFormat='{0:dddd}'}"
+                                                                    <Label Text="{Binding DateTime, StringFormat='{0:dddd}', Converter={valueConverters:TodayAndYesterdayConverter}}"
                                                                 TextColor="{StaticResource Foreground}" />
                                                                     <Label Text="{Binding DateTime, StringFormat='tháng {0:MM yyyy}'}" />
                                                                 </StackLayout>

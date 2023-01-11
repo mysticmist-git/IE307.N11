@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
+using System.Security.Authentication.ExtendedProtection;
 using System.Text;
 using System.Transactions;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -17,13 +18,6 @@ using Transaction = DoAn_IE307_N11.Models.Transaction;
 
 namespace DoAn_IE307_N11.ViewModels
 {
-    public enum TabType 
-    {
-        Day,
-        Week,
-        Month,
-        Year
-    }
 
     public class TabViewModel : BaseViewModel
     {
@@ -39,7 +33,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         #endregion
 
-        public TabViewModel(string title, TransactionPageViewModel transactionPageViewModel)
+        public TabViewModel(string title = "", TransactionPageViewModel transactionPageViewModel = null)
         {
             this.Title = title;
             ParentViewModel = transactionPageViewModel;
@@ -62,7 +56,7 @@ namespace DoAn_IE307_N11.ViewModels
         /// <summary>
         /// The balance
         /// </summary>
-        public int Balance => Income + Outcome;
+        public int Balance => Income - Outcome;
 
         /// <summary>
         /// A list contains all transaction in a container such as: day, week, month
@@ -84,7 +78,7 @@ namespace DoAn_IE307_N11.ViewModels
 
         #region Private Functions
 
-        public TabType TabType { get; set; }
+        public TransactionTabType TabType { get; set; }
 
         public void LoadTransactions()
         {
@@ -115,6 +109,8 @@ namespace DoAn_IE307_N11.ViewModels
                     tran.Transaction.Date.Date <= this.EndDate.Date
                 ).ToArray();
 
+            temp = temp.OrderByDescending(tran => tran.Transaction.Date).ToArray();
+
             if (temp.Count() <= 0)
             {
                 return;
@@ -122,24 +118,77 @@ namespace DoAn_IE307_N11.ViewModels
 
             switch (TabType)
             {
-                case TabType.Day:
-
-                    var transactionPod = new TransactionPod
+                case TransactionTabType.Day:
                     {
-                        TransactionPodType = TransactionPodType.Day,
-                        DateTime = temp.First().Transaction.Date,
-                    };
+                        var transactionPod = new TransactionPod
+                        {
+                            TransactionTabType = TabType,
+                            DateTime = temp.First().Transaction.Date,
+                        };
 
-                    transactionPod.Transactions = new ObservableCollection<TransactionViewModel>(temp);
+                        transactionPod.Transactions = new ObservableCollection<TransactionViewModel>(temp);
 
-                    TransactionPods.Add(transactionPod);
+                        transactionPod.UpdateBalance();
 
+                        TransactionPods.Add(transactionPod);
+                    }
                     break;
-                case TabType.Week:
+                case TransactionTabType.Week:
+                    {
+                        foreach (var transaction in temp)
+                        {
+                            var transactionPod = TransactionPods
+                                .Where(pod => pod.DateTime.Date == transaction.Transaction.Date.Date)
+                                .FirstOrDefault();
+
+                            if (transactionPod is null)
+                            {
+                                transactionPod = new TransactionPod
+                                {
+                                    TransactionTabType = TabType,
+                                    DateTime = transaction.Transaction.Date
+                                };
+
+                                TransactionPods.Add(transactionPod);
+                            }
+
+                            transactionPod.Transactions.Add(transaction);
+
+                            transactionPod.UpdateBalance();
+                        }
+
+
+                        //transactionPod.Transactions = new ObservableCollection<TransactionViewModel>(temp);
+
+                        //TransactionPods.Add(transactionPod);
+                    }
                     break;
-                case TabType.Month:
-                    break;
-                case TabType.Year:
+                case TransactionTabType.Month:
+                    {
+                        foreach (var transaction in temp)
+                        {
+                            var transactionPod = TransactionPods
+                                .Where(pod => pod.DateTime.Date == transaction.Transaction.Date.Date)
+                                .FirstOrDefault();
+
+                            if (transactionPod is null)
+                            {
+                                transactionPod = new TransactionPod
+                                {
+                                    TransactionTabType = TabType,
+                                    DateTime = transaction.Transaction.Date
+                                };
+
+                                TransactionPods.Add(transactionPod);
+                            }
+
+                            transactionPod.Transactions.Add(transaction);
+
+                            transactionPod.UpdateBalance();
+                        }
+                        break;
+                    }
+                case TransactionTabType.Year:
                     break;
             }
 

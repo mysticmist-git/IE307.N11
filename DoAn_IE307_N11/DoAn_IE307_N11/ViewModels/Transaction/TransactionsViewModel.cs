@@ -17,6 +17,14 @@ using Xamarin.Forms.Internals;
 
 namespace DoAn_IE307_N11.ViewModels
 {
+    public enum TransactionTabType
+    {
+        Day,
+        Week,
+        Month,
+        Year,
+    }
+
     public class TransactionPageViewModel : BaseViewModel
     {
         #region Parent
@@ -44,6 +52,8 @@ namespace DoAn_IE307_N11.ViewModels
             }
         }
 
+        public TransactionTabType TabType { get; set; } = TransactionTabType.Month;
+
         #endregion
 
         #region Commands
@@ -63,7 +73,33 @@ namespace DoAn_IE307_N11.ViewModels
             GenerateTabs();
         }
 
-        private void GenerateTabs()
+        public void GenerateTabs()
+        {
+            switch (TabType)
+            {
+                case TransactionTabType.Day:
+                    GenerateDayTabs();
+                    break;
+                case TransactionTabType.Week:
+                    GenerateWeekTabs();
+                    break;
+                case TransactionTabType.Month:
+                    GenerateMonthTabs();
+                    break;
+                case TransactionTabType.Year:
+                    GenerateYearTabs();
+                    break;
+            }
+        }
+
+        #region Generate Tabs
+
+        #endregion
+
+        /// <summary>
+        /// Generate day tabs
+        /// </summary>
+        private void GenerateDayTabs()
         {
             this.TabVms = new ObservableCollection<TabViewModel>();
 
@@ -77,12 +113,14 @@ namespace DoAn_IE307_N11.ViewModels
             {
                 StartDate = DateTime.Now.Date,
                 EndDate = DateTime.Now.Date,
+                    TabType = this.TabType
             });
 
             this.TabVms.Add(new TabViewModel("HÔM QUA", this)
             {
                 StartDate = DateTime.Now.Date.AddDays(-1),
                 EndDate = DateTime.Now.Date.AddDays(-1),
+                    TabType = this.TabType
             });
 
             for (int i = 2; i < 15; i++)
@@ -91,6 +129,135 @@ namespace DoAn_IE307_N11.ViewModels
                 {
                     StartDate = DateTime.Now.Date.AddDays(-i),
                     EndDate = DateTime.Now.Date.AddDays(-i),
+                    TabType = this.TabType
+                });
+            }
+
+            //this.CurrentTabVm = this.TabVms.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Generate week tabs
+        /// </summary>
+        private void GenerateWeekTabs()
+        {
+            this.TabVms = new ObservableCollection<TabViewModel>();
+
+            //this.TabVms.Add(new TabViewModel("TƯƠNG LAI", this)
+            //{
+            //    StartDate = DateTime.Now.Date.AddDays(1),
+            //    EndDate = DateTime.MaxValue.Date,
+            //});
+
+            this.TabVms.Add(new TabViewModel("TUẦN NÀY", this)
+            {
+                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday),
+                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday).AddDays(6),
+                TabType = this.TabType
+            });
+
+            this.TabVms.Add(new TabViewModel("TUẦN TRƯỚC", this)
+            {
+                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-7), DayOfWeek.Monday),
+                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-7), DayOfWeek.Monday).AddDays(6),
+                TabType = this.TabType
+            });
+
+            for (int i = 2; i < 15; i++)
+            {
+                var newTabViewModel = new TabViewModel("", this)
+                {
+                    StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i * 7), DayOfWeek.Monday),
+                    EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i * 7), DayOfWeek.Monday).AddDays(6),
+                    TabType = this.TabType
+                };
+
+                newTabViewModel.Title = String.Format("{0:dd}/{0:MM} - {1:dd}/{1:MM}", newTabViewModel.StartDate, newTabViewModel.EndDate);
+
+                this.TabVms.Add(newTabViewModel);
+            }
+
+            //this.CurrentTabVm = this.TabVms.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Generate week tabs
+        /// </summary>
+        private void GenerateMonthTabs()
+        {
+            this.TabVms = new ObservableCollection<TabViewModel>();
+
+            //this.TabVms.Add(new TabViewModel("TƯƠNG LAI", this)
+            //{
+            //    StartDate = DateTime.Now.Date.AddDays(1),
+            //    EndDate = DateTime.MaxValue.Date,
+            //});
+
+            this.TabVms.Add(new TabViewModel("THÁNG NÀY", this)
+            {
+                StartDate = DateTimeExtensions.firstDayOfMonth(DateTime.Now),
+                EndDate = DateTimeExtensions.lastDayOfMonth(DateTime.Now),
+                TabType = this.TabType
+            });
+
+            this.TabVms.Add(new TabViewModel("THÁNG TRƯỚC", this)
+            {
+                StartDate = DateTimeExtensions.firstDayOfMonth(DateTime.Now.AddMonths(-1)),
+                EndDate = DateTimeExtensions.lastDayOfMonth(DateTime.Now.AddMonths(-1)),
+                TabType = this.TabType
+            });
+
+            for (int i = 2; i < 15; i++)
+            {
+                var newTabViewModel = new TabViewModel("", this)
+                {
+                    StartDate = DateTimeExtensions.firstDayOfMonth(DateTime.Now.AddMonths(-i)),
+                    EndDate = DateTimeExtensions.lastDayOfMonth(DateTime.Now.AddMonths(-i)),
+                    TabType = this.TabType
+                };
+
+                newTabViewModel.Title = String.Format("{0:MM}/{0:yyyy}", newTabViewModel.StartDate);
+
+                this.TabVms.Add(newTabViewModel);
+            }
+
+            //this.CurrentTabVm = this.TabVms.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Generate week tabs
+        /// </summary>
+        private void GenerateYearTabs()
+        {
+            this.TabVms = new ObservableCollection<TabViewModel>();
+
+            //this.TabVms.Add(new TabViewModel("TƯƠNG LAI", this)
+            //{
+            //    StartDate = DateTime.Now.Date.AddDays(1),
+            //    EndDate = DateTime.MaxValue.Date,
+            //});
+
+            this.TabVms.Add(new TabViewModel("TUẦN NÀY", this)
+            {
+                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday),
+                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now, DayOfWeek.Monday).AddDays(6),
+                    TabType = this.TabType
+            });
+
+            this.TabVms.Add(new TabViewModel("TUẦN TRƯỚC", this)
+            {
+                StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-1), DayOfWeek.Monday),
+                EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-1), DayOfWeek.Monday).AddDays(6),
+                    TabType = this.TabType
+            });
+
+            for (int i = 2; i < 15; i++)
+            {
+                this.TabVms.Add(new TabViewModel(String.Format("{0:dd} THÁNG {0:MM} {0:yyyy}", DateTime.Now.AddDays(-i)).ToString(), this)
+                {
+                    StartDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i), DayOfWeek.Monday),
+                    EndDate = DateTimeExtensions.StartOfWeek(DateTime.Now.AddDays(-i), DayOfWeek.Monday).AddDays(6),
+                    TabType = this.TabType
                 });
             }
 
