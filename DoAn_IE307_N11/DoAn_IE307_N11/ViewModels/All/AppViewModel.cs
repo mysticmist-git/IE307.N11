@@ -23,6 +23,7 @@ namespace DoAn_IE307_N11.ViewModels
         public TransactionPageViewModel TransactionPageViewModel { get; set; }
         //public PlanViewModel PlanViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
+        public EventPageViewModel EventPageViewModel { get; set; }
 
         #endregion
 
@@ -40,6 +41,7 @@ namespace DoAn_IE307_N11.ViewModels
             HomeViewModel = new HomeViewModel(this);
             TransactionPageViewModel = new TransactionPageViewModel(this);
             AccountViewModel = new AccountViewModel(this);
+            EventPageViewModel = new EventPageViewModel(this);
         }
 
         #endregion
@@ -60,6 +62,11 @@ namespace DoAn_IE307_N11.ViewModels
             OnPropertyChanged(nameof(IsAppBusy));
 
             HomeViewModel.UpdateRecentTransactions();
+
+            await EventPageViewModel.LoadData();
+
+            // Update events status (active or not active)
+            await UpdateEventsStatus();
 
             //IsBusy = false;
 
@@ -88,6 +95,12 @@ namespace DoAn_IE307_N11.ViewModels
         public void PublicOnPropertyChanged(string name)
         {
             OnPropertyChanged(name);
+        }
+
+        async public Task UpdateEventsStatus()
+        {
+            var apiService = DependencyService.Get<ApiService>();
+            await apiService.UpdateEventsStatusAsync();
         }
     }
 }

@@ -7,6 +7,9 @@
         ForAddTransaction,
         ForCreateWalletFromChooseWallet,
         ForOriginalCreateWallet,
-        ForTransactionTab
+        ForTransactionTab,
+        ForAddEvent,
+        ForEditEvent,
+        ForEditTransaction
     }
 }

@@ -206,6 +206,46 @@
                     </Grid>
                 </StackLayout>
 
+                <!-- Event -->
+                <StackLayout x:Name="EventArea">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="EventAreaTapped"
+                                              />
+                    </StackLayout.GestureRecognizers>
+                    <!--<Label Text="Tên ví" 
+                           FontSize="16"
+                           TextColor="{StaticResource LightForeground}"
+                           Margin="0, 8, 0, 0" />-->
+                    <Grid ColumnDefinitions="Auto, *">
+
+                        <!-- Icon -->
+                        <StackLayout Grid.Column="0" VerticalOptions="End">
+                            <Image WidthRequest="40" VerticalOptions="Center">
+                                <Image.Source>
+                                    <FontImageSource Glyph="&#xea65;"
+                                                 FontFamily="Material"
+                                                 Color="{StaticResource Foreground}"/>
+                                </Image.Source>
+                            </Image>
+                            <BoxView HeightRequest="1" BackgroundColor="Transparent"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+
+                        <!-- Event -->
+                        <StackLayout Grid.Column="1">
+                            <Label 
+                                  Text="{Binding Event.Name, Converter={converters:EventNameConverter}}"
+                                  FontSize="16"
+                                  TextColor="{StaticResource Foreground}"
+                                  Margin="12, 12, 0, 4" />
+                            <BoxView HeightRequest="1" BackgroundColor="{StaticResource LightForeground}"
+                             Opacity="0.4"
+                             Margin="0, 8, 0, 0" />
+                        </StackLayout>
+
+                    </Grid>
+                </StackLayout>
             </StackLayout>
 
         </StackLayout>

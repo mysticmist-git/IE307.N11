@@ -12,6 +12,7 @@ namespace DoAn_IE307_N11.Models
         public int IconId { get; set; }
         public string Name { get; set; }
         public DateTime ExpiredDate{ get; set; }
+        public bool IsActive { get; set; }
         public DateTime Created { get; set; }
         public DateTime? Modified { get; set; }
         public int IsDeleted { get; set; }

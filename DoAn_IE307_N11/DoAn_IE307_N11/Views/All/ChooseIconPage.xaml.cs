@@ -109,10 +109,25 @@ namespace DoAn_IE307_N11.Views
                             ((sender as ImageButton).BindingContext as Icon).ImageUrl;
                     }
                     break;
+                case ForType.ForAddEvent:
+                    {
+                        var parentViewModel = viewModel.ParentViewModel as AddEventPageViewModel;
+
+                        parentViewModel.EventViewModel.Event.IconId = ((sender as ImageButton).BindingContext as Icon).Id;
+                        parentViewModel.EventViewModel.EventImageUrl =
+                            ((sender as ImageButton).BindingContext as Icon).ImageUrl;
+                    }
+                    break;
+                case ForType.ForEditEvent:
+                    {
+                        var parentViewModel = viewModel.ParentViewModel as EventDetailPageViewModel;
+
+                        parentViewModel.EventViewModel.Event.IconId = ((sender as ImageButton).BindingContext as Icon).Id;
+                        parentViewModel.EventViewModel.EventImageUrl =
+                            ((sender as ImageButton).BindingContext as Icon).ImageUrl;
+                    }
+                    break;
             }
-
-
-
 
 
             await Navigation.PopAsync();

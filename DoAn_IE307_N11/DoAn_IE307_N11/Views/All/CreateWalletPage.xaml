@@ -91,7 +91,6 @@
                              Margin="0, 8, 0, 0" />
                             </StackLayout>
 
-
                             <!-- Số dư -->
                             <StackLayout x:Name="BalanceArea">
 

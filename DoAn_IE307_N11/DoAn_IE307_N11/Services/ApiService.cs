@@ -26,6 +26,161 @@ namespace DoAn_IE307_N11.Services
     {
         #region GET
 
+        async public Task<Icon> GetIconById(int iconId)
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getIconString = $"http://{ip}/moneybook/api/ServiceController/GetIconById?id={iconId}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var icon = await httpClient.GetStringAsync(getIconString);
+                    var convertedIcon = JsonConvert.DeserializeObject<Icon>(icon);
+
+                    if (convertedIcon is null)
+                    {
+                        return null;
+                    }
+
+                    return convertedIcon;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Get first icon
+        /// </summary>
+        /// <returns></returns>
+        async public Task<List<TransactionType>> GetAllTransactionTypesAsync()
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getAllIconString = $"http://{ip}/moneybook/api/ServiceController/GetAllTransactionTypes";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var types = await httpClient.GetStringAsync(getAllIconString);
+                    var convertedTypes = JsonConvert.DeserializeObject<List<TransactionType>>(types);
+
+                    if (convertedTypes is null)
+                    {
+                        return null;
+                    }
+
+                    return convertedTypes;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// Get first icon
+        /// </summary>
+        /// <returns></returns>
+        async public Task<Event> GetEventByIdAsync(int? eventId)
+        {
+            if (eventId is null)
+                return null;
+
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getEventString = $"http://{ip}/moneybook/api/ServiceController/GetEventById?id={eventId}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var theEvent = await httpClient.GetStringAsync(getEventString);
+                    var convertedEvent = JsonConvert.DeserializeObject<Event>(theEvent);
+
+                    if (convertedEvent is null)
+                    {
+                        return null;
+                    }
+
+                    return convertedEvent;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        
+        /// <summary>
+        /// Get first icon
+        /// </summary>
+        /// <returns></returns>
+        async public Task<List<Icon>> GetAllIconsAsync()
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getAllIconString = $"http://{ip}/moneybook/api/ServiceController/GetAllIcons";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var icons = await httpClient.GetStringAsync(getAllIconString);
+                    var convertedIcons = JsonConvert.DeserializeObject<List<Icon>>(icons);
+
+                    if (convertedIcons is null)
+                    {
+                        return null;
+                    }
+
+                    return convertedIcons;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        
+        async public Task<List<Event>> GetAllEventsAsync()
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var getAllEvetnsString = $"http://{ip}/moneybook/api/ServiceController/GetAllEvents";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Get wallet
+                    var events = await httpClient.GetStringAsync(getAllEvetnsString);
+                    var convertedEvents = JsonConvert.DeserializeObject<List<Event>>(events);
+
+                    if (convertedEvents is null)
+                    {
+                        return null;
+                    }
+
+                    return convertedEvents;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         async public Task<List<int?>> GetAllTransactionIdByWallet(int walletId)
         {
             // Ip info
@@ -234,6 +389,49 @@ namespace DoAn_IE307_N11.Services
 
         #endregion
 
+        #region Event Related
+
+        public async Task<ApiCallResult> AddNewEvent(Event newEvent)
+        {
+            if (newEvent == null)
+                return ApiCallResult.NullData;
+
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var postString = $"http://{ip}/moneybook/api/ServiceController/" +
+                $"CreateEvent";
+
+            var myContent = JsonConvert.SerializeObject(newEvent);
+
+            // construct a content object to send this data
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            // Next, you want to set the content type to let the API know this is JSON.
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Then you can send your request very similar to your previous example with the form content:
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PostAsync(postString, byteContent);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return ApiCallResult.Fail;
+                    }
+
+                    return ApiCallResult.Success;
+                }
+            }
+            catch
+            {
+                return ApiCallResult.UnknownError;
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region PUT
@@ -354,6 +552,71 @@ namespace DoAn_IE307_N11.Services
                 return false;
             }
         }
+        
+        async public Task<bool> UpdateEventAsync(Models.Event updatedEvent)
+        {
+            if (updatedEvent is null)
+                return false;
+
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var putString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"UpdateEvent";
+
+            var myContent = JsonConvert.SerializeObject(updatedEvent);
+
+            // construct a content object to send this data
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+
+            // Next, you want to set the content type to let the API know this is JSON.
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+            // Then you can send your request very similar to your previous example with the form content:
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PutAsync(putString, byteContent);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        async public Task<bool> UpdateEventsStatusAsync()
+        {
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var postString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"UpdateEventsStatus";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = await httpClient.PostAsync(postString, null);
+
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         #endregion
 
@@ -458,6 +721,32 @@ namespace DoAn_IE307_N11.Services
             var ip = DependencyService.Get<ConstantService>().MY_IP;
             var deleteString = $"http://{ip}/moneybook/api/ServiceController/" +
                         $"DeleteTransaction?id={transactionId}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    // Delete transaction
+                    var response = await httpClient.DeleteAsync(deleteString);
+
+                    if (response.IsSuccessStatusCode)
+                        return true;
+
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        
+        async public Task<bool> DeleteEventAsync(int eventId)
+        {
+            // Ip info
+            var ip = DependencyService.Get<ConstantService>().MY_IP;
+            var deleteString = $"http://{ip}/moneybook/api/ServiceController/" +
+                        $"DeleteEvent?id={eventId}";
 
             try
             {

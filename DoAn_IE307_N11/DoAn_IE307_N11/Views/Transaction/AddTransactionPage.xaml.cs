@@ -61,6 +61,15 @@ namespace DoAn_IE307_N11.Views
             (sender as StackLayout).IsEnabled = true;
         }
 
+        async private void EventAreaTapped(object sender, EventArgs e)
+        {
+            (sender as StackLayout).IsEnabled = false;
+
+            await Navigation.PushAsync(new ChooseEventPage(this.BindingContext, Enums.ForType.ForAddTransaction));
+
+            (sender as StackLayout).IsEnabled = true;
+        }
+
         private void DateAreaTapped(object sender, EventArgs e)
         {
             date.Focus();

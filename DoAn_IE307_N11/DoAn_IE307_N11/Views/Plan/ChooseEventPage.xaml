@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:DoAn_IE307_N11.ViewModels"
+             Title="Chọn sự kiện"
+             x:Class="DoAn_IE307_N11.Views.ChooseEventPage"
+             x:DataType="viewmodels:ChooseEventPageViewModel">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView ItemsSource="{Binding Events}" HasUnevenRows="True"
+                      ItemSelected="EventSelected"
+                      ItemTemplate="{StaticResource EventTemplate}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

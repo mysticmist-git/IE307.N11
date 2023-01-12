@@ -36,6 +36,7 @@ namespace DoAn_IE307_N11.ViewModels
             Date = DateTime.Now.Date,
         };
         public Wallet Wallet { get; set; }
+        public Event Event { get; set; } = new Event();
         public string DateDisplayer
         {
             get
@@ -85,6 +86,28 @@ namespace DoAn_IE307_N11.ViewModels
             return CommonResult.Ok;
         }
 
+        //async public Task<CommonResult> GetEventForCreateTransaction()
+        //{
+        //    IsBusy = true;
+
+        //    var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
+        //    var walletId = localData.WalletId;
+
+        //    var wallet = await DependencyService.Get<ApiService>().GetWalletById(walletId);
+
+        //    if (wallet != null)
+        //        Wallet = wallet;
+        //    else
+        //        Wallet = new Wallet()
+        //        {
+        //            Name = "Không có ví nào",
+        //        };
+
+        //    IsBusy = false;
+        //    CanLoadMore = false;
+        //    return CommonResult.Ok;
+        //}
+
         public void PublicOnPropertyChanged(string v)
         {
             OnPropertyChanged(v);
@@ -101,12 +124,14 @@ namespace DoAn_IE307_N11.ViewModels
                 return result;
             }
 
+            int? eventId = Event is null || Event.Id <= 0 ? null : (int?)Event.Id;
+
             // Generate wallet model
             var newTransaction = new Models.Transaction
             {
                 WalletId = Wallet.Id,
                 TypeId = Type.Id,
-                EventId = null,
+                EventId = eventId,
                 Amount = Transaction.Amount,
                 Note = Transaction.Note,
                 Date = Transaction.Date

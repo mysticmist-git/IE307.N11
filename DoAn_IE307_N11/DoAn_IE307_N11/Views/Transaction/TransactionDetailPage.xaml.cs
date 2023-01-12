@@ -148,5 +148,26 @@ namespace DoAn_IE307_N11.Views
 
             await DisplayAlert("Thông báo", "Xoá giao dịch thất bại.", "Ok");
         }
+
+        async private void EventAreaTapped(object sender, EventArgs e)
+        {
+            (sender as StackLayout).IsEnabled = false;
+
+            await Navigation.PushAsync(new ChooseEventPage(this.BindingContext, Enums.ForType.ForEditWallet));
+
+            (sender as StackLayout).IsEnabled = true;
+        }
+
+        async protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            // Get current viewmodel
+            var viewModel = this.BindingContext as TransactionViewModel;
+
+            // Load event name
+            var apiService = DependencyService.Get<ApiService>();
+            viewModel.Event = await apiService.GetEventByIdAsync(viewModel.Transaction.EventId);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:vm="clr-namespace:DoAn_IE307_N11.ViewModels"
              x:Class="DoAn_IE307_N11.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
@@ -112,7 +112,7 @@
             </ControlTemplate>
 
             <x:String x:Key="Budget">&#xe870;</x:String>
-            <x:String x:Key="Event">&#xebcc;</x:String>
+            <x:String x:Key="Event">&#xe878;</x:String>
             <x:String x:Key="Transaction">&#xe889;</x:String>
             <x:String x:Key="Bill">&#xef6e;</x:String>
 
@@ -148,7 +148,35 @@
                 </Setter>
             </Style>
 
-
+            <DataTemplate x:Key="EventTemplate" x:DataType="vm:EventViewModel">
+                <ViewCell>
+                    <Grid ColumnDefinitions="Auto, *"
+                                          Padding="12">
+                        <Image Source="{Binding EventImageUrl}"
+                                                Grid.Column="0"
+                                                WidthRequest="50"
+                                                VerticalOptions="Center" />
+                        <StackLayout VerticalOptions="Center" 
+                                                     Margin="12, 0"
+                                                     Grid.Column="1">
+                            <Label Text="{Binding Event.Name}"
+                                                    FontAttributes="Bold" 
+                                                    TextColor="{StaticResource Foreground}"
+                                                    FontSize="20" />
+                            <FlexLayout JustifyContent="SpaceBetween" AlignContent="Center"
+                                                        Direction="Row">
+                                <Label Text="{Binding BalanceLabel}" FontSize="16" />
+                                <Label Text="{Binding BalanceValue, StringFormat='{0:0,0}'}" FontSize="16 "/>
+                            </FlexLayout>
+                            <FlexLayout JustifyContent="SpaceBetween" AlignContent="Center"
+                                                        Direction="Row">
+                                <Label Text="Ngày kết thúc" FontSize="16" />
+                                <Label Text="{Binding Event.ExpiredDate, StringFormat='{0:dd/MM/yyyy}'}" FontSize="16 "/>
+                            </FlexLayout>
+                        </StackLayout>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
