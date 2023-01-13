@@ -154,7 +154,7 @@ namespace DoAn_IE307_N11.Views
 
         private async void TransactionContextMenu_Clicked(object sender, EventArgs e)
         {
-            await Navigation.ShowPopupAsync(new TransactionPopup()
+            await Navigation.ShowPopupAsync(new TimeIntervalPopup()
             {
                 Anchor = sender as Button
             });

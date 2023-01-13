@@ -42,6 +42,8 @@ namespace DoAn_IE307_N11.ViewModels
 
         public ICommand OpenWebCommand { get; }
 
+        public bool HasRecentTransactions { get; set; }
+
         async public Task<CommonResult> GETData()
         {
             IsBusy = true;
@@ -143,6 +145,11 @@ namespace DoAn_IE307_N11.ViewModels
             // TODO: This is really bad.
             // We are trying to calculate the height of the list view because it's not gonna auto fit
             RecentTransactionsHeight = RecentTransactions.Count * RECENT_TRANSACTION_ROW_HEIGHT;
+
+            HasRecentTransactions = RecentTransactions != null && RecentTransactions.Count > 0;
+
+            ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.HomeViewModel.HasRecentTransactions));
+            ParentViewModel.PublicOnPropertyChanged(nameof(ParentViewModel.HomeViewModel));
         }
 
         #endregion

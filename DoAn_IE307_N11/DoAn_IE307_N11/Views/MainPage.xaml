@@ -115,7 +115,7 @@
                                 </StackLayout>
                             </Frame>
 
-                            <!--report-->
+                            <!--report--><!--
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="Báo cáo chi tiêu"
                            HorizontalOptions="StartAndExpand"
@@ -126,7 +126,7 @@
                             </StackLayout>
 
                             <Frame CornerRadius="10" Margin="0,0,0,20">
-                                <!--đây là thanh chọn Tuần Tháng-->
+                                --><!--đây là thanh chọn Tuần Tháng--><!--
                                 <StackLayout>
                                     <Label Text="0đ"
                                TextColor="Black"
@@ -136,7 +136,7 @@
                                         <Label Text="100%"
                                    TextColor="{StaticResource Primary}"/>
                                     </StackLayout>
-                                    <!--đây là graph-->
+                                    --><!--đây là graph--><!--
                                     <Label Text="Chi tiêu nhiều nhất"
                                TextColor="Black"
                                FontSize="15"
@@ -147,7 +147,7 @@
                                    HorizontalTextAlignment="Center"/>
                                     </StackLayout>
                                 </StackLayout>
-                            </Frame>
+                            </Frame>-->
 
                             <!--recent transaction-->
                             <!--<StackLayout Orientation="Horizontal">
@@ -163,55 +163,59 @@
                                        FontSize="15"/>
 
                             <Frame CornerRadius="10">
-                                <ListView ItemsSource="{Binding HomeViewModel.RecentTransactions}"
+                                <Grid>
+                                    <ListView ItemsSource="{Binding HomeViewModel.RecentTransactions}"
                                           HeightRequest="{Binding HomeViewModel.RecentTransactionsHeight}"
                                           VerticalOptions="Center"
                                           HasUnevenRows="True"
                                           ItemSelected="RecentTransactionSelected">
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate x:DataType="vm:TransactionViewModel">
-                                            <ViewCell>
-                                                <Grid Padding="12, 4">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="*"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    
-                                                    <Image Source="{Binding TypeImage}" 
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate x:DataType="vm:TransactionViewModel">
+                                                <ViewCell>
+                                                    <Grid Padding="12, 4">
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <Image Source="{Binding TypeImage}" 
                                                            Grid.Column="0" 
                                                            WidthRequest="40"
                                                            VerticalOptions="Center" />
-                                                    <StackLayout Grid.Column="1"
+                                                        <StackLayout Grid.Column="1"
                                                                  VerticalOptions="Center">
-                                                        <Label Text="{Binding Type.Name}" 
+                                                            <Label Text="{Binding Type.Name}" 
                                                                TextColor="Black" 
                                                                FontSize="15" 
                                                                Margin="10,0,0,0"
                                                                VerticalOptions="Center" />
-                                                        <Label Text="{Binding DateDisplayer}"
+                                                            <Label Text="{Binding DateDisplayer}"
                                                                FontSize="12"
                                                                Margin="10,0,0,0"
                                                                VerticalOptions="Center" />
-                                                    </StackLayout>
-                                                    <Label Text="{Binding Transaction.Amount}" 
+                                                        </StackLayout>
+                                                        <Label Text="{Binding Transaction.Amount}" 
                                                            Grid.Column="2"
                                                            TextColor="Red" 
                                                            FontSize="16"
                                                            VerticalOptions="Center" 
                                                            HorizontalTextAlignment="End"/>
-                                                    
-                                                </Grid>
-                                            </ViewCell>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
+
+                                                    </Grid>
+                                                </ViewCell>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <Label Text="Không giao dịch gần đây"
+                                       IsVisible="{Binding HomeViewModel.HasRecentTransactions, Converter={xct:InvertedBoolConverter}}"/>
+                                </Grid>
                             </Frame>
 
-                            <!--personal plan-->
+                            <!--personal plan--><!--
                             <Label Text="Kế hoạch cá nhân"
                        HorizontalOptions="StartAndExpand"
-                       FontSize="15"/>
+                       FontSize="15"/>-->
 
                         </StackLayout>
                     </ScrollView>
@@ -377,12 +381,12 @@
                                                 TextColor="{StaticResource Foreground}"/>
                                                 </Grid>
 
-                                                <!-- Xem báo cáo -->
+                                                <!-- Xem báo cáo --><!--
                                                 <Button Text="Xem báo cáo cho giai đoạn này"
                                             TextColor="{StaticResource Primary}"
                                             Background="{StaticResource LightGreen}"
                                             CornerRadius="24"
-                                            Margin="32, 0" />
+                                            Margin="32, 0" />-->
 
                                             </StackLayout>
 
@@ -588,7 +592,7 @@
 
                     <!-- Content -->
                     <StackLayout Padding="40, 20, 0, 0">
-                        <!--Ngân sách-->
+                        <!--Ngân sách--><!--
                         <Frame HasShadow="False" Padding="0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Budget_Tapped"/>
@@ -617,7 +621,7 @@
                                     </Grid>
                                 </Grid>
                             </StackLayout>
-                        </Frame>
+                        </Frame>-->
 
 
                         <!--Sự kiện-->
@@ -650,7 +654,7 @@
                         </Frame>
 
 
-                        <!--Giao dịch định kỳ-->
+                        <!--Giao dịch định kỳ--><!--
                         <Frame HasShadow="False" Padding="0" Margin="0, 0, 0, 10">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Transaction_Tapped"/>
@@ -680,7 +684,7 @@
                         </Frame>
 
 
-                        <!--Hóa đơn-->
+                        --><!--Hóa đơn--><!--
                         <Frame HasShadow="False" Padding="0">
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="Bill_Tapped"/>
@@ -707,7 +711,7 @@
                                     </Grid>
                                 </Grid>
                             </StackLayout>
-                        </Frame>
+                        </Frame>-->
                     </StackLayout>
 
                 </xct:TabViewItem>

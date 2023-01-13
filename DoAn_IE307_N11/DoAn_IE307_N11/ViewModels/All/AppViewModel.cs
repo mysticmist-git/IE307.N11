@@ -24,7 +24,6 @@ namespace DoAn_IE307_N11.ViewModels
         //public PlanViewModel PlanViewModel { get; set; }
         public AccountViewModel AccountViewModel { get; set; }
         public EventPageViewModel EventPageViewModel { get; set; }
-
         #endregion
 
         #region Public Property

@@ -28,7 +28,7 @@
                    Margin="0, 8, 0, 0" />
                             <Image Source="{Binding WalletIconUrl}" WidthRequest="64"
                    Margin="0, 24, 0, 0" />
-                            <Button Text="Đổi hình đại diện" Style="{StaticResource TransparentButton}"
+                            <Button Text="Đổi hình đại diện" Background="Transparent" Style="{StaticResource TransparentButton}"
                         Clicked="ChooseIcon_Clicked"
                     TextColor="{StaticResource Primary}"/>
                         </StackLayout>
@@ -82,7 +82,7 @@
                                FontSize="20"
                                TextColor="{StaticResource Foreground}"
                             />
-                                    <Button Text="Sửa" Style="{StaticResource TransparentButton}"
+                                    <Button Text="Sửa" Style="{StaticResource TransparentButton}" Background="Transparent"
                                 VerticalOptions="Center"
                                 TextColor="{StaticResource Primary}" />
                                 </FlexLayout>

@@ -81,6 +81,7 @@
                                TextColor="{StaticResource Foreground}"
                             />
                         <Button Text="Sửa" Style="{StaticResource TransparentButton}"
+                                Background="Transparent"
                                 VerticalOptions="Center"
                                 TextColor="{StaticResource Primary}" />
                     </FlexLayout>
@@ -125,6 +126,7 @@
 
                     
                     <Button Text="XOÁ VÍ NÀY"
+                            Background="Transparent"
                             VerticalOptions="Center"
                             Style="{StaticResource TransparentButton}"
                             x:Name="CreateWallet_Btn"

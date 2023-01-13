@@ -29,7 +29,7 @@
                                 <ViewCell.ContextActions>
                                     <MenuItem Clicked="OnEdit_Clicked"
                                               CommandParameter="{Binding . }"
-                                         Text="Sửa"  />
+                                              Text="Sửa"  />
                                 </ViewCell.ContextActions>
 
                                 <Grid Padding="24, 8">
