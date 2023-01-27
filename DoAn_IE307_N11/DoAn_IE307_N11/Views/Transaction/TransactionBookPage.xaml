@@ -196,12 +196,12 @@
                                                    TextColor="{StaticResource Foreground}"/>
                                         </Grid>
 
-                                        <!-- Xem báo cáo -->
+                                        <!-- Xem báo cáo --><!--
                                         <Button Text="Xem báo cáo cho giai đoạn này"
                                                 TextColor="{StaticResource Primary}"
                                                 Background="{StaticResource LightGreen}"
                                                 CornerRadius="24"
-                                                Margin="32, 0" />
+                                                Margin="32, 0" />-->
 
 
                                     </StackLayout>

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using DoAn_IE307_N11.Models;
+using DoAn_IE307_N11.Services;
+using DoAn_IE307_N11.ViewModels;
+using DoAn_IE307_N11.Views.All;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +21,11 @@ namespace DoAn_IE307_N11.Views
             InitializeComponent();
         }
 
-        private void SignOut_Clicked(object sender, EventArgs e)
+        async private void SignOut_Clicked(object sender, EventArgs e)
         {
+            
         }
+
         private void Information_Tapped(object sender, EventArgs e)
         {
             Navigation.PushAsync(new AccountManagementPage());

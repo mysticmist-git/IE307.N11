@@ -29,6 +29,7 @@
                     Clicked="BtnChangePassword_Clicked"/>
 
             <Button Text="Đăng xuất"
+                    Clicked="SignOut_Clicked"
                     TextColor="{StaticResource Primary}"
                     Margin="20,0,20,0"
                     CornerRadius="50"

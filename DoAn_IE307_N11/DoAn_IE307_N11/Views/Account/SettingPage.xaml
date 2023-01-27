@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoAn_IE307_N11.Views.SettingPage"
+             Background="{StaticResource Background}"
+             Title="Cài đặt">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Margin="50, 20, 20, 50">
+                <!--Hiển thị-->
+                <StackLayout>
+                    <Label Text="Hiển thị"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       FontSize="13"/>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Kiểu hiển thị số tiền" Grid.Row="0" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Kiểu hiển thị số tiền" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="VND" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid>
+                        <Label Text="Chọn định dạng ngày tháng" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="13/01/2023" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid>
+                        <Label Text="Thiết lập khoảng thời gian trong..." Grid.Row="0" TextColor="Black"/>
+                        <Label Text="3 tháng" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="110">
+                    <Grid ColumnDefinitions="5*, *">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="21"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Không tính vào báo cáo" Grid.Row="0" Grid.Column="0" TextColor="Black"/>
+                        <Label Text="Bật tùy chọn Không tính vào báo cáo tại Thêm giao dịch và Sửa giao dịch."
+                           Grid.Row="1" Grid.Column="0"/>
+                        <Switch IsToggled="True" Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" OnColor="#abd5ab" ThumbColor="{StaticResource Primary}"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="50">
+                    <Grid ColumnDefinitions="5*, *">
+                        <Label Text="Luôn hiển thị chi tiết giao dịch" Grid.Column="0" TextColor="Black"/>
+                        <Switch IsToggled="False" Grid.Column="1" OnColor="#abd5ab"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="21"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Chế độ hiển thị Tổng quan" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="Hiện theo tiền vào/tiền ra" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <Button HeightRequest="1" BackgroundColor="#aaa"/>
+
+                <!--Thông báo-->
+                <StackLayout Margin="0, 20, 0, 0">
+                    <Label Text="Thông báo"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       FontSize="13"/>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid RowDefinitions="*, *" ColumnDefinitions="5*, *">
+                        <Label Text="Âm thanh thông báo" Grid.Row="0" Grid.Column="0" TextColor="Black"/>
+                        <Label Text="Bật âm thanh cho thông báo"
+                           Grid.Row="1" Grid.Column="0"/>
+                        <Switch IsToggled="True" Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" OnColor="#abd5ab" ThumbColor="{StaticResource Primary}"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Nhắc thêm giao dịch hàng ngày" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="20:00" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Hiện ví trên thanh trạng thái" Grid.Row="0" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+
+                <Button HeightRequest="1" BackgroundColor="#aaa"/>
+
+                <!--Hệ thống-->
+                <StackLayout Margin="0, 20, 0, 0">
+                    <Label Text="Hệ thống"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       FontSize="13"/>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Sử dụng mật khẩu" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="Chưa đặt" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="35">
+                    <Grid ColumnDefinitions="5*, *">
+                        <Label Text="Sử dụng dịch vụ vị trí" Grid.Column="0" TextColor="Black"/>
+                        <Switch IsToggled="True" Grid.Column="1" OnColor="#abd5ab" ThumbColor="{StaticResource Primary}"/>
+                    </Grid>
+                </StackLayout>
+
+                <Button HeightRequest="1" BackgroundColor="#aaa"/>
+
+                <!--Cơ sở dữ liệu-->
+                <StackLayout Margin="0, 20, 0, 0">
+                    <Label Text="Cơ sở dữ liệu"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       FontSize="13"/>
+                </StackLayout>
+
+                <StackLayout HeightRequest="90">
+                    <Grid ColumnDefinitions="5*, *">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="21"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Đồng bộ chỉ khi dùng WIFI" Grid.Row="0" Grid.Column="0" TextColor="Black"/>
+                        <Label Text="Cập nhật lần cuối: ít hơn một phút trước"
+                           Grid.Row="1" Grid.Column="0"/>
+                        <Switch IsToggled="False" Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" OnColor="#abd5ab"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="50">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Báo lỗi đến nhà phát triển" Grid.Row="0" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout HeightRequest="70">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Chạm để cập nhật tỷ giá" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="một ngày trước" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="21"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
+                        <Label Text="Đăng xuất" Grid.Row="0" TextColor="Black"/>
+                        <Label Text="dang.thanhngan225@gmail.com" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+
+                <Button HeightRequest="1" BackgroundColor="#aaa"/>
+
+                <!--Giới thiệu-->
+                <StackLayout Margin="0, 20, 0, 0">
+                    <Label Text="Giới thiệu"
+                       TextColor="{StaticResource Primary}"
+                       FontAttributes="Bold"
+                       FontSize="13"/>
+                </StackLayout>
+
+                <StackLayout HeightRequest="50">
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Hướng dẫn" Grid.Row="0" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+
+                <StackLayout>
+                    <Grid RowDefinitions="*, *">
+                        <Label Text="Giới thiệu Money Book" Grid.Row="0" TextColor="Black"/>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

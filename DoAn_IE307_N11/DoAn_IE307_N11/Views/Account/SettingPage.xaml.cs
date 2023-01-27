@@ -10,16 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace DoAn_IE307_N11.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AccountManagementPage : ContentPage
+    public partial class SettingPage : ContentPage
     {
-        public AccountManagementPage()
+        public SettingPage()
         {
             InitializeComponent();
-        }
-
-        private void BtnChangePassword_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new ChangPasswordPage());
         }
     }
 }

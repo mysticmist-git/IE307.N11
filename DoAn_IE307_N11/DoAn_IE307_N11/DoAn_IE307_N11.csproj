@@ -41,19 +41,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\AccountManagementPage.xaml">
+    <EmbeddedResource Update="Views\Account\AccountManagementPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AccountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Account\LoanPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Account\SettingPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\AddTransactionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BankServicePage.xaml">
+    <EmbeddedResource Update="Views\Account\BankServicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\BudgetPage.xaml">
+    <EmbeddedResource Update="Views\Plan\BudgetPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\All\Popup\TimeIntervalPopup.xaml">
@@ -65,7 +71,7 @@
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ChangPasswordPage.xaml">
+    <EmbeddedResource Update="Views\Account\ChangPasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ChooseTransactionTypePage.xaml">
@@ -77,10 +83,10 @@
     <EmbeddedResource Update="Views\EnterAmountPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\EventPage.xaml">
+    <EmbeddedResource Update="Views\Plan\EventPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ForgetPasswordPage.xaml">
+    <EmbeddedResource Update="Views\Account\ForgetPasswordPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\InvoicePage.xaml">
@@ -92,7 +98,7 @@
     <EmbeddedResource Update="Views\NotePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\PeriodicTransactionPage.xaml">
+    <EmbeddedResource Update="Views\Plan\PeriodicTransactionPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\PlanPage.xaml">

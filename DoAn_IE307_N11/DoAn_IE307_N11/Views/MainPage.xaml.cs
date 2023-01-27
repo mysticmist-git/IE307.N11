@@ -54,28 +54,6 @@ namespace DoAn_IE307_N11.Views
 
         #endregion
 
-        #region Account
-
-        async private void SignOut_Clicked(object sender, EventArgs e)
-        {
-            var viewModel = this.BindingContext as AppViewModel;
-            viewModel.AccountViewModel.IsBusy = true;
-
-            // Delete account
-            await DependencyService.Get<SQLiteDBAsync>().DB.DeleteAllAsync<Account>();
-
-            // Delete local data
-            var localData = await DependencyService.Get<SQLiteDBAsync>().DB.Table<LocalData>().FirstOrDefaultAsync();
-            localData.WalletId = 0;
-            await DependencyService.Get<SQLiteDBAsync>().DB.UpdateAsync(localData);
-
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
-
-            viewModel.AccountViewModel.IsBusy = false;
-        }
-
-        #endregion
-
         private async void MiddleButton_Tapped(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new AddTransactionPage());
@@ -147,11 +125,6 @@ namespace DoAn_IE307_N11.Views
             await Navigation.PushAsync(new TransactionDetailPage(transaction));
         }
 
-        private void MyWalletTapped(object sender, EventArgs e)
-        {
-            
-        }
-
         private async void TransactionContextMenu_Clicked(object sender, EventArgs e)
         {
             await Navigation.ShowPopupAsync(new TimeIntervalPopup()
@@ -192,5 +165,35 @@ namespace DoAn_IE307_N11.Views
         }
 
         #endregion
+
+        private void Information_Tapped(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new AccountManagementPage());
+        }
+
+        async private void BtnBankService_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BankServicePage());
+        }
+
+        private void MyWalletTapped(object sender, EventArgs e)
+        {
+
+        }
+
+        async private void Tool_Tapped(object sender, EventArgs e)
+        {
+            
+        }
+
+        async private void Setting_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new SettingPage());
+        }
+
+        async private void Loan_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LoanPage());
+        }
     }
 }

@@ -117,10 +117,10 @@
             <x:String x:Key="Bill">&#xef6e;</x:String>
 
             <x:String x:Key="Wallet">&#xe850;</x:String>
-            <x:String x:Key="Loan">&#xe73a;</x:String>
-            <x:String x:Key="Tool">&#xf8cd;</x:String>
-            <x:String x:Key="Travel">&#xeb9b;</x:String>
-            <x:String x:Key="Store">&#xeb88;</x:String>
+            <x:String x:Key="Loan">&#xe53e;</x:String>
+            <x:String x:Key="Tool">&#xea49;</x:String>
+            <x:String x:Key="Travel">&#xe195;</x:String>
+            <x:String x:Key="Store">&#xe8cc;</x:String>
             <x:String x:Key="Help">&#xe887;</x:String>
             <x:String x:Key="Setting">&#xe8b8;</x:String>
             <x:String x:Key="Introduce">&#xe871;</x:String>

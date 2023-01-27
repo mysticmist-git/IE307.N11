@@ -6,8 +6,10 @@
              Background="{StaticResource Background}"
              Title="Liên kết dịch vụ">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="{StaticResource Search}"/>
-        <ToolbarItem Text="{StaticResource Reload}"/>
+        <!--<ToolbarItem Text="{StaticResource Search}" />
+        <ToolbarItem Text="{StaticResource Reload}" />-->
+        <ToolbarItem Text="Tìm kiếm" />
+        <ToolbarItem Text="Tải lại" />
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
